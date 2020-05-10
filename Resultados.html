@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Resultados</title>
+	<script type="text/javascript" src="js/funciones.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body onload="generateTable(); checkTheme()">
+	<div class="container">
+		<h1>Resultados</h1>
+		<hr id="bar">
+
+		<form>
+			<label for="ffarmaco">F&aacutermaco: </label>
+			<input type="text" id="ffarmaco" name="ffarmaco"><br><br>
+
+			<label for="fduracion">Duraci&oacuten: </label>
+			<input type="text" id="fduracion" name="fduracion"><br><br>
+
+			<label for="fpasos">Pasos: </label>
+			<input type="text" id="fpasos" name="fpasos"><br><br>
+
+			<label for="fobservaciones">Observaciones: </label>
+			<input type="text" id="fobservaciones" name="fobservaciones"><br><br>
+		</form>
+		
+		<img src="svg/btnSave.svg" onclick="generateTable()" title="Guardar registro" alt="Guardar registro">
+		<a href="ArduinoControl.html"> <img src="svg/btnRestart.svg" title="Volver al inicio y reiniciar" alt="Volver al inicio y reiniciar"></a>
+		<table id="tbResults">
+			<tr>
+				<th>Nro</th>
+				<th>F&aacutermaco</th>
+				<th>Duraci&oacuten</th>
+				<th>Pasos</th>
+				<th>Observaciones</th>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

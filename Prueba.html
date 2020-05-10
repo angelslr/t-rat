@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Prueba</title>
+	<script type="text/javascript" src="js/funciones.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body onload="load(); checkTheme()">
+	<div class="container">
+		<h1 id="h1">Prueba en ejecuci&oacuten</h1>
+		<hr id="bar">
+		<p> <span>Tiempo de prueba: </span><span id="minutos">0</span>:<span id="segundos">0</span> <br>
+			<br>
+			<br>
+			<span>Cantidad de pasos:</span><span> 0</span> </p>
+		<div style="text-align: center;"><img onclick="detenerse()" src="svg/btnStop.svg" title="Detener Prueba" alt="Detener Prueba"
+				hspace="20"><img onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino" hspace="20">
+				<a href="Resultados.html" target="_blank"><img src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados" hspace="20"></a>
+		</div>
+	</div>
+</body>
+
+</html>

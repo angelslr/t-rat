@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="10mm"
+   height="10mm"
+   viewBox="0 0 10 9.9999996"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="botonOscuro.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.2"
+     inkscape:cx="34.243867"
+     inkscape:cy="27.49369"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1024"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-35.962811,-131.89706)">
+    <circle
+       style="fill:#251b47;fill-opacity:1;stroke:none;stroke-width:1.96261668;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:11.89999962;stroke-dasharray:none;stroke-opacity:1"
+       id="path815"
+       cx="40.962811"
+       cy="136.89706"
+       r="5" />
+    <path
+       id="path841"
+       d="m 43.261776,138.4766 a 2.2664508,2.2664508 0 0 1 -1.742984,-4.1844 c 0.07107,-0.034 0.173062,-0.0711 0.244141,-0.10512 a 2.5310353,2.5310353 0 0 0 -1.671905,0.13907 2.7813575,2.7813575 0 1 0 2.163279,5.12388 2.6021145,2.6021145 0 0 0 1.32578,-1.18671 1.6379106,1.6379106 0 0 1 -0.318311,0.21323 z"
+       inkscape:connector-curvature="0"
+       style="fill:#bba928;fill-opacity:1;stroke:none;stroke-width:0.30903971" />
+  </g>
+</svg>
