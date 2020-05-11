@@ -35,11 +35,11 @@ function restart() {
         var answer = confirm("Prueba en ejecucion, ¿desea volver al inicio? (Si lo hace, la prueba se detendra)");
         if (answer == true) {
             detenerse();
-            location.replace("ArduinoControl.html")
+            location.replace("index.html")
         }
     }
     else {
-        location.replace("ArduinoControl.html")
+        location.replace("index.html")
     }
 }
 
