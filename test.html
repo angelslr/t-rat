@@ -7,19 +7,34 @@
 	<title>Prueba</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
+	<link rel="icon" href="svg/btnStart.svg">
 </head>
 
 <body onload="load(); checkTheme()">
 	<div class="container">
 		<h1 id="h1">Prueba en ejecuci&oacuten</h1>
 		<hr id="bar">
-		<p> <span>Tiempo de prueba: </span><span id="minutos">0</span>:<span id="segundos">0</span> <br>
+		<p> <span>Tiempo de prueba: </span><span id="sec">0</span><span>s</span>
 			<br>
 			<br>
-			<span>Cantidad de pasos:</span><span> 0</span> </p>
-		<div style="text-align: center;"><img onclick="stopCron()" src="svg/btnStop.svg" title="Detener Prueba" alt="Detener Prueba"
-				hspace="20"><img onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino" hspace="20">
-				<a href="results.html" target="_new"><img src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados" hspace="20"></a>
+			<br>
+			<span>Cantidad de Movimiento: </span><span id="mov">0</span>
+		</p>
+
+		<div class="controls">
+			<div class="button">
+				<img id="btnStop" onclick="stopCron()" src="svg/btnStop.svg" title="Detener Prueba"
+					alt="Detener Prueba">
+			</div>
+			<div class="button">
+				<img id="btnRestart" onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar Arduino"
+					alt="Reiniciar Arduino">
+			</div>
+			<div class="button">
+				<a href="results.html" target="_new">
+					<img id="btnResults" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
+				</a>
+			</div>
 		</div>
 	</div>
 </body>

@@ -7,6 +7,7 @@
 	<title>Resultados</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
+	<link rel="icon" href="svg/btnResults.svg">
 </head>
 
 <body onload="checkTheme()">
@@ -14,31 +15,56 @@
 		<h1>Resultados</h1>
 		<hr id="bar">
 
-		<form>
-			<label for="ffarmaco">F&aacutermaco: </label>
-			<input type="text" id="ffarmaco" name="ffarmaco"><br><br>
+		<h2>Ingreso de datos:</h2>
+		<form id="frmDataResults" method="POST">
+			<label for="ftiempo">Tiempo: </label>
+			<input type="text" id="ftiempo" name="ftiempo"><br><br>
 
-			<label for="fduracion">Duraci&oacuten: </label>
-			<input type="text" id="fduracion" name="fduracion"><br><br>
+			<label for="ffecha">Fecha: </label>
+			<input type="text" id="ffecha" name="ffecha"><br><br>
 
-			<label for="fpasos">Pasos: </label>
-			<input type="text" id="fpasos" name="fpasos"><br><br>
+			<label for="ftratamiento">Tratamiento: </label>
+			<input type="text" id="ftratamiento" name="ftratamiento"><br><br>
+
+			<label for="fmovimiento">Movimiento: </label>
+			<input type="text" id="fmovimiento" name="fmovimiento"><br><br>
 
 			<label for="fobservaciones">Observaciones: </label>
-			<input type="text" id="fobservaciones" name="fobservaciones"><br><br>
+			<textarea name="fobservaciones" id="fobservaciones"></textarea><br><br>
 		</form>
-		
-		<img src="svg/btnSave.svg" onclick="generateTable()" title="Guardar registro" alt="Guardar registro">
-		<a href="index.html"> <img src="svg/btnRestart.svg" title="Volver al inicio y reiniciar" alt="Volver al inicio y reiniciar"></a>
-		<table id="tbResults">
-			<tr>
-				<th>Nro</th>
-				<th>F&aacutermaco</th>
-				<th>Duraci&oacuten</th>
-				<th>Pasos</th>
-				<th>Observaciones</th>
-			</tr>
-		</table>
+
+		<div class="controls">
+			<div class="button">
+				<img id="btnSave" src="svg/btnSave.svg" onclick="saveEntry()" title="Guardar registro"
+					alt="Guardar registro">
+			</div>
+			<div class="button">
+				<img id="btnLoad" src="svg/btnLoad.svg" onclick="getData()" title="Cargar datos de última prueba"
+					alt="Cargar datos de última prueba">
+			</div>
+			<div class="button">
+				<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputResults()" title="Limpiar campos"
+					alt="Limpiar campos">
+			</div>
+			<div class="button">
+				<img id="btnDelete" src="svg/btnDelete.svg" title="Borrar registro" alt="Borrar registro">
+			</div>
+		</div>
+		<br>
+
+		<div class="table">
+			<table id="tbResults">
+				<tr>
+					<th title="Número de prueba">Nro</th>
+					<th title="Duracion total de la prueba">Tiempo (s)</th>
+					<th title="Fecha en la que se realizó la prueba">Fecha</th>
+					<th title="Tratamiento utilizado">Trat.</th>
+					<th title="Movimiento total del animal">Mov.</th>
+					<th title="Observaciones">Obs.</th>
+				</tr>
+			</table>
+		</div>
+
 	</div>
 </body>
 

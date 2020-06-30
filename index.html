@@ -7,19 +7,34 @@
 	<title>T-rat</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
+	<link rel="icon" href="svg/TRat.svg">
 </head>
 
-<body onload="checkTheme()">
+<body onload="checkTheme(); changeIconTheme(); arduinoState()">
 	<div class="container">
 		<h1>T-rat</h1>
-		<hr id="bar"> <br>
+		<hr id="bar">
+		<h3 id="arduinoStatus">Iniciando...</h3>
 		<br>
-		<div style="text-align: center;">
-			<a href="test.html"><img src="svg/btnStart.svg" title="Iniciar Prueba" alt="Iniciar Prueba"
-					hspace="20"></a><img src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino" hspace="20">
-			<a href="results.html" target="_new"><img src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados" hspace="20"></a>
+		<br>
+		<div class="controls">
+			<div class="button">
+				<a href="wait.html">
+					<img id="btnStart" src="svg/btnStart.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
+				</a>
+			</div>
+			<div class="button">
+				<img id="btnRestart" src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
+			</div>
+			<div class="button">
+				<a href="results.html" target="_new">
+					<img id="btnResults" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
+				</a>
+			</div>
 		</div>
-		<img id="dark-mode" src="svg/btnDark.svg" onclick="changeTheme()" title="Activar/Desactivar el Modo Oscuro" alt="Activar/Desactivar el Modo Oscuro">
+
+		<img id="btnDarkMode" src="svg/btnDark.svg" onclick="changeTheme()" title="Activar/Desactivar el Modo Oscuro"
+			alt="Activar/Desactivar el Modo Oscuro">
 	</div>
 </body>
 
