@@ -1,94 +1,193 @@
 html{
-  height: 100%;
-  font-family: "Trebuchet MS", "Arial", "Helvetica", "sans-serif";
-
-  align-items: center;
-  justify-items: center;
-
-  --bg: #FCFCFC;
-  --bg-panel: #EBEBEB;
-  --color-text: #333333;
-  --row-color:#F7F7F7;
-  --border-color:#ddd;
-  --input-background: #F4F4F4;
+	height: 100%;
+	font-family: "Trebuchet MS", "Arial", "Helvetica", "sans-serif";
+	--bg: #FCFCFC;
+	--bg-panel: #EBEBEB;
+	--color-text: #333333;
+	--row-color: #F7F7F7;
+	--border-color: #ddd;
+	--input-background: #F4F4F4;
+	--shadow-color:  rgba(0, 0, 0, 0.6);
 }
 
 html[data-theme='dark']{
-  --bg: #18191A;
-  --bg-panel: #242526;
-  --color-text: #FCFCFC;
-  --row-color:#616161;
-  --border-color:#7A7A7A;
-  --input-background: #3A3B3C;
+	--bg: #18191A;
+	--bg-panel: #242526;
+	--color-text: #FCFCFC;
+	--row-color: #616161;
+	--border-color: #7A7A7A;
+	--input-background: #3A3B3C;
+	--shadow-color:  rgba(255, 255, 255, 0.822);
 }
 
 body{
-  background-color: var(--bg);
+	background-color: var(--bg);
 }
 
-.container{
-  background-color: var(--bg-panel);
-  margin: 1em;
-  padding: 1em;
-  border-radius: 10px;  
+.container {
+	background-color: var(--bg-panel);
+	margin: 2px;
+	padding: 1em;
+	border-radius: 10px;
 }
 
-h1 {
-  font-size: 20pt;
-  text-align: center;
-  color: var(--color-text);
+h1{
+	font-size: 20pt;
+	text-align: center;
+	color: var(--color-text);
+}
+
+h2{
+	font-size: 16pt;
+	text-align: left;
+	color: var(--color-text);
+}
+
+h3{
+	font-size: 16pt;
+	text-align: center;
+	color: var(--color-text);
 }
 
 #bar {
-  color: #000000;
-  height: 3px;
+	border-top: 2px solid #bbb;
 }
 
-p{
-  font-size: 15pt;
-  color: var(--color-text);
+p {
+	font-size: 15pt;
+	color: var(--color-text);
 }
 
-label{
-  display: grid;
-  text-align: right;
-  grid-template-columns: max-content max-content;
-  color: var(--color-text);
+label {
+	display: grid;
+	text-align: right;
+	grid-template-columns: max-content max-content;
+	color: var(--color-text);
 }
 
-input{
-  width: 100%;
-  padding: 6px 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  background-color: var(--input-background);
-  color: var(--color-text);
+input,
+textarea {
+	font-family: "Trebuchet MS", "Arial", "Helvetica", "sans-serif";
+	font-size: 10pt;
+	width: 100%;
+	padding: 6px 10px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	background-color: var(--input-background);
+	color: var(--color-text);
 }
 
-table{
-  border-collapse: collapse;
-  text-align: center;
-  width: 100%;
+table {
+	border-collapse: collapse;
+	white-space: pre-line;
+	text-align: center;
+	width: 100%;
 }
 
-th, td{
-  border: 1px solid var(--border-color);
-  text-align: center;
-  padding: 8px;
-  color: var(--color-text);
+.table{
+	overflow: auto;
+}
+th,
+td {
+	border: 1px solid var(--border-color);
+	text-align: center;
+	padding: 8px;
+	color: var(--color-text);
 }
 
-tr:nth-child(even){
-  background-color:var(--row-color);
+tr:nth-child(even) {
+	background-color: var(--row-color);
 }
 
-tr:hover{
-  background-color: var(--border-color);
+tr:hover {
+	background-color: var(--border-color);
 }
 
-th{
-  background-color: #4CAF50;
-  color: white;
+th {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.controls {
+	display: flex;
+	justify-content: center;
+}
+
+.button {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+img:hover {
+	border-radius: 20px;
+	-moz-box-shadow: 0 0 10px var(--shadow-color);
+	-webkit-box-shadow: 0 0 10px var(--shadow-color);
+	-o-box-shadow: 0 0 10px var(--shadow-color);
+	box-shadow: 0 0 10px var(--shadow-color);
+}
+
+#btnStart:hover {
+	background: #26a17aff;
+}
+#btnLoad:hover {
+	background: #26a17aff;
+}
+#btnSave:hover {
+	background: #26a17aff;
+}
+#btnRestart:hover {
+	background: #ee7d48ff;
+}
+#btnResults:hover {
+	background: #26a1d9ff;
+}
+#btnStop:hover {
+	background: #ee3b48ff;
+}
+#btnDelete:hover {
+	background: #ee3b48ff;
+}
+#btnClean:hover {
+	background: #e3bd35ff;
+}
+#dark-mode:hover {
+	background: #251b47ff;
+}
+#btnLight:hover {
+	background: #cdeeffff;
+}
+
+svg{
+    height: 140px;
+	width: 200px;
+}
+
+svg path{
+	stroke: var(--color-text);
+    stroke-dashoffset: 2100;
+    stroke-dasharray: 2100;
+    animation: draw 2s alternate infinite;
+}
+
+@keyframes draw {
+    from{stroke-dashoffset: -2100;}
+    to{stroke-dashoffset: 0;}
+}
+
+.errorContainer, .logoContainer{
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing: content-box;
+	width: 95%;
+	text-align:center;
+}
+
+.errorBox{
+	box-sizing: border-box;
+	display: inline-block;
+	text-align: left;
 }
