@@ -10,31 +10,32 @@
 	<link rel="icon" href="svg/TRat.svg">
 </head>
 
-<body onload="checkTheme(); changeIconTheme(); arduinoState()">
+<body onload="validateSession(); changeIconTheme(); arduinoState()">
+	<div class="header_container">
+		<header id="header">
+		</header>
+	</div>
+
 	<div class="container">
 		<h1>T-rat</h1>
 		<hr id="bar">
 		<h3 id="arduinoStatus">Iniciando...</h3>
 		<br>
-		<br>
 		<div class="controls">
 			<div class="button">
 				<a href="wait.html">
-					<img id="btnStart" src="svg/btnStart.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
+					<img id="btnGreen" src="svg/btnStart.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
 				</a>
 			</div>
 			<div class="button">
-				<img id="btnRestart" src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
+				<img id="btnOrange" src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
 			</div>
 			<div class="button">
 				<a href="results.html" target="_new">
-					<img id="btnResults" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
+					<img id="btnBlue" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
 				</a>
 			</div>
 		</div>
-
-		<img id="btnDarkMode" src="svg/btnDark.svg" onclick="changeTheme()" title="Activar/Desactivar el Modo Oscuro"
-			alt="Activar/Desactivar el Modo Oscuro">
 	</div>
 </body>
 

@@ -1,6 +1,0 @@
-<svg width="10mm" height="10mm" version="1.1" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-	<g transform="translate(-35.963 -131.9)">
-		<circle cx="40.963" cy="136.9" r="5" fill="#26a17a"/>
-		<path d="m40.157 133.88c-0.2071 2e-5 -0.37515 0.16808-0.37517 0.37518v2.3327h-0.8438c-0.31173 8.1e-4 -0.4866 0.35969-0.29507 0.60565l2.0252 2.5761c0.15016 0.19115 0.43999 0.19115 0.59014 0l2.0252-2.5761c0.19153-0.24596 0.01718-0.60484-0.29456-0.60565h-0.84421v-2.3327c-2.1e-5 -0.2071-0.16807-0.37516-0.37517-0.37518z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill="#feffff" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
-	</g>
-</svg>

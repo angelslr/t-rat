@@ -10,7 +10,12 @@
 	<link rel="icon" href="svg/btnStart.svg">
 </head>
 
-<body onload="load(); checkTheme()">
+<body onload="validateSession(); cronometer(); changeIconTheme()">
+	<div class="header_container">
+		<header id="header">
+		</header>
+	</div>
+
 	<div class="container">
 		<h1 id="h1">Prueba en ejecuci&oacuten</h1>
 		<hr id="bar">
@@ -22,21 +27,154 @@
 		</p>
 
 		<div class="controls">
-			<div class="button">
-				<img id="btnStop" onclick="stopCron()" src="svg/btnStop.svg" title="Detener Prueba"
-					alt="Detener Prueba">
+			<div id="divStop" class="button">
+				<img id="btnStop" onclick="stopCron();getData();operation('popup');removeButtons()"
+					src="svg/btnStop.svg" title="Detener Prueba" alt="Detener Prueba">
+			</div>
+			<div id="divNew" class="button" style="display: none;">
+				<img id="btnGreen" onclick="operation('popup');loadRes_drug()" src="svg/btnNew.svg" title="Nuevo Registro"
+					alt="uevo Registro">
 			</div>
 			<div class="button">
-				<img id="btnRestart" onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar Arduino"
+				<img id="btnOrange" onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar Arduino"
 					alt="Reiniciar Arduino">
 			</div>
 			<div class="button">
 				<a href="results.html" target="_new">
-					<img id="btnResults" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
+					<img id="btnBlue" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
 				</a>
 			</div>
 		</div>
 	</div>
+
+	<div id="popup" class="modal">
+		<form id="frmTest" class="modal-content animate" method="post">
+			<div class="imgcontainer">
+				<span onclick="cancel('popup')" class="close" title="Cerrar">&times;</span>
+			</div>
+			<div class="usercontainer">
+				<h3>Completar datos de prueba:</h3>
+				<label for="fdate">Fecha:</label>
+				<input type="date" id="fdate" name="fdate" placeholder="Fecha"><br><br>
+
+				<label for="fduration">Duración:</label>
+				<input type="number" id="fduration" name="fduration" placeholder="Duración de la prueba (en segundos)"><br><br>
+
+				<label for="fmovement">Movimiento:</label>
+				<input type="number" id="fmovement" name="fmovement" placeholder="Movimiento total del animal"><br><br>
+
+				<label for="fresearcher">Investigador:
+					<div class="button">
+						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewRes')"
+							src="svg/btnNewResearcher.svg" title="Crear un nuevo investigador"
+							alt="Crear nuevo investigador">
+					</div>
+				</label>
+
+				<select id="selectResearchers" name="sResearchers">
+					<option disabled selected value=""> -- Seleccione un investigador -- </option>
+				</select>
+				<br><br>
+
+				<label for="fdrug">Droga:
+
+					<div class="button">
+						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+							title="Crear nueva droga" alt="Crear nueva droga">
+					</div>
+				</label>
+				<select id="selectDrugs" name="sDrugs">
+					<option disabled selected value=""> -- Seleccione una droga -- </option>
+				</select>
+				<br><br>
+
+				<label for="ftreatment">Tratamiento:</label>
+				<input type="text" id="ftreatment" name="ftreatment" placeholder="Tratamiento utilizado"><br><br>
+
+				<label for="fobservations">Observaciones:</label>
+				<textarea name="fobservations" id="fobservations" placeholder="Observaciones y/o comentarios de la prueba"></textarea><br><br>
+			</div>
+
+			<div class="controls">
+				<div class="button">
+					<a href="results.html" target="_blank">
+						<img id="btnBlue" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
+					</a>
+					<br>
+				</div>
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveData();toResults()" title="Guardar prueba"
+						alt="Guardar prueba">
+				</div>
+				<div class="button">
+					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputResults('frmTest')" title="Limpiar campos"
+						alt="Limpiar campos">
+				</div>
+				<div class="button">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popup')" title="Cancelar" alt="Cancelar">
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+	<div id="popupNewRes" class="modal">
+
+		<form id="frmResearcher" class="modal-content animate" method="post">
+			<div class="imgcontainer">
+				<span onclick="cancel('popupNewRes')" class="close" title="Cerrar">&times;</span>
+			</div>
+
+			<div class="usercontainer">
+				<h3 id="idPopup">Crear nuevo investigador:</h3>
+
+				<label for="resNameNew">Nombre del investigador:</label>
+				<input type="text" id="resNameNew" placeholder="Ingrese nombre" name="resNameNew" required><br><br>
+
+				<label for="resCatNew">Categoría:</label>
+				<input type="text" id="resCatNew" placeholder="Ingrese la categoría" name="resCatNew" required><br><br>
+			</div>
+
+			<div class="controls">
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher')" title="Guardar" alt="Guardar">
+				</div>
+				<div class="button">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
+						alt="Cancelar">
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="popupNewDrug" class="modal">
+
+		<form id="frmDrug" class="modal-content animate" method="post">
+			<div class="imgcontainer">
+				<span onclick="cancel('popupNewDrug')" class="close" title="Cerrar">&times;</span>
+			</div>
+
+			<div class="usercontainer">
+				<h3 id="idPopup">Crear nueva droga:</h3>
+
+				<label for="drugNameNew">Nombre de la Droga:</label>
+				<input type="text" id="drugNameNew" placeholder="Ingrese nombre" name="drugNameNew" required><br><br>
+
+				<label for="drugDoseNew">Dosis:</label>
+				<input type="text" id="drugDoseNew" placeholder="Ingrese la dosis" name="drugDoseNew" required><br><br>
+			</div>
+
+			<div class="controls">
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug')" title="Guardar"
+						alt="Guardar">
+				</div>
+				<div class="button">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewDrug')" title="Cancelar"
+						alt="Cancelar">
+				</div>
+			</div>
+		</form>
+	</div>y
 </body>
 
 </html>

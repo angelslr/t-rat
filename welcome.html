@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bienvenido a T-Rat</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css">
+	<script type="text/javascript" src="js/functions.js"></script>
+	<link rel="shortcut icon" href="svg/TRat.svg">
+</head>
+
+<body onload="hideWelcome(); changeIconTheme()">
+	<div class="header_container">
+		<header id="header">
+		</header>
+	</div>
+
+	<div class="container" style="height: 400px;">
+		<h1>Bienvenido a T-Rat</h1>
+		<br>
+		<br>
+		<br>
+		<div class="operation_container">
+			<div class="button_container">
+				<h3>Iniciar sesión</h3>
+				<p>Ingrese sus datos para poder iniciar una prueba</p>
+				<div class="controls">
+					<a class="cta"><button onclick="operation('id01')">Ingresar</button></a>
+				</div>
+			</div>
+			<div class="button_container">
+				<h3>Registrar usuario</h3>
+				<p>Cree un nuevo usuario para ingresar al sistema</p>
+				<div class="controls">
+					<a class="cta"><button onclick="operation('id02')">Registrarse</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="id01" class="modal">
+
+		<form id="frmLogin" class="modal-content animate" method="post">
+			<div class="imgcontainer">
+				<span onclick="cancel('id01')" class="close" title="Cerrar">&times;</span>
+				<img src="/img/img_avatar2.png" alt="Avatar" class="avatar">
+			</div>
+
+			<div class="usercontainer">
+				<label for="uname">Nombre de usuario:</label>
+				<input type="text" id="l_username" placeholder="Ingrese un nombre de usuario" name="uname"
+					required><br><br>
+
+				<label for="psw">Contraseña:</label>
+				<input type="password" id="l_password" placeholder="Ingrese su contraseña" name="psw" required><br><br>
+
+			</div>
+
+			<div class="controls">
+				<button type="button" onclick="login()">Ingresar</button>
+				<button type="button" onclick="cancel('id01');clearInputs('frmLogin')" class="cancelbtn">Cancelar</button>
+			</div>
+		</form>
+	</div>
+
+	<div id="id02" class="modal">
+
+		<form id="frmRegister" class="modal-content animate" method="post">
+			<div class="imgcontainer">
+				<span onclick="cancel('id02')" class="close" title="Cerrar">&times;</span>
+				<img src="/img/img_avatar2.png" alt="Avatar" class="avatar">
+			</div>
+
+			<div class="usercontainer">
+				<label for="uname">Nombre:</label>
+				<input type="text" id="r_name" placeholder="Ingrese nombre" name="uname" required><br><br>
+
+				<label for="uname">Apellido:</label>
+				<input type="text" id="r_surname" placeholder="Ingrese apellido" name="uname" required><br><br>
+
+				<label for="uname">Nombre de usuario:</label>
+				<input type="text" id="r_username" placeholder="Ingrese un nombre de usuario" name="uname"
+					required><br><br>
+
+				<label for="psw">Contraseña:</label>
+				<input type="password" id="r_password" placeholder="Ingrese su contraseña" name="psw" required><br><br>
+			</div>
+
+			<div class="controls">
+				<button type="button" onclick="signUp()">Registrarse</button>
+				<button type="button" onclick="cancel('id02');clearInputs('frmRegister')" class="cancelbtn">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

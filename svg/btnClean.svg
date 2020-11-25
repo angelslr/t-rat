@@ -1,7 +1,10 @@
 <svg width="10mm" height="10mm" version="1.1" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-	<g transform="translate(-35.963 -131.9)">
-		<circle cx="40.963" cy="136.9" r="5" fill="#e3bd35"/>
-		<path transform="matrix(.26458 0 0 .26458 35.963 131.9)" d="m29.373 3.1699-9.9395 11.393 5.6719 4.9492 9.5879-10.986a18.898 18.898 0 0 0-5.3203-5.3555zm-10.691 12.254-2.0234 2.3184 5.6738 4.9512 2.0234-2.3203-5.6738-4.9492zm-2.7754 3.1797-1.9492 2.2344c-1.3313 1.5259-1.2265 3.5535 0.4707 5.0645 2.066 1.8417 3.892 1.3895 5.2031-0.11328l1.9492-2.2344-5.6738-4.9512z" fill="#feffff"/>
-		<path d="m37.698 139.07h6.5292" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".1"/>
+	<circle cx="5" cy="5" r="5" fill="#c58e35"/>
+	<g transform="translate(-.35563 .24083)">
+		<path d="m1.735 7.17h6.5292" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".13229"/>
+		<g transform="rotate(45 5.5838 6.0737)" fill="#feffff">
+			<path d="m3.7593 1.4417h2.0837v4.3821h-2.0837z"/>
+			<path transform="matrix(.18709 -.18709 .18709 .18709 -2.6544 6.0786)" d="m17.188 17.094-5.5586 5.5586 3.4355 3.4336h4.2695l3.4238-3.4238z"/>
+		</g>
 	</g>
 </svg>
