@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Drogas</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css">
+	<script type="text/javascript" src="js/functions.js"></script>
+	<link rel="icon" href="svg/btnDrugs.svg">
+</head>
+
+<body onload="validateSession(); changeIconTheme(); loadDrugTable()">
+	<div class="header_container">
+		<header id="header">
+		</header>
+	</div>
+
+	<div class="container">
+		<h1>Drogas</h1>
+		<hr id="bar">
+
+		<br>
+		<div class="controls">
+			<div class="button">
+				<img id="btnGreen" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+					title="Crear nueva droga" alt="Crear nueva droga">
+			</div>
+			<div class="button">
+				<img id="btnBlue" src="svg/btnEdit.svg"
+					onclick="editDrug(row[1].cells[0].innerHTML)"
+					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
+			</div>
+			<div class="button">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('drug')" title="Borrar registro" alt="Borrar registro">
+			</div>
+		</div>
+		<br>
+		<p id="registers">Cantidad de registros: </p>
+
+		<div class="table">
+			<table id="tbResults">
+				<tr>
+					<th title="Número de registro">Nro</th>
+					<th title="Identificación de la droga">Droga</th>
+					<th title="Dosis de la droga">Dosis</th>
+				</tr>
+			</table>
+		</div>
+		<h3 id="noData" style="display: none;"> No hay datos.</h3>
+	</div>
+	<div id="float-controls">
+		<div class="controls">
+			<div class="button">
+				<img id="btnGreen" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+					title="Crear nueva droga" alt="Crear nueva droga">
+			</div>
+			<div class="button">
+				<img id="btnBlue" src="svg/btnEdit.svg"
+					onclick="editDrug(row[1].cells[0].innerHTML)"
+					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
+			</div>
+			<div class="button">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('drug')" title="Borrar registro" alt="Borrar registro">
+			</div>
+		</div>
+	</div>
+
+	<div id="popupNewDrug" class="modal">
+
+		<form id="frmDrug" class="modal-content animate" method="post">
+			<div class="imgcontainer">
+				<span onclick="cancel('popupNewDrug')" class="close" title="Cerrar">&times;</span>
+			</div>
+
+			<div class="usercontainer">
+				<h3 id="idPopup">Crear nueva droga:</h3>
+
+				<label for="drugNameNew">Nombre de la Droga:</label>
+				<input type="text" id="drugNameNew" placeholder="Ingrese nombre" name="drugNameNew" required><br><br>
+
+				<label for="drugDoseNew">Dosis:</label>
+				<input type="text" id="drugDoseNew" placeholder="Ingrese la dosis" name="drugDoseNew" required><br><br>
+			</div>
+
+			<div class="controls">
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', true)" title="Guardar"
+						alt="Guardar">
+				</div>
+				<div class="button">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewDrug')" title="Cancelar"
+						alt="Cancelar">
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		window.onscroll = function () { scrollFunction() };
+
+		function scrollFunction() {
+			if (document.body.scrollTop > 185 || document.documentElement.scrollTop > 185) {
+				document.getElementById("float-controls").style.visibility = "visible";
+			} else {
+				document.getElementById("float-controls").style.visibility = "hidden";
+			}
+		}
+
+		document.querySelector('table').addEventListener('click', function (e) {
+			debugger
+			e.preventDefault();
+			e.stopPropagation();
+			row = (e.composedPath());
+			if(row[1].cells != undefined){
+				sessionStorage['id'] = row[1].cells[0].innerHTML;
+			}
+
+			if (row.length > 10) {
+				document.getElementById('popupSeeMore').style.display = 'block';
+				let d = searchReg(parseInt(row[2].cells[0].innerHTML, 10));
+
+				document.getElementById("titleSeeMore").innerHTML = "Ver registro " + d.register_id;
+				document.getElementById("moreText").innerHTML = d.observations;
+			}
+		});
+	</script>
+</body>
+
+</html>

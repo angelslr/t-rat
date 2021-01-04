@@ -8,7 +8,6 @@
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
 	<link rel="icon" href="svg/btnResults.svg">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body onload="validateSession(); changeIconTheme(); loadAllData()">
@@ -25,20 +24,21 @@
 		<div class="controls">
 			<div class="button">
 				<img id="btnGreen" src="svg/btnNew.svg"
-					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Añadir un registro'; clearInputs('frmDataResults');loadRes_drug()"
+					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Añadir un registro'; clearInputs('frmDataResults');loadRes_drug();getTime()"
 					title="Nuevo registro" alt="Nuevo registro">
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editData(row[1].cells[0].innerHTML,row[1].cells[1].innerHTML,row[1].cells[2].innerHTML,row[1].cells[3].innerHTML,row[1].cells[4].innerHTML,row[1].cells[5].innerHTML,row[1].cells[6].innerHTML,row[1].cells[7].innerHTML)"
-					title=" Editar datos de la prueba seleecionada" alt="Editar datos de la prueba seleecionada">
+					onclick="editData(row[1].cells[0].innerHTML, row[1].cells[7].innerHTML)"
+					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro" alt="Borrar registro">
 			</div>
 		</div>
 		<br>
 		<p id="registers">Cantidad de registros: </p>
+
 		<div class="table">
 			<table id="tbResults">
 				<tr>
@@ -64,11 +64,11 @@
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editData(row[1].cells[0].innerHTML,row[1].cells[1].innerHTML,row[1].cells[2].innerHTML,row[1].cells[3].innerHTML,row[1].cells[4].innerHTML,row[1].cells[5].innerHTML,row[1].cells[6].innerHTML,row[1].cells[7].innerHTML)"
-					title="Editar datos de la prueba selecionada" alt="Editar datos de la prueba seleecionada">
+					onclick="editData(row[1].cells[0].innerHTML, row[1].cells[7].innerHTML)"
+					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro" alt="Borrar registro">
 			</div>
 		</div>
 	</div>
@@ -127,8 +127,20 @@
 						alt="Guardar prueba">
 				</div>
 				<div class="button">
-					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputResults('frmDataResults')" title="Limpiar campos"
+					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputs('frmDataResults')" title="Limpiar campos"
 						alt="Limpiar campos">
+				</div>
+				<div class="button">
+					<a href="researchers.html" target="_blank">
+						<img id="btnBlue" src="svg/btnResearchers.svg" title="Mostrar lista de Investigadores" alt="Mostrar lista de Investigadores">
+					</a>
+					<br>
+				</div>
+				<div class="button">
+					<a href="drugs.html" target="_blank">
+						<img id="btnBlue" src="svg/btnDrugs.svg" title="Mostrar lista de Drogas" alt="Mostrar lista de Drogas">
+					</a>
+					<br>
 				</div>
 				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popup')" title="Cancelar" alt="Cancelar">
@@ -169,7 +181,7 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher')" title="Guardar" alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar" alt="Guardar">
 				</div>
 				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
@@ -197,7 +209,7 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug')" title="Guardar"
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', true)" title="Guardar"
 						alt="Guardar">
 				</div>
 				<div class="button">
@@ -224,14 +236,16 @@
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());
+			if(row[1].cells != undefined){
+				sessionStorage['id'] = row[1].cells[0].innerHTML;
+			}
 
 			if (row.length > 10) {
 				document.getElementById('popupSeeMore').style.display = 'block';
-				let dataTemp = JSON.parse(localStorage.getItem('data'));
-				let i = row[2].cells[0].innerHTML;
+				let d = searchReg(parseInt(row[2].cells[0].innerHTML, 10));
 
-				document.getElementById("titleSeeMore").innerHTML = "Ver más (registro " + dataTemp[i - 1].id + ")";
-				document.getElementById("moreText").innerHTML = dataTemp[i - 1].obs;
+				document.getElementById("titleSeeMore").innerHTML = "Ver registro " + d.register_id;
+				document.getElementById("moreText").innerHTML = d.observations;
 			}
 		});
 	</script>

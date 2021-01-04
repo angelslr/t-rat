@@ -1,26 +1,13 @@
 <svg width="10mm" height="10mm" version="1.1" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-	<g transform="translate(-35.963 -131.9)">
-		<circle cx="40.963" cy="136.9" r="5" fill="#26a17a"/>
-	</g>
-	<g fill="#2cffff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458">
-		<path d="m3.4324 3.1074h2.6505"/>
-		<path d="m4.1512 3.8894h2.4357"/>
-		<path d="m3.2755 4.9791h1.9655"/>
-	</g>
-	<g transform="translate(.019532 .02315)" fill="#2cffff" stroke="#f9fcfb" stroke-linecap="round" stroke-linejoin="round" stroke-width=".37042">
-		<path d="m6.5224 5.8201v1.9125"/>
-		<path d="m7.4786 6.7764h-1.9125" stroke-width=".37042"/>
-	</g>
-	<path transform="scale(.26458)" d="m18.791 7.4414a9.4323 9.4323 0 0 0-9.3359 9.4316 9.4323 9.4323 0 0 0 9.4043 9.4336 5.8972 5.8972 0 0 1-0.03125-0.60742 5.8972 5.8972 0 0 1 5.8965-5.8965 5.8972 5.8972 0 0 1 2.8535 0.73633 9.4323 9.4323 0 0 0 0.74219-3.666 9.4323 9.4323 0 0 0-9.4336-9.4316 9.4323 9.4323 0 0 0-0.095703 0z" fill="#fff" fill-opacity=".97112"/>
-	<g transform="translate(-.13787 .084457)" stroke="#26a17a" stroke-linecap="round" stroke-width=".26988">
-		<g fill="none">
-			<circle cx="4.1066" cy="4.039" r=".54976"/>
-			<circle cx="6.1638" cy="4.039" r=".54976"/>
-		</g>
-		<path d="m4.6996 4.016h0.87127" fill="#f287ff"/>
-	</g>
-	<g transform="translate(.0028199)" fill="none" stroke="#26a17a" stroke-linecap="round" stroke-width=".26988">
-		<path d="m3.3256 4.1768h-0.66865"/>
-		<path d="m7.3321 4.1768h-0.66865"/>
-	</g>
+ <circle cx="5" cy="5" r="5" fill="#26a17a"/>
+ <path d="m6.5419 5.8432v1.9125" fill="#2cffff" stroke="#f9fcfb" stroke-linecap="round" stroke-linejoin="round" stroke-width=".37042"/>
+ <path d="m7.4981 6.7996h-1.9125" fill="#2cffff" stroke="#f9fcfb" stroke-linecap="round" stroke-linejoin="round" stroke-width=".37042"/>
+ <path transform="scale(.26458)" d="m18.791 7.4414a9.4323 9.4323 0 0 0-9.3359 9.4316 9.4323 9.4323 0 0 0 9.4043 9.4336 5.8972 5.8972 0 0 1-0.03125-0.60742 5.8972 5.8972 0 0 1 5.8965-5.8965 5.8972 5.8972 0 0 1 2.8535 0.73633 9.4323 9.4323 0 0 0 0.74219-3.666 9.4323 9.4323 0 0 0-9.4336-9.4316 9.4323 9.4323 0 0 0-0.095703 0z" fill="#fff" fill-opacity=".97112"/>
+ <g stroke="#26a17a" stroke-linecap="round" stroke-width=".26988">
+  <circle cx="3.9687" cy="4.1235" r=".54976" fill="none"/>
+  <circle cx="6.0259" cy="4.1235" r=".54976" fill="none"/>
+  <path d="m4.5617 4.1005h0.87127" fill="#f287ff"/>
+  <path d="m3.3284 4.1768h-0.66865" fill="none"/>
+  <path d="m7.3349 4.1768h-0.66865" fill="none"/>
+ </g>
 </svg>

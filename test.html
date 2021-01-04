@@ -28,11 +28,11 @@
 
 		<div class="controls">
 			<div id="divStop" class="button">
-				<img id="btnStop" onclick="stopCron();getData();operation('popup');removeButtons()"
+				<img id="btnStop" onclick="stopCron();getData();operation('popup');loadRes_drug(true);removeButtons()"
 					src="svg/btnStop.svg" title="Detener Prueba" alt="Detener Prueba">
 			</div>
 			<div id="divNew" class="button" style="display: none;">
-				<img id="btnGreen" onclick="operation('popup');loadRes_drug()" src="svg/btnNew.svg" title="Nuevo Registro"
+				<img id="btnGreen" onclick="operation('popup');loadRes_drug(true)" src="svg/btnNew.svg" title="Nuevo Registro"
 					alt="uevo Registro">
 			</div>
 			<div class="button">
@@ -77,7 +77,6 @@
 				<br><br>
 
 				<label for="fdrug">Droga:
-
 					<div class="button">
 						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
 							title="Crear nueva droga" alt="Crear nueva droga">
@@ -97,18 +96,30 @@
 
 			<div class="controls">
 				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveData(false)" title="Guardar prueba"
+						alt="Guardar prueba">
+				</div>
+				<div class="button">
+					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputs('frmTest')" title="Limpiar campos"
+						alt="Limpiar campos">
+				</div>
+				<div class="button">
 					<a href="results.html" target="_blank">
 						<img id="btnBlue" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
 					</a>
 					<br>
 				</div>
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveData();toResults()" title="Guardar prueba"
-						alt="Guardar prueba">
+					<a href="researchers.html" target="_blank">
+						<img id="btnBlue" src="svg/btnResearchers.svg" title="Mostrar lista de Investigadores" alt="Mostrar lista de Investigadores">
+					</a>
+					<br>
 				</div>
 				<div class="button">
-					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputResults('frmTest')" title="Limpiar campos"
-						alt="Limpiar campos">
+					<a href="drugs.html" target="_blank">
+						<img id="btnBlue" src="svg/btnDrugs.svg" title="Mostrar lista de Drogas" alt="Mostrar lista de Drogas">
+					</a>
+					<br>
 				</div>
 				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popup')" title="Cancelar" alt="Cancelar">
@@ -137,7 +148,7 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher')" title="Guardar" alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', false)" title="Guardar" alt="Guardar">
 				</div>
 				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
@@ -165,7 +176,7 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug')" title="Guardar"
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', false)" title="Guardar"
 						alt="Guardar">
 				</div>
 				<div class="button">
@@ -174,7 +185,7 @@
 				</div>
 			</div>
 		</form>
-	</div>y
+	</div>
 </body>
 
 </html>
