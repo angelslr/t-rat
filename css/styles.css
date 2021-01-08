@@ -385,6 +385,16 @@ select{
 	padding: 6px 6px;
 }
 
+.tLength{
+	display: flex;
+	width: 100px;
+}
+
+#tableLength{
+	margin: 0 10px;
+	margin-top: -8px;
+}
+
 .table table {
 	border-collapse: collapse;
 	white-space: pre-line;
@@ -514,3 +524,31 @@ span.psw {
 .highlight {
 	background-color: #b8b8b8;
 }
+
+.center {
+	text-align: center;
+  }
+
+  .pagination {
+	display: inline-block;
+  }
+
+  .pagination a {
+	background-color: var(--bg);
+	color: var(--color-text);
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+	margin: 0 4px;
+	margin-top: 20px;
+  }
+
+  .pagination a.active {
+	background-color: var(--color-headings);
+	color: white;
+	border: 1px solid var(--color-headings);
+  }
+
+  .pagination a:hover:not(.active) {opacity: 0.8;}

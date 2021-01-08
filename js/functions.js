@@ -381,7 +381,8 @@ function arduinoState() {
 
 //Añade una fila nueva a la tabla, es utilizada tanto en loadAllData() como en saveData()
 function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
-	var table = document.getElementById("tbResults");
+	debugger;
+	var table = document.getElementById("tbBody");
 	var row = table.insertRow(-1);
 	row.id = id;
 	var rowNro = row.insertCell(0);
@@ -423,31 +424,57 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 	}
 }
 
+function tableLength() {
+	debugger;
+
+	return l;
+}
+
+var lc = 0;
 //Muestra todos los registros de la base de datos
 async function loadAllData() {
 	debugger;
-	jsonREGS = await toBackGETAll(epRegAll);
-	jsonDRUGS = await toBackGETAll(epDrugAll);
-	jsonRES = await toBackGETAll(epReserAll);
+	if (jsonDRUGS == 0 || jsonREGS == 0 || jsonRES == 0) {
+		jsonREGS = await toBackGETAll(epRegAll);
+		jsonDRUGS = await toBackGETAll(epDrugAll);
+		jsonRES = await toBackGETAll(epReserAll);
+	}
+
+	let l = parseInt(document.getElementById("tableLength").value, 10);
+	if (l == -1 || l > jsonREGS.length) {
+		l = jsonREGS.length;
+	}
+	if (lc > l) {
+		lc = 0;
+		/*let new_tbody = document.createElement('tbody');
+		innerLoadData(new_tbody);*/
+		let table = document.getElementById('tbBody');
+		table.innerHTML = "";
+		table.lastChild = "";
+		//old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
+	}
+	innerLoadData()
 	debugger;
-	if (jsonREGS.length != 0) {
-		//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
-		var i = 0;
-		while (i < jsonREGS.length) {
-			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[i].drug_id });
-			let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[i].researcher_id });
+	function innerLoadData() {
+		if (jsonREGS.length != 0) {
+			//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
+			while (lc < l) {
+				let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[lc].drug_id });
+				let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[lc].researcher_id });
 
-			let t = new Date(jsonREGS[i].date);
-			t = t.toLocaleString();
+				let t = new Date(jsonREGS[lc].date);
+				t = t.toLocaleString();
 
-			showRowTable(jsonREGS[i].register_id, t, r.name, jsonREGS[i].duration, jsonREGS[i].movement, d.name, jsonREGS[i].treatment, jsonREGS[i].observations);
-			i += 1;
+				showRowTable(jsonREGS[lc].register_id, t, r.name, jsonREGS[lc].duration, jsonREGS[lc].movement, d.name, jsonREGS[lc].treatment, jsonREGS[lc].observations);
+				lc += 1;
+			}
 		}
+		else {
+			document.getElementById("noData").style.display = "block";
+		}
+		document.getElementById("registers").innerHTML = jsonREGS.length;
 	}
-	else {
-		document.getElementById("noData").style.display = "block";
-	}
-	document.getElementById("registers").innerHTML = "Cantidad de registros: " + i;
+
 }
 
 //Guarda un registro
@@ -466,17 +493,18 @@ async function saveData(inResults) {
 	move = parseInt(document.getElementById("fmovement").value, 10);
 	obs = document.getElementById("fobservations").value;
 
-	if (duration == "" || move == "" || date == "" || treat == "" || obs == "" || drug == "" || researcher == "") {
+	if (duration == "" || date == "" || treat == "" || obs == "" || drug == "" || researcher == "") {
 		alert("Algunos campos estan vacios.");
 	}
 	else {
 		date += 'T' + hour;
+		let data = { 'drug_id': drug, 'researcher_id': researcher, 'duration': duration, 'date': date, 'treatment': treat, 'movement': move, 'observations': obs };
 		if (put == false) {
-			response = await toBackPOST(epRegPOST, { 'drug_id': drug, 'researcher_id': researcher, 'duration': duration, 'date': date, 'treatment': treat, 'movement': move, 'observations': obs });
+			response = await toBackPOST(epRegPOST, data);
 		}
 		else {
 			id = parseInt(sessionStorage['id'], 10);
-			response = await toBackPUT(epReg, id, { 'drug_id': drug, 'researcher_id': researcher, 'duration': duration, 'date': date, 'treatment': treat, 'movement': move, 'observations': obs });
+			response = await toBackPUT(epReg, id, data);
 		}
 		jsonREGS = await toBackGETAll(epRegAll);
 		debugger;
@@ -485,6 +513,9 @@ async function saveData(inResults) {
 		cancel('popup');
 		if (inResults == true) {
 			//Al guardar un registro, se mostrará de inmediado, sin necesidad de recargar la página
+			let regs = parseInt(document.getElementById("registers").innerHTML, 10);
+			document.getElementById("registers").innerHTML = (regs + 1).toString();
+
 			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == drug });
 			let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == researcher });
 
@@ -549,16 +580,16 @@ function toResults() {
 }
 
 function saveRes_Drug(opt, inResults) {
-
+	debugger;
 	if (opt == "researcher") {
-		innersaveRes_Drug('resNameNew', 'resCatNew', epReserAll, epReserPOST, "El investigador ya existe, elija otro.", "Investigador guardado con éxito.", 'frmResearcher', 'popupNewRes', 'selectResearchers')
+		innersaveRes_Drug('resNameNew', 'resCatNew', epReser, epReserAll, epReserPOST, "El investigador ya existe, elija otro.", "Investigador guardado con éxito.", 'frmResearcher', 'popupNewRes', 'selectResearchers', 'category', 'researcher_id')
 	}
 	else if (opt == "drug") {
-		innersaveRes_Drug('drugNameNew', 'drugDoseNew', epDrugAll, epDrugPOST, "La droga ya existe, elija otra.", "Droga guardada con éxito.", 'frmDrug', 'popupNewDrug', 'selectDrugs')
+		innersaveRes_Drug('drugNameNew', 'drugDoseNew', epDrug, epDrugAll, epDrugPOST, "La droga ya existe, elija otra.", "Droga guardada con éxito.", 'frmDrug', 'popupNewDrug', 'selectDrugs', 'dosage', 'drug_id')
 	}
 
-	async function innersaveRes_Drug(field1, field2, endpoint, endpointPOST, alertExist, confirm, frmInput, cancelElement, sel) {
-
+	async function innersaveRes_Drug(field1, field2, epPUT, epALL, endpointPOST, alertExist, confirm, frmInput, cancelElement, sel, prop, prop2) {
+		debugger;
 		let val1 = document.getElementById(field1).value;
 		let val2 = document.getElementById(field2).value;
 
@@ -566,104 +597,80 @@ function saveRes_Drug(opt, inResults) {
 			alert("Algunos campos estan vacíos.");
 		}
 		else {
-
-			let dT = await toBackGETAll(endpoint);
+			var dT = await toBackGETAll(epALL);
 			debugger;
 
 			let exist = false;
 			let i = 0;
 			if (dT.length != 0) {
-				if (opt == "drug") {
-					while (i < dT.length) {
-						if (val1 == dT[i].name && val2 == dT[i].dosage) {
-							alert(alertExist)
-							exist = true;
-							break;
-						}
-						i += 1;
+				while (i < dT.length) {
+					if (val1 == dT[i].name && val2 == dT[i][prop]) {
+						alert(alertExist)
+						exist = true;
+						break;
 					}
-				}
-				else if (opt == "researcher") {
-					while (i < dT.length) {
-						if (val1 == dT[i].name && val2 == dT[i].category) {
-							alert(alertExist)
-							exist = true;
-							break;
-						}
-						i += 1;
-					}
+					i += 1;
 				}
 				if (exist == false) {
-					innerFromInnerSave();
+					innerFromInnerSave(dT);
 				}
 			}
 			else {
-				innerFromInnerSave();
+				innerFromInnerSave(dT);
 			}
 		}
 
-		async function innerFromInnerSave() {
-			if (put == false) {
-				if (opt == "drug") {
-					toBackPOST(endpointPOST, { 'name': val1, 'dosage': val2 });
-				showRowDrugTable(jsonDRUGS[jsonDRUGS.length - 1].drug_id, val1, val2);
-
-				}
-				else {
-					toBackPOST(endpointPOST, { 'name': val1, 'category': val2 });
-				showRowDrugTable(jsonREGS[jsonREGS.length - 1].register_id, val1, val2);
-
-				}
-			}
-			else {
+		async function innerFromInnerSave(dT) {
+			debugger;
+			let data = { 'name': val1, [prop]: val2 };
+			if (put == true) {
 				id = parseInt(sessionStorage['id'], 10);
-				if (opt == "drug") {
-					toBackPUT(epDrug, id, { 'name': val1, 'dosage': val2 });
-				}
-				else {
-					toBackPUT(epReser, id, { 'name': val1, 'category': val2 });
-				}
+				toBackPUT(epPUT, id, data);
+				debugger;
 				let row = document.getElementById(id).querySelectorAll('td');
 				row[1].innerHTML = val1;
 				row[2].innerHTML = val2;
 				put = false
+			}
+			else {
+				toBackPOST(endpointPOST, data);
+				showRowDrugTable(dT[dT.length - 1][prop2] + 1, val1, val2);
+				debugger;
 			}
 
 			alert(confirm);
 			clearInputs(frmInput);
 			cancel(cancelElement);
 
-			let select = document.getElementById(sel);
-			let option = document.createElement('option');
-			let value = val1 + ' (' + val2 + ')';
-
-			if (opt == "drug") {
-				if (inResults == true) {
+			if (inResults == true) {
+				if (opt == "drug") {
 					jsonDRUGS = await toBackGETAll(epDrugAll);
 				}
-				option.id = jsonDRUGS[jsonDRUGS.length - 1].drug_id;
-			}
-			else {
-				if (inResults == true) {
+				else {
 					jsonRES = await toBackGETAll(epReserAll);
 				}
-				option.id = jsonRES[jsonRES.length - 1].researcher_id;
 			}
+			else {
+				let select = document.getElementById(sel);
+				let option = document.createElement('option');
+				let value = val1 + ' (' + val2 + ')';
+				option.id = dT[dT.length - 1][prop2];
 
-			option.appendChild(document.createTextNode(value));
-			option.value = value;
+				option.appendChild(document.createTextNode(value));
+				option.value = value;
 
-			select.appendChild(option);
+				select.appendChild(option);
+			}
 		}
 	}
 }
 
 async function loadRes_drug(inTest) {
 	debugger;
-	innerLoadRes_drug('selectResearchers', 'researcher', epReserAll, 'name', 'category')
-	innerLoadRes_drug('selectDrugs', 'drug', epDrugAll, 'name', 'category')
+	innerLoadRes_drug('selectResearchers', 'researcher', epReserAll, 'category', 'researcher_id')
+	innerLoadRes_drug('selectDrugs', 'drug', epDrugAll, 'dosage', 'drug_id')
 
-	async function innerLoadRes_drug(sel, opt, endpoint, v1, v2) {
+	async function innerLoadRes_drug(sel, opt, endpoint, v1, id) {
 		if (inTest == true) {
 			dT = await toBackGETAll(endpoint);
 		}
@@ -695,30 +702,15 @@ async function loadRes_drug(inTest) {
 		}
 		function innerFromInnerLoad() {
 			debugger;
-			if (opt == "researcher") {
+			while (i < dT.length) {
+				let option = document.createElement('option');
+				let value = dT[i].name + ' (' + dT[i][v1] + ')';
+				option.id = dT[i][id];
+				option.appendChild(document.createTextNode(value));
+				option.value = value;
 
-				while (i < dT.length) {
-					let option = document.createElement('option');
-					let value = dT[i][v1] + ' (' + dT[i][v2] + ')';
-					option.id = dT[i].researcher_id;
-					option.appendChild(document.createTextNode(value));
-					option.value = value;
-
-					select.appendChild(option);
-					i += 1;
-				}
-			}
-			else if (opt == "drug") {
-				while (i < dT.length) {
-					let option = document.createElement('option');
-					let value = dT[i].name + ' (' + dT[i].dosage + ')';
-					option.id = dT[i].drug_id;
-					option.appendChild(document.createTextNode(value));
-					option.value = value;
-
-					select.appendChild(option);
-					i += 1;
-				}
+				select.appendChild(option);
+				i += 1;
 			}
 		}
 	}
@@ -764,37 +756,30 @@ function searchReg(id) {
 	return jsonREGS.find(function (jsonREGS) { return jsonREGS.register_id == id });
 }
 
-
-async function loadDrugTable() {
+async function load_DR_Table(opt) {
 	debugger;
-	jsonDRUGS = await toBackGETAll(epDrugAll);
-	if (jsonDRUGS.length != 0) {
-		var i = 0;
-		while (i < jsonDRUGS.length) {
-			showRowDrugTable(jsonDRUGS[i].drug_id, jsonDRUGS[i].name, jsonDRUGS[i].dosage);
-			i += 1;
-		}
+	if (opt == "drug") {
+		dT = jsonDRUGS = await toBackGETAll(epDrugAll);
+		innerLoad(dT, 'drug_id', 'dosage');
 	}
 	else {
-		document.getElementById("noData").style.display = "block";
-	}
-	document.getElementById("registers").innerHTML = "Cantidad de registros: " + i;
-}
+		dT = jsonRES = await toBackGETAll(epReserAll);
+		innerLoad(dT, 'researcher_id', 'category');
 
-async function loadResTable() {
-	debugger;
-	jsonRES = await toBackGETAll(epReserAll);
-	if (jsonRES.length != 0) {
-		var i = 0;
-		while (i < jsonRES.length) {
-			showRowDrugTable(jsonRES[i].researcher_id, jsonRES[i].name, jsonRES[i].category);
-			i += 1;
+	}
+	function innerLoad(dT, v1, v2) {
+		if (dT.length != 0) {
+			var i = 0;
+			while (i < dT.length) {
+				showRowDrugTable(dT[i][v1], dT[i].name, dT[i][v2]);
+				i += 1;
+			}
 		}
+		else {
+			document.getElementById("noData").style.display = "block";
+		}
+		document.getElementById("registers").innerHTML = "Cantidad de registros: " + i;
 	}
-	else {
-		document.getElementById("noData").style.display = "block";
-	}
-	document.getElementById("registers").innerHTML = "Cantidad de registros: " + i;
 }
 
 function showRowDrugTable(r1, r2, r3) {
@@ -805,26 +790,31 @@ function showRowDrugTable(r1, r2, r3) {
 	var row2 = row.insertCell(1);
 	var row3 = row.insertCell(2);
 
-
 	row1.innerHTML = r1;
 	row2.innerHTML = r2;
 	row3.innerHTML = r3;
 }
 
-function editDrug(id) {
+function editReg(id, opt) {
 	if (id == -1 || id == "") {
 		alert("Debe seleccionar una fila de la tabla");
 	}
 	else {
-		//Despliega menu
-		operation('popupNewDrug');
-		loadRes_drug();
-		//Rellena datos
-		register = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == id });
+		if (opt == 'drug') {
+			innerEdit(id, 'popupNewDrug', 'drugNameNew', 'drugDoseNew', jsonDRUGS, 'drug_id', 'dosage')
+		}
+		else {
+			innerEdit(id, 'popupNewRes', 'resNameNew', 'resCatNew', jsonRES, 'researcher_id', 'category')
 
-		document.getElementById("idPopup").innerHTML = "Modificar datos del registro " + id;
-		document.getElementById("drugNameNew").value = register.name;
-		document.getElementById("drugDoseNew").value = register.dosage;
-		put = true;
+		}
+		function innerEdit(id, pup, f1, f2, dT, v1, v2) {
+			operation(pup);
+			register = dT.find(function (dT) { return dT[v1] == id });
+
+			document.getElementById("idPopup").innerHTML = "Modificar datos del registro " + id;
+			document.getElementById(f1).value = register.name;
+			document.getElementById(f2).value = register[v2];
+			put = true;
+		}
 	}
 }

@@ -10,7 +10,7 @@
 	<link rel="icon" href="svg/btnDrugs.svg">
 </head>
 
-<body onload="validateSession(); changeIconTheme(); loadDrugTable()">
+<body onload="validateSession(); changeIconTheme(); load_DR_Table('drug')">
 	<div class="header_container">
 		<header id="header">
 		</header>
@@ -28,11 +28,12 @@
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editDrug(row[1].cells[0].innerHTML)"
+					onclick="editReg(row[1].cells[0].innerHTML, 'drug')"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('drug')" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('drug')" title="Borrar registro"
+					alt="Borrar registro">
 			</div>
 		</div>
 		<br>
@@ -57,11 +58,12 @@
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editDrug(row[1].cells[0].innerHTML)"
+					onclick="editReg(row[1].cells[0].innerHTML, 'drug')"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('drug')" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('drug')" title="Borrar registro"
+					alt="Borrar registro">
 			</div>
 		</div>
 	</div>
@@ -112,7 +114,7 @@
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());
-			if(row[1].cells != undefined){
+			if (row[1].cells != undefined) {
 				sessionStorage['id'] = row[1].cells[0].innerHTML;
 			}
 

@@ -4,13 +4,13 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Resultados</title>
+	<title>Investigadores</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
 	<link rel="icon" href="svg/btnResults.svg">
 </head>
 
-<body onload="validateSession(); changeIconTheme()">
+<body onload="validateSession(); changeIconTheme(); load_DR_Table('researcher')">
 	<div class="header_container">
 		<header id="header">
 		</header>
@@ -29,11 +29,12 @@
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editData(row[1].cells[0].innerHTML)"
+					onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro"
+					alt="Borrar registro">
 			</div>
 		</div>
 		<br>
@@ -48,7 +49,7 @@
 				</tr>
 			</table>
 		</div>
-		<h3 id="noData" style="display: none;"> No hay datos.</h3>
+		<h3 id="noData" style="display: none;">No hay datos.</h3>
 	</div>
 	<div id="float-controls">
 		<div class="controls">
@@ -59,11 +60,12 @@
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editData(row[1].cells[0].innerHTML)"
+					onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro"
+					alt="Borrar registro">
 			</div>
 		</div>
 	</div>
@@ -87,7 +89,8 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar" alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar"
+						alt="Guardar">
 				</div>
 				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
@@ -113,7 +116,7 @@
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());
-			if(row[1].cells != undefined){
+			if (row[1].cells != undefined) {
 				sessionStorage['id'] = row[1].cells[0].innerHTML;
 			}
 

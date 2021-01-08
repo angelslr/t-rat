@@ -33,15 +33,30 @@
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro"
+					alt="Borrar registro">
 			</div>
 		</div>
-		<br>
-		<p id="registers">Cantidad de registros: </p>
+		<div style="display: flex;">
+			<p>Cantidad de registros: </p>
+			<p id="registers" style="margin-left: 10px;">0</p>
+		</div>
 
+
+		<div class="tLength">
+			<label for="">Mostrar</label>
+			<select id="tableLength" onchange="loadAllData()" name="tableLength">
+				<option selected value="10">10</option>
+				<option value="25">25</option>
+				<option value="50">50</option>
+				<option value="-1">All</option>
+			</select>
+			<label for="">registros</label>
+		</div>
+		<br>
 		<div class="table">
 			<table id="tbResults">
-				<tr>
+				<thead>
 					<th title="Número de prueba">Nro</th>
 					<th title="Fecha en la que se realizó la prueba">Fecha</th>
 					<th title="Inv.">Inv.</th>
@@ -50,7 +65,10 @@
 					<th title="Droga">Droga</th>
 					<th title="Tratamiento utilizado">Trat.</th>
 					<th title="Observaciones">Obs.</th>
-				</tr>
+				</thead>
+				<tbody id="tbBody">
+
+				</tbody>
 			</table>
 		</div>
 		<h3 id="noData" style="display: none;"> No hay datos.</h3>
@@ -68,7 +86,8 @@
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro" alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro"
+					alt="Borrar registro">
 			</div>
 		</div>
 	</div>
@@ -84,7 +103,8 @@
 				<input type="date" id="fdate" name="fdate" placeholder="Fecha"><br><br>
 
 				<label for="fduration">Duración:</label>
-				<input type="number" id="fduration" name="fduration" placeholder="Duración de la prueba (en segundos)"><br><br>
+				<input type="number" id="fduration" name="fduration"
+					placeholder="Duración de la prueba (en segundos)"><br><br>
 
 				<label for="fmovement">Movimiento:</label>
 				<input type="number" id="fmovement" name="fmovement" placeholder="Movimiento total del animal"><br><br>
@@ -118,7 +138,8 @@
 				<input type="text" id="ftreatment" name="ftreatment" placeholder="Tratamiento utilizado"><br><br>
 
 				<label for="fobservations">Observaciones:</label>
-				<textarea name="fobservations" id="fobservations" placeholder="Observaciones y/o comentarios de la prueba"></textarea><br><br>
+				<textarea name="fobservations" id="fobservations"
+					placeholder="Observaciones y/o comentarios de la prueba"></textarea><br><br>
 			</div>
 
 			<div class="controls">
@@ -127,18 +148,20 @@
 						alt="Guardar prueba">
 				</div>
 				<div class="button">
-					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputs('frmDataResults')" title="Limpiar campos"
-						alt="Limpiar campos">
+					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputs('frmDataResults')"
+						title="Limpiar campos" alt="Limpiar campos">
 				</div>
 				<div class="button">
 					<a href="researchers.html" target="_blank">
-						<img id="btnBlue" src="svg/btnResearchers.svg" title="Mostrar lista de Investigadores" alt="Mostrar lista de Investigadores">
+						<img id="btnBlue" src="svg/btnResearchers.svg" title="Mostrar lista de Investigadores"
+							alt="Mostrar lista de Investigadores">
 					</a>
 					<br>
 				</div>
 				<div class="button">
 					<a href="drugs.html" target="_blank">
-						<img id="btnBlue" src="svg/btnDrugs.svg" title="Mostrar lista de Drogas" alt="Mostrar lista de Drogas">
+						<img id="btnBlue" src="svg/btnDrugs.svg" title="Mostrar lista de Drogas"
+							alt="Mostrar lista de Drogas">
 					</a>
 					<br>
 				</div>
@@ -181,7 +204,8 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar" alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar"
+						alt="Guardar">
 				</div>
 				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
@@ -236,7 +260,7 @@
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());
-			if(row[1].cells != undefined){
+			if (row[1].cells != undefined) {
 				sessionStorage['id'] = row[1].cells[0].innerHTML;
 			}
 
