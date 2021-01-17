@@ -10,7 +10,7 @@
 	<link rel="icon" href="svg/btnResults.svg">
 </head>
 
-<body onload="validateSession(); changeIconTheme(); loadAllData()">
+<body onload="validateSession(); changeIconTheme(); loadControl()">
 	<div class="header_container">
 		<header id="header">
 		</header>
@@ -41,37 +41,45 @@
 			<p>Cantidad de registros: </p>
 			<p id="registers" style="margin-left: 10px;">0</p>
 		</div>
-
-
-		<div class="tLength">
-			<label for="">Mostrar</label>
-			<select id="tableLength" onchange="loadAllData()" name="tableLength">
-				<option selected value="10">10</option>
-				<option value="25">25</option>
-				<option value="50">50</option>
-				<option value="-1">All</option>
-			</select>
-			<label for="">registros</label>
+		<div class="containerSearchLength">
+			<div class="tLength">
+				<label for="label">Mostrar</label>
+				<select id="tableLength" onchange="clearTable()" name="tableLength">
+					<option selected value="10">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="-1">All</option>
+				</select>
+				<label for="label">registros</label>
+			</div>
+			<div class="searchDiv">
+				<label for="search">Buscar:</label>
+				<input type="text" id="searchInput" onkeyup="search()" title="Búsqueda">
+			</div>
 		</div>
 		<br>
 		<div class="table">
 			<table id="tbResults">
 				<thead>
-					<th title="Número de prueba">Nro</th>
-					<th title="Fecha en la que se realizó la prueba">Fecha</th>
-					<th title="Inv.">Inv.</th>
-					<th title="Duracion total de la prueba">Duración (s)</th>
-					<th title="Movimiento total del animal">Mov.</th>
-					<th title="Droga">Droga</th>
-					<th title="Tratamiento utilizado">Trat.</th>
-					<th title="Observaciones">Obs.</th>
+					<th onclick="sortTable(0, true)" title="Número de prueba">Nro</th>
+					<th onclick="sortTable(1)" title="Fecha en la que se realizó la prueba">Fecha</th>
+					<th onclick="sortTable(2)" title="Inv.">Inv.</th>
+					<th onclick="sortTable(3, true)" title="Duracion total de la prueba">Duración (s)</th>
+					<th onclick="sortTable(4, true)" title="Movimiento total del animal">Mov.</th>
+					<th onclick="sortTable(5)" title="Droga">Droga</th>
+					<th onclick="sortTable(6)" title="Tratamiento utilizado">Trat.</th>
+					<th onclick="sortTable(7)" title="Observaciones">Obs.</th>
 				</thead>
 				<tbody id="tbBody">
 
 				</tbody>
 			</table>
 		</div>
-		<h3 id="noData" style="display: none;"> No hay datos.</h3>
+		<div class="center" onclick="">
+			<div id="pagination">
+			</div>
+		</div>
+		<h3 id="noData" style="display: none;">No hay datos.</h3>
 	</div>
 	<div id="float-controls">
 		<div class="controls">
@@ -248,7 +256,7 @@
 		window.onscroll = function () { scrollFunction() };
 
 		function scrollFunction() {
-			if (document.body.scrollTop > 185 || document.documentElement.scrollTop > 185) {
+			if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
 				document.getElementById("float-controls").style.visibility = "visible";
 			} else {
 				document.getElementById("float-controls").style.visibility = "hidden";
@@ -256,7 +264,7 @@
 		}
 
 		document.querySelector('table').addEventListener('click', function (e) {
-			debugger
+			debugger;
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());
@@ -272,6 +280,14 @@
 				document.getElementById("moreText").innerHTML = d.observations;
 			}
 		});
+
+		/*var input = document.getElementById("searchInput");
+		input.addEventListener('keyup', function(event){
+			if(event.keyCode == 13){
+				event.preventDefault();
+				search();
+			}
+		})*/
 	</script>
 </body>
 

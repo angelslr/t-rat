@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //////////* CONEXION CON BACKEND *//////////
 
 
-var url = "http://localhost:8080/";
+var url = "http://181.93.113.26:8080/";
 
 /*ENDPOINTS*/
 
@@ -381,7 +381,6 @@ function arduinoState() {
 
 //Añade una fila nueva a la tabla, es utilizada tanto en loadAllData() como en saveData()
 function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
-	debugger;
 	var table = document.getElementById("tbBody");
 	var row = table.insertRow(-1);
 	row.id = id;
@@ -423,42 +422,134 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 		rowObs.innerHTML = "-";
 	}
 }
-
-function tableLength() {
+var lastButtonPressed = 'page1';
+async function loadControl(opt, isPage, items, idp) {
 	debugger;
 
-	return l;
+	if (idp != lastButtonPressed) {
+		if (opt == "drug") {
+			if (jsonDRUGS == 0) {
+				jsonDRUGS = await toBackGETAll(epDrugAll);
+			}
+			dT = jsonDRUGS;
+		}
+		else if (opt == 'researcher') {
+			if (jsonRES == 0) {
+				jsonRES = await toBackGETAll(epReserAll);
+			}
+			dT = jsonRES;
+		}
+		else {
+			if (jsonREGS == 0 || jsonRES == 0 || jsonDRUGS == 0) {
+				jsonREGS = await toBackGETAll(epRegAll);
+				jsonRES = await toBackGETAll(epReserAll);
+				jsonDRUGS = await toBackGETAll(epDrugAll);
+			}
+			dT = jsonREGS;
+		}
+
+		let tableLen = parseInt(document.getElementById("tableLength").value, 10);
+		if (tableLen == -1 || tableLen > dT.length) {
+			tableLen = dT.length;
+		}
+		if (lc > tableLen) {
+			lc = 0;
+			subClearT();
+		}
+		if (isPage == 'page') {
+			tableLen = items;
+			subClearT();
+		}
+		if (opt == 'drug') {
+			load_DR_Table('drug', tableLen);
+		}
+		else if (opt == 'researcher') {
+			load_DR_Table('researcher', tableLen);
+		}
+		else {
+			loadAllData(tableLen);
+		}
+		if (isPage != 'page') {
+			pageCalc(tableLen, dT.length, opt)
+		}
+		if (idp != undefined) {
+			lastButtonPressed = idp;
+		}
+	}
+}
+
+function pageCalc(tableLen, rlen, dr) {
+	debugger;
+	var pagination = document.getElementById('pagination');
+	pagination.innerHTML = "";
+	pagination.lastChild = "";
+	pagination.innerHTML += `<a id="ant" href="javascript:void(0)">&laquo;</a>`;
+
+	let pages = 1;
+	while (rlen > tableLen) {
+		rlen -= tableLen;
+		pages += 1;
+	}
+
+	let value = 1;
+	while (value <= pages) {
+		let a = document.createElement('a');
+		a.appendChild(document.createTextNode(value));
+		let idp = '"' + 'page' + value + '"';
+		a.textContent = value;
+		a.href = 'javascript:void(0)';
+		if (dr == undefined) {
+			a.setAttribute("onclick", "loadControl('', 'page'," + tableLen + ',' + idp + ");");
+		}
+		else if (dr == 'drug') {
+			a.setAttribute("onclick", "loadControl('drug', 'page'," + tableLen + ',' + idp + ");");
+		}
+		else if (dr == 'researcher') {
+			a.setAttribute("onclick", "loadControl('researcher', 'page'," + tableLen + ',' + idp + ");");
+		}
+		tableLen += tableLen;
+
+		pagination.appendChild(a);
+		value += 1;
+	}
+	pagination.innerHTML += `<a id="post" href="javascript:void(0)">&raquo;</a>`
+}
+
+function clearTable(opt) {
+	debugger;
+	subClearT();
+	lc = 0;
+	lastButtonPressed = 'page1';
+	if (opt == 'drug') {
+		loadControl('drug');
+	}
+	else if (opt == 'researcher') {
+		loadControl('researcher');
+	}
+	else {
+		loadControl();
+	}
+}
+
+function subClearT() {
+	let table = document.getElementById('tbBody');
+	table.innerHTML = "";
+	table.lastChild = "";
 }
 
 var lc = 0;
 //Muestra todos los registros de la base de datos
-async function loadAllData() {
-	debugger;
-	if (jsonDRUGS == 0 || jsonREGS == 0 || jsonRES == 0) {
-		jsonREGS = await toBackGETAll(epRegAll);
-		jsonDRUGS = await toBackGETAll(epDrugAll);
-		jsonRES = await toBackGETAll(epReserAll);
-	}
+async function loadAllData(tableLen) {
 
-	let l = parseInt(document.getElementById("tableLength").value, 10);
-	if (l == -1 || l > jsonREGS.length) {
-		l = jsonREGS.length;
-	}
-	if (lc > l) {
-		lc = 0;
-		/*let new_tbody = document.createElement('tbody');
-		innerLoadData(new_tbody);*/
-		let table = document.getElementById('tbBody');
-		table.innerHTML = "";
-		table.lastChild = "";
-		//old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
-	}
 	innerLoadData()
-	debugger;
+
 	function innerLoadData() {
 		if (jsonREGS.length != 0) {
 			//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
-			while (lc < l) {
+			while (lc < tableLen) {
+				if (jsonREGS[lc] == undefined) {
+					break;
+				}
 				let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[lc].drug_id });
 				let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[lc].researcher_id });
 
@@ -474,7 +565,6 @@ async function loadAllData() {
 		}
 		document.getElementById("registers").innerHTML = jsonREGS.length;
 	}
-
 }
 
 //Guarda un registro
@@ -569,8 +659,8 @@ function editData(id) {
 		document.getElementById("fdate").value = strSplit[0];
 		document.getElementById("ftreatment").value = register.treatment;
 		document.getElementById("fobservations").value = register.observations;
-		document.getElementById("selectDrugs").options[(register.drug_id).toString()].selected = true;
-		document.getElementById("selectResearchers").options[(register.researcher_id).toString()].selected = true;
+		document.getElementById("selectDrugs").options.namedItem((register.drug_id).toString()).selected = true;
+		document.getElementById("selectResearchers").options.namedItem((register.researcher_id).toString()).selected = true;
 		put = true;
 	}
 }
@@ -671,6 +761,7 @@ async function loadRes_drug(inTest) {
 	innerLoadRes_drug('selectDrugs', 'drug', epDrugAll, 'dosage', 'drug_id')
 
 	async function innerLoadRes_drug(sel, opt, endpoint, v1, id) {
+		debugger;
 		if (inTest == true) {
 			dT = await toBackGETAll(endpoint);
 		}
@@ -745,7 +836,7 @@ async function deleteReg(opt) {
 				alert('Registro ' + id + ' eliminado.');
 			}
 			else {
-				alert('Error.')
+				alert('Error.');
 			}
 		}
 	}
@@ -756,34 +847,34 @@ function searchReg(id) {
 	return jsonREGS.find(function (jsonREGS) { return jsonREGS.register_id == id });
 }
 
-async function load_DR_Table(opt) {
+async function load_DR_Table(opt, tableLen) {
 	debugger;
 	if (opt == "drug") {
-		dT = jsonDRUGS = await toBackGETAll(epDrugAll);
 		innerLoad(dT, 'drug_id', 'dosage');
 	}
 	else {
-		dT = jsonRES = await toBackGETAll(epReserAll);
 		innerLoad(dT, 'researcher_id', 'category');
-
 	}
 	function innerLoad(dT, v1, v2) {
+		debugger;
 		if (dT.length != 0) {
-			var i = 0;
-			while (i < dT.length) {
-				showRowDrugTable(dT[i][v1], dT[i].name, dT[i][v2]);
-				i += 1;
+			while (lc < tableLen) {
+				if (dT[lc] == undefined) {
+					break;
+				}
+				showRowDrugTable(dT[lc][v1], dT[lc].name, dT[lc][v2]);
+				lc += 1;
 			}
 		}
 		else {
 			document.getElementById("noData").style.display = "block";
 		}
-		document.getElementById("registers").innerHTML = "Cantidad de registros: " + i;
+		document.getElementById("registers").innerHTML = dT.length;
 	}
 }
 
 function showRowDrugTable(r1, r2, r3) {
-	var table = document.getElementById("tbResults");
+	var table = document.getElementById("tbBody");
 	var row = table.insertRow(-1);
 	row.id = r1;
 	var row1 = row.insertCell(0);
@@ -815,6 +906,104 @@ function editReg(id, opt) {
 			document.getElementById(f1).value = register.name;
 			document.getElementById(f2).value = register[v2];
 			put = true;
+		}
+	}
+}
+
+function search() {
+	debugger;
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("searchInput");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("tbResults");
+	tr = table.getElementsByTagName("tr");
+	for (i = 0; i < tr.length; i++) {
+		for (j = 0; j < 7; j++) {
+			td = tr[i].getElementsByTagName("td")[j];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+					break;
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+}
+
+function sortTable(n, isNumber) {
+	debugger;
+	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+	table = document.getElementById("tbResults");
+	switching = true;
+	//Set the sorting direction to ascending:
+	dir = "asc";
+	/*Make a loop that will continue until
+	no switching has been done:*/
+	while (switching) {
+		//start by saying: no switching is done:
+		switching = false;
+		rows = table.rows;
+		/*Loop through all table rows (except the
+		first, which contains table headers):*/
+		for (i = 1; i < (rows.length - 1); i++) {
+			//start by saying there should be no switching:
+			shouldSwitch = false;
+			/*Get the two elements you want to compare,
+			one from current row and one from the next:*/
+			x = rows[i].getElementsByTagName("TD")[n];
+			y = rows[i + 1].getElementsByTagName("TD")[n];
+			/*check if the two rows should switch place,
+			based on the direction, asc or desc:*/
+			if (dir == "asc") {
+				if (isNumber) {
+					if (parseInt(x.innerHTML, 10) > parseInt(y.innerHTML, 10)) {
+						//if so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+				else {
+					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						//if so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			else if (dir == "desc") {
+				if (isNumber) {
+					if (parseInt(x.innerHTML, 10) < parseInt(y.innerHTML, 10)) {
+						//if so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+				else {
+					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+						//if so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+		}
+		if (shouldSwitch) {
+			/*If a switch has been marked, make the switch
+			and mark that a switch has been done:*/
+			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			switching = true;
+			//Each time a switch is done, increase this count by 1:
+			switchcount++;
+		} else {
+			/*If no switching has been done AND the direction is "asc",
+			set the direction to "desc" and run the while loop again.*/
+			if (switchcount == 0 && dir == "asc") {
+				dir = "desc";
+				switching = true;
+			}
 		}
 	}
 }

@@ -10,7 +10,7 @@
 	<link rel="icon" href="svg/btnResults.svg">
 </head>
 
-<body onload="validateSession(); changeIconTheme(); load_DR_Table('researcher')">
+<body onload="validateSession(); changeIconTheme(); loadControl('researcher')">
 	<div class="header_container">
 		<header id="header">
 		</header>
@@ -23,13 +23,11 @@
 		<br>
 		<div class="controls">
 			<div class="button">
-				<img id="btnGreen" src="svg/btnNew.svg"
-					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Añadir un registro'; clearInputs('frmDataResults');loadRes_drug();getTime()"
-					title="Nuevo registro" alt="Nuevo registro">
+				<img id="btnGreen" onclick="operation('popupNewRes')" src="svg/btnNewResearcher.svg"
+					title="Añadir nuevo investigador" alt="Añadir nuevo investigador">
 			</div>
 			<div class="button">
-				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
+				<img id="btnBlue" src="svg/btnEdit.svg" onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
@@ -37,30 +35,53 @@
 					alt="Borrar registro">
 			</div>
 		</div>
+		<div style="display: flex;">
+			<p>Cantidad de registros: </p>
+			<p id="registers" style="margin-left: 10px;">0</p>
+		</div>
+		<div class="containerSearchLength">
+			<div class="tLength">
+				<label for="label">Mostrar</label>
+				<select id="tableLength" onchange="clearTable('researcher')" name="tableLength">
+					<option selected value="10">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="-1">All</option>
+				</select>
+				<label for="label">registros</label>
+			</div>
+			<div class="searchDiv">
+				<label for="search">Buscar:</label>
+				<input type="text" id="searchInput" onkeyup="search()" title="Búsqueda">
+			</div>
+		</div>
 		<br>
-		<p id="registers">Cantidad de registros: </p>
-
 		<div class="table">
 			<table id="tbResults">
-				<tr>
-					<th title="Número de registro">Nro</th>
-					<th title="Identificación del investigador">Investigador</th>
-					<th title="Categoría del investigador">Categoría</th>
-				</tr>
+				<thead>
+					<th onclick="sortTable(0, true)" title="Número de registro">Nro</th>
+					<th onclick="sortTable(1)" title="Identificación del investigador">Investigador</th>
+					<th onclick="sortTable(2)" title="Categoría del investigador">Categoría</th>
+				</thead>
+				<tbody id="tbBody">
+
+				</tbody>
 			</table>
+		</div>
+		<div class="center" onclick="">
+			<div id="pagination">
+			</div>
 		</div>
 		<h3 id="noData" style="display: none;">No hay datos.</h3>
 	</div>
 	<div id="float-controls">
 		<div class="controls">
 			<div class="button">
-				<img id="btnGreen" src="svg/btnNew.svg"
-					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Añadir un registro'; clearInputs('frmDataResults');loadRes_drug()"
-					title="Nuevo registro" alt="Nuevo registro">
+				<img id="btnGreen" onclick="operation('popupNewRes')" src="svg/btnNewResearcher.svg"
+				title="Añadir nuevo investigador" alt="Añadir nuevo investigador">
 			</div>
 			<div class="button">
-				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
+				<img id="btnBlue" src="svg/btnEdit.svg" onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
@@ -104,7 +125,7 @@
 		window.onscroll = function () { scrollFunction() };
 
 		function scrollFunction() {
-			if (document.body.scrollTop > 185 || document.documentElement.scrollTop > 185) {
+			if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
 				document.getElementById("float-controls").style.visibility = "visible";
 			} else {
 				document.getElementById("float-controls").style.visibility = "hidden";
