@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //////////* CONEXION CON BACKEND *//////////
 
 
-var url = "http://181.93.113.26:8080/";
+var url = "http://localhost:8080/";
 
 /*ENDPOINTS*/
 
