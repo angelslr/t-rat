@@ -7,30 +7,119 @@ sessionStorage['id'] = 0;
 
 //Usadas en saveData, loadAllData y showRowTable
 //var duration = 0, move = 0, date = 0, treat = 0, obs = 0, drug = 0, researcher = 0;
-
+//localStorage["l_username"] = 'angelslr';
 //Inserta el header en cada documento HTML
-document.addEventListener("DOMContentLoaded", function (event) {
-	document.getElementById("header").innerHTML = `<a id="logoLink" href="index.html"><img src="svg/TRatCircle.svg" title="T-Rat" alt="T-Rat"></a>
-	<div class="toggle-container">
-
-		<input type="checkbox" id="switch" onclick="changeTheme()"/><label for="switch"></label>
+document.addEventListener("DOMContentLoaded", function () {
+	var header = document.getElementById("header");
+	header.innerHTML = `<a id="logoLink" href="index.html"><img src="svg/TRatCircle.svg" title="T-Rat" alt="T-Rat"></a>`
+	if (localStorage["l_username"] !== undefined) {
+		header.innerHTML += `<ul id="option_links">
+		<a class="function_nav" href="results.html" target="_new">
+			<svg width="3.994mm" height="3.039mm" version="1.1" viewBox="0 0 6.4384 4.9"
+				xmlns="http://www.w3.org/2000/svg">
+				<g fill="#26a17a" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7">
+					<path d="m0.3502 0.35h5.7382" />
+					<path d="m5.8562 1.75h-5.2751" />
+					<path d="m0.4742 3.15h5.4901" />
+					<path d="m6.0882 4.55h-5.7382" />
+				</g>
+			</svg>
+			Resultados
+		</a>
+		<a href="researchers.html" target="_new">
+			<svg class="function_nav_icon" width="5.0047mm" height="5.0047mm" version="1.1" viewBox="0 0 5.0047 5.0047"
+				xmlns="http://www.w3.org/2000/svg">
+				<ellipse cx="2.5023" cy="2.5023" rx="2.37" ry="2.37" fill="none" stroke="#000003" stroke-linecap="round"
+					stroke-width=".26458" />
+				<g transform="translate(.034223 .0056297)" stroke="#000" stroke-linecap="round" stroke-width=".26988">
+					<g transform="translate(-2.6671 -1.8779)">
+						<g fill="none">
+							<circle cx="4.1066" cy="4.039" r=".54976" />
+							<circle cx="6.1638" cy="4.039" r=".54976" />
+						</g>
+						<path d="m4.6996 4.016h0.87127" fill="#f287ff" />
+					</g>
+					<g transform="translate(-2.5264 -1.9624)" fill="none">
+						<path d="m3.3256 4.1768h-0.66865" />
+						<path d="m7.3321 4.1768h-0.66865" />
+					</g>
+				</g>
+			</svg>
+			Investigadores
+		</a>
+		<a href="drugs.html" target="_new">
+			<svg class="function_nav_icon" width="4.9643mm" height="4.9644mm" version="1.1" viewBox="0 0 4.9643 4.9644"
+				xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="m4.5059 0.45841c0.43626 0.43628 0.43626 1.1387 0 1.575l-2.4725 2.4726c-0.43626 0.43628-1.1387 0.43628-1.575 0-0.43626-0.43628-0.43626-1.1387-7e-8 -1.575l2.4725-2.4726c0.43626-0.43628 1.1387-0.43628 1.575 7e-8z"
+					fill="none" stroke="#000" stroke-width=".26458" />
+				<path d="m4.0933 0.92201 0.15322 0.15322c0.16406 0.16406 0.16406 0.42821 0 0.59227l-0.87186 0.87186"
+					fill="none" stroke="#000" stroke-linecap="round" stroke-width=".26458" />
+			</svg>
+			Drogas
+		</a>
+		<a href="statistics.html" target="_new">
+		<svg class="function_nav_icon" width="5.006mm" height="5.0083mm" version="1.1" viewBox="0 0 5.006 5.0083" xmlns="http://www.w3.org/2000/svg">
+		<path d="m0.13229 0.13229v4.7437h4.7415" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458"/>
+		<path d="m0.78499 4.0052 0.70036-1.2131 0.36541 0.63291 0.73574-1.2743 0.61621 0.61621 1.0183-1.7638" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458"/>
+	   </svg>
+			Estadísticas
+		</a>
+		<a onclick="operation('popupAbout')">
+			<svg class="function_nav_icon" width="4.6302mm" height="4.6302mm" version="1.1" viewBox="0 0 4.6302 4.6302"
+				xmlns="http://www.w3.org/2000/svg">
+				<g transform="matrix(.43656 0 0 .43656 -15.568 -57.45)" fill="none" stroke="#000" stroke-width=".60606">
+					<circle cx="40.963" cy="136.9" r="5" fill="none" stroke="#000" stroke-width=".60606" />
+				</g>
+				<g transform="translate(.056603 .050236)">
+					<path
+						d="m2.2141 3.2582v0.034392m-0.45605-1.907c0.33113-0.22846 0.87401-0.20432 0.98056 0.15268 0.12354 0.41393-0.30534 0.57336-0.47704 0.8657-0.063784 0.1086-0.047475 0.23228-0.047475 0.41805"
+						fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+						stroke-width=".26458" />
+				</g>
+			</svg>
+			Acerca de
+		</a>
+		<div id="popupAbout" class="modal">
+		<form id="frmDataResults" class="modal-content animate">
+			<div class="imgcontainer">
+				<span onclick="cancel('popupAbout')" class="close" title="Cerrar">&times;</span>
+			</div>
+			<div class="usercontainer">
+				<h3>Acerca de T-Rat</h3>
+				<hr>
+				<p style="font-size: 12pt;">Versión 3.3 (Testing)</p>
+			</div>
+		</form>
 	</div>
-	<nav>
+	</ul>`
+	}
+	let path = window.location.pathname;
+	path = path.split("/").pop();
+	console.log(path);
+	if (path == 'statistics.html') {
+		header.innerHTML += `<div class="toggle-container">
+		<input type="checkbox" id="switch" onclick="changeTheme(true)"><label for="switch"></label>
+	</div>`;
+	}
+	else {
+		header.innerHTML += `<div class="toggle-container">
+		<input type="checkbox" id="switch" onclick="changeTheme()"><label for="switch"></label>
+	</div>`;
+	}
+	header.innerHTML += `<nav>
 		<ul id="nav_links">
-			<li><a href="javascript:void(0)">Texto1</a></li><li><a href="javascript:void(0)">Texto2</a></li>
 		</ul>
 	</nav>`;
 
 	if (localStorage["l_username"] == null) {
-		document.getElementById("header").innerHTML += `<a class="cta"><button type="button" onclick="operation('id01')">Ingresar</button></a>
+		header.innerHTML += `<a class="cta"><button type="button" onclick="operation('id01')">Ingresar</button></a>
 		<a class="cta"><button type="button" onclick="operation('id02')">Registrarse</button></a>`
 	}
 	else {
 		document.getElementById("nav_links").innerHTML += `<li><a id="user" href="javascript:void(0)"></a>
 		<ul class="submenu">
-			<li><a href="javascript:void(0)">Texto1</a></li>
-			<li><a href="javascript:void(0)">Texto2</a></li>
-			<li><a onclick="logout()" href="javascript:void(0)">Salir</a></li>
+			<li><a href="javascript:void(0)">Texto1</a></li><li><a href="javascript:void(0)">Texto2</a></li><li><a onclick="logout()" href="javascript:void(0)">Salir</a></li>
 		</ul>
 	</li>`;
 		document.getElementById("user").innerHTML = localStorage["l_username"];
@@ -221,7 +310,8 @@ function changeIconTheme() {
 }
 
 //Cambia el tema
-function changeTheme() {
+function changeTheme(statistics) {
+	debugger;
 	var checkbox = document.getElementById('switch');
 	if (checkbox.checked == true) {
 		document.documentElement.setAttribute('data-theme', 'dark');
@@ -231,6 +321,48 @@ function changeTheme() {
 		document.documentElement.setAttribute('data-theme', 'light');
 		localStorage.setItem('data-theme', 'light');
 	}
+	if (statistics) {
+		updateColorChart();
+	}
+}
+
+//Verifica el tema actual y cambia el color de los textos y grillas de los charts
+function updateColorChart() {
+	let colorFont;
+	let colorGrid;
+	if (localStorage.getItem('data-theme') == "dark") {
+		colorFont = "rgba(200, 200, 200)";
+		colorGrid = "#686868";
+	}
+	else {
+		colorFont = "rgba(100, 100, 100)";
+		colorGrid = "#d2d2d2";
+	}
+	Chart.defaults.global.defaultFontColor = colorFont;
+	Chart.helpers.each(Chart.instances, function (instance) {
+		debugger;
+		instance.options = {
+			scales: {
+				yAxes: [{
+					gridLines: {
+						color: colorGrid,
+						zeroLineColor: colorGrid,
+					},
+					ticks: {
+						min: 0
+					}
+				}],
+				xAxes: [{
+					gridLines: {
+						color: colorGrid,
+						zeroLineColor: colorGrid,
+					},
+				}]
+			}
+		};
+		instance.update();
+		//instance.chart.update();
+	});
 }
 
 //Cronómetro
@@ -540,31 +672,26 @@ function subClearT() {
 var lc = 0;
 //Muestra todos los registros de la base de datos
 async function loadAllData(tableLen) {
-
-	innerLoadData()
-
-	function innerLoadData() {
-		if (jsonREGS.length != 0) {
-			//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
-			while (lc < tableLen) {
-				if (jsonREGS[lc] == undefined) {
-					break;
-				}
-				let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[lc].drug_id });
-				let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[lc].researcher_id });
-
-				let t = new Date(jsonREGS[lc].date);
-				t = t.toLocaleString();
-
-				showRowTable(jsonREGS[lc].register_id, t, r.name, jsonREGS[lc].duration, jsonREGS[lc].movement, d.name, jsonREGS[lc].treatment, jsonREGS[lc].observations);
-				lc += 1;
+	if (jsonREGS.length != 0) {
+		//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
+		while (lc < tableLen) {
+			if (jsonREGS[lc] == undefined) {
+				break;
 			}
+			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[lc].drug_id });
+			let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[lc].researcher_id });
+
+			let t = new Date(jsonREGS[lc].date);
+			t = t.toLocaleString();
+
+			showRowTable(jsonREGS[lc].register_id, t, r.name, jsonREGS[lc].duration, jsonREGS[lc].movement, d.name, jsonREGS[lc].treatment, jsonREGS[lc].observations);
+			lc += 1;
 		}
-		else {
-			document.getElementById("noData").style.display = "block";
-		}
-		document.getElementById("registers").innerHTML = jsonREGS.length;
 	}
+	else {
+		document.getElementById("noData").style.display = "block";
+	}
+	document.getElementById("registers").innerHTML = jsonREGS.length;
 }
 
 //Guarda un registro
@@ -724,7 +851,9 @@ function saveRes_Drug(opt, inResults) {
 			}
 			else {
 				toBackPOST(endpointPOST, data);
-				showRowDrugTable(dT[dT.length - 1][prop2] + 1, val1, val2);
+				if (inResults) {
+					showRowDrugTable(dT[dT.length - 1][prop2] + 1, val1, val2);
+				}
 				debugger;
 			}
 
@@ -917,20 +1046,42 @@ function search() {
 	filter = input.value.toUpperCase();
 	table = document.getElementById("tbResults");
 	tr = table.getElementsByTagName("tr");
-	for (i = 0; i < tr.length; i++) {
-		for (j = 0; j < 7; j++) {
+	searchBy = parseInt(document.getElementById("searchBy").value, 10);
+
+
+	//i = filas de la tabla, j = columnas
+	if (searchBy == -1) {
+		for (i = 0; i < tr.length; i++) {
+			for (j = 0; j < 7; j++) {
+				td = tr[i].getElementsByTagName("td")[j];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+						break;
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+	}
+	else {
+		j = searchBy;
+		for (i = 0; i < tr.length; i++) {
 			td = tr[i].getElementsByTagName("td")[j];
 			if (td) {
 				txtValue = td.textContent || td.innerText;
 				if (txtValue.toUpperCase().indexOf(filter) > -1) {
 					tr[i].style.display = "";
-					break;
 				} else {
 					tr[i].style.display = "none";
 				}
 			}
+
 		}
 	}
+
 }
 
 function sortTable(n, isNumber) {
@@ -1005,5 +1156,92 @@ function sortTable(n, isNumber) {
 				switching = true;
 			}
 		}
+	}
+}
+
+async function dataChartRegs() {
+	await updateJsonREGS();
+	var c = 0, d = 0;
+	for (i = 0; i < jsonREGS.length; i++) {
+		if (jsonREGS[i].treatment == 'Control') {
+			c += 1;
+		}
+		else if (jsonREGS[i].treatment == 'Droga') {
+			d += 1;
+		}
+	}
+
+	data = [c, d];
+	return data;
+}
+
+async function dataChartDrugs() {
+	debugger;
+	await updateJsonREGS();
+	await updateJsonDRUGS();
+	let allIDs = [];
+	let counter = []
+	for (i = 0; i < jsonREGS.length; i++) {
+		allIDs.push(jsonREGS[i].drug_id);
+	}
+
+	simplifiedArray = allIDs.filter(function (item, pos) {
+		return allIDs.indexOf(item) == pos;
+	})
+
+	simplifiedArray.forEach(el => counter.push(allIDs.filter(x => x == el).length))
+
+	for (i = 0; i < simplifiedArray.length; i++) {
+		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == simplifiedArray[i] });
+		simplifiedArray[i] = d.name;
+	}
+
+	return [
+		simplifiedArray,
+		counter
+	];
+}
+
+async function dataChartIDMov(field) {
+	debugger;
+	await updateJsonREGS();
+	let ids = [];
+	let movs = [];
+
+	for (i = 0; i < jsonREGS.length; i++) {
+		ids.push(jsonREGS[i].register_id);
+	}
+	if (field == 'mov') {
+		for (i = 0; i < jsonREGS.length; i++) {
+			movs.push(jsonREGS[i].movement)
+		}
+	}
+	else {
+		for (i = 0; i < jsonREGS.length; i++) {
+			movs.push(jsonREGS[i].duration)
+		}
+	}
+
+	return [
+		ids,
+		movs
+	];
+}
+
+
+
+async function updateJsonREGS() {
+	if (jsonREGS == 0) {
+		jsonREGS = await toBackGETAll(epRegAll);
+	}
+}
+async function updateJsonDRUGS() {
+	if (jsonDRUGS == 0) {
+		jsonDRUGS = await toBackGETAll(epDrugAll);
+	}
+}
+async function updateJsonRES() {
+	if (jsonRES == 0) {
+		jsonRES = await toBackGETAll(epReserAll);
 	}
 }

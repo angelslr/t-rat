@@ -17,23 +17,66 @@
 	</div>
 
 	<div class="container">
+		<div class="imgcontainer">
+			<img style="width: 150px; height: 150px;" src="svg/TRatCircle.svg" alt="Avatar" class="avatar">
+		</div>
 		<h1>T-rat</h1>
-		<hr id="bar">
-		<h3 id="arduinoStatus">Iniciando...</h3>
+		<p style="text-align: center;">Sistema que facilita la obtención de datos en experimentos de Open Field Test</p>
+		<hr>
+		<h3 id="arduinoStatus">Iniciando Arduino...</h3>
 		<br>
-		<div class="controls">
-			<div class="button">
-				<a href="wait.html">
-					<img id="btnGreen" src="svg/btnStart.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
-				</a>
+
+		<div class="operation_container">
+			<div class="row_operation">
+				<div class="button_container">
+					<h3>Iniciar prueba</h3>
+					<p>Inicializa el Arduino para iniciar una prueba</p>
+					<div class="controls">
+						<a href="wait.html">
+							<img id="btnGreen" src="svg/idxbtnStart.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
+						</a>
+					</div>
+				</div>
+				<div class="button_container">
+					<h3>Ver Resultados</h3>
+					<p>Listar todas las pruebas realizadas</p>
+					<div class="controls">
+						<a href="results.html" target="_new">
+							<img id="btnBlue" src="svg/idxbtnResults.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
+						</a>
+					</div>
+				</div>
 			</div>
-			<div class="button">
-				<img id="btnOrange" src="svg/btnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
+			<div class="row_operation">
+				<div class="button_container">
+					<h3>Ver Investigadores</h3>
+					<p>Listar todos los investigadores cargados</p>
+					<div class="controls">
+						<a href="researchers.html" target="_new">
+							<img id="btnBlue" src="svg/idxbtnResearchers.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
+						</a>
+					</div>
+				</div>
+				<div class="button_container">
+					<h3>Ver Drogas</h3>
+					<p>Listar todas las drogas cargadas</p>
+					<div class="controls">
+						<a href="researchers.html" target="_new">
+							<img id="btnBlue" src="svg/idxbtnDrugs.svg" title="Iniciar Prueba" alt="Iniciar Prueba">
+						</a>
+					</div>
+				</div>
 			</div>
-			<div class="button">
-				<a href="results.html" target="_new">
-					<img id="btnBlue" src="svg/btnResults.svg" title="Mostrar Resultados" alt="Mostrar Resultados">
-				</a>
+			<div class="row_operation">
+				<div class="button_container">
+					<h3>Reiniciar sistema</h3>
+					<p>Reinicia el Arduino y recarga la página</p>
+					<div class="controls">
+						<div class="button">
+							<img onclick="window.location.reload();" id="btnOrange" src="svg/idxbtnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29.269mm" height="10.164mm" version="1.1" viewBox="0 0 29.269 10.164" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <rect width="29.269" height="10.164" ry="5.0818" fill="#26a1d9"/>
+ <g transform="translate(-.85245 -.0049613)">
+  <text x="16.973923" y="6.3487353" fill="#26b57a" font-family="Arial" font-size="1.4817px" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="11.9" stroke-width="1.9844" text-align="center" text-anchor="middle" style="line-height:1.25" xml:space="preserve"><tspan x="16.973923" y="6.3487353" fill="#ffffff" font-family="Arial" font-size="3.5278px" font-weight="bold" stroke-width="1.9844">DROGAS</tspan></text>
+  <g transform="translate(.91129 -9.2949)">
+   <rect transform="rotate(45)" x="12.561" y="3.5903" width="2.3464" height="6.03" ry="1.1732" fill="#feffff" fill-rule="evenodd"/>
+   <path d="m4.0335 13.375 2.0251 2.0251" fill="none" stroke="#26a1d9" stroke-linecap="round" stroke-width=".26458"/>
+   <path d="m6.6863 12.839 0.15322 0.15322c0.16406 0.16406 0.16406 0.42821 0 0.59227l-0.87186 0.87186" fill="none" stroke="#26a1d9" stroke-linecap="round" stroke-width=".26458"/>
+  </g>
+ </g>
+</svg>

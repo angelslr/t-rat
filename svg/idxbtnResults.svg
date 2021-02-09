@@ -1,0 +1,12 @@
+<svg width="32.757mm" height="10.164mm" version="1.1" viewBox="0 0 32.757 10.164" xmlns="http://www.w3.org/2000/svg">
+	<rect width="32.757" height="10.164" ry="5.0683" fill="#26a1d9"/>
+	<g transform="translate(1.5682 -.0049614)" stroke-linecap="round" stroke-linejoin="round">
+		<text x="17.447206" y="6.3487353" fill="#26b57a" font-family="Arial" font-size="1.4817px" stroke-miterlimit="11.9" stroke-width="1.9844" text-align="center" text-anchor="middle" style="line-height:1.25" xml:space="preserve"><tspan x="17.447206" y="6.3487353" fill="#ffffff" font-family="Arial" font-size="3.5278px" font-weight="bold" stroke-width="1.9844">RESULTADOS</tspan></text>
+		<g transform="matrix(.66819 0 0 .66819 -.39509 1.5366)" fill="#26a17a" stroke="#feffff" stroke-width=".7">
+			<path d="m1.6227 3.2134h5.7382"/>
+			<path d="m7.1287 4.6134h-5.2751"/>
+			<path d="m1.7467 6.0134h5.4901"/>
+			<path d="m7.3607 7.4134h-5.7382"/>
+		</g>
+	</g>
+</svg>

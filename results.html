@@ -18,9 +18,7 @@
 
 	<div class="container">
 		<h1>Resultados</h1>
-		<hr id="bar">
-
-		<br>
+		<hr>
 		<div class="controls">
 			<div class="button">
 				<img id="btnGreen" src="svg/btnNew.svg"
@@ -48,12 +46,23 @@
 					<option selected value="10">10</option>
 					<option value="25">25</option>
 					<option value="50">50</option>
-					<option value="-1">All</option>
+					<option value="-1">Todos</option>
 				</select>
 				<label for="label">registros</label>
 			</div>
 			<div class="searchDiv">
 				<label for="search">Buscar:</label>
+				<select id="searchBy" onchange="clearTable()" name="searchBy">
+					<option value="0">ID</option>
+					<option value="1">Fecha</option>
+					<option value="2">Inv.</option>
+					<option value="3">Dur.</option>
+					<option value="4">Mov.</option>
+					<option value="5">Droga</option>
+					<option value="6">Trat.</option>
+					<option value="7">Obs.</option>
+					<option selected value="-1">Todos</option>
+				</select>
 				<input type="text" id="searchInput" onkeyup="search()" title="Búsqueda">
 			</div>
 		</div>
@@ -187,7 +196,7 @@
 			</div>
 			<div class="usercontainer">
 				<h3 id="titleSeeMore">Ver más:</h3>
-				<hr id="bar">
+				<hr>
 				<p id="moreText" style="font-size: 12pt;">Ver mas</p>
 			</div>
 		</form>
@@ -289,6 +298,7 @@
 			}
 		})*/
 	</script>
+	
 </body>
 
 </html>

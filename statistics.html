@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Estadísticas</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css">
+	<script type="text/javascript" src="js/functions.js"></script>
+	<link rel="icon" href="svg/btnStatistics.svg">
+</head>
+
+<body onload="validateSession(); changeIconTheme(); updateColorChart()">
+	<div class="header_container">
+		<header id="header">
+		</header>
+	</div>
+
+	<div class="containerStats">
+		<h1>Estadísticas</h1>
+		<hr class="bar">
+		<div class="operation_container">
+			<div class="row_operation">
+				<div class="statistic_chart">
+					<canvas id="chartRegByCD" width="400" height="400"></canvas>
+				</div>
+				<div class="statistic_chart">
+					<canvas id="chartDrugs" width="400" height="400"></canvas>
+				</div>
+			</div>
+			<div class="row_operation">
+				<div class="statistic_chart">
+					<canvas id="chartIDMov" width="400" height="400"></canvas>
+				</div>
+				<div class="statistic_chart">
+					<canvas id="chartIDDur" width="400" height="400"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/chart.min.js"></script>
+
+	<script type="text/javascript" src="js/chartContainer.js" defer></script>
+
+</body>
+
+</html>

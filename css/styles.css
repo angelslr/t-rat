@@ -34,11 +34,18 @@ html[data-theme='dark']{
 	--color-table-header: #5d2dcf;
 }
 
-*{
+/**{
 	transition: all 0.3s ease 0s;
-}
+	transition-property: top, bottom, z-index;
+	transition-duration: 0.3s;
+	transition-delay: 0.3s, 0.3s, .5s;
+	-webkit-transition-property: top, bottom, z-index;
+	-webkit-transition-duration: 0.3s;
+	-webkit-transition-delay: 0s, 0s, .3s;
+}*/
 
 body{
+	transition: all 0.2s ease 0s;
 	background-color: var(--bg);
 	margin: 0;
 	
@@ -49,16 +56,19 @@ li,a,button{
 	font-size: 16px;
 	color: var(--color-text);
 	text-decoration: none;
+	transition: color 0.2s ease 0s;
 }
 
 .header_container{
 	position: fixed;
 	z-index: 999;
 	top: 0;
-	width: 100%
+	width: 100%;
 }
 
 header{
+	transition: all 0.2s ease 0s;
+
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -67,7 +77,7 @@ header{
 	background-color: var(--bg-header);
 }
 
-#logoLink{
+#logoLink, #option_links{
 	cursor: pointer;
 	margin-right: auto;
 }
@@ -83,13 +93,25 @@ header{
 	bottom: -0.1em;
 }
 
-#nav_links li a{
-	transition: all 0.3 ease 0s;
+#option_links a{
+	display: inline-block;
+	padding: 0px 20px;
+	position: relative;
+	bottom: -0.1em;
+}
+
+#option_links svg path, ellipse, circle{
+	stroke: currentColor;
+}
+
+#option_links a:hover{
+	color: var(--color-button-hover);
 }
 
 #nav_links li a:hover{
 	color: var(--color-button-hover);
 }
+li {list-style-type: none;}
 
 #seeMore:hover{
 	color: var(--color-button-hover);
@@ -164,15 +186,35 @@ h3{
 	color: var(--color-text);
 }
 
+hr{
+	display: block;
+	max-width: 50%;
+	/*margin: 40px auto;*/
+	margin: 20px auto 40px auto;
+	border: 0;
+	border-bottom: 1px solid var(--color-bar);
+}
+
 #bar {
 	border-top: 2px solid var(--color-bar);
 }
 
 .operation_container {
-	display: inline-flex;
+	flex-basis: 0;
+	flex-grow: 1;
+	max-width: 100%;
+	/*display: inline-flex;
 	justify-content: center;
 	width: 100%;
-	position: relative;
+	position: relative;*/
+}
+
+.row_operation{
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: -22px;
+	/*margin-left: -8px;*/
+	margin-bottom: 50px;
 }
 
 .button_container {
@@ -185,23 +227,29 @@ h3{
 	padding: 1em;
 
 }
-
+.button_container::after{
+	content: "   ";
+}
 .button_container p{
 	text-align: center;
 }
 
-.container {
+.container, .containerStats{
 	background-color: var(--bg-panel);
 	max-width: 768px;
 	margin: 2px;
 	width: 80%;
 	left: 50%;
-	top: 50px;
+	top: 25px;
 	position: relative;
 	margin-top: 100px;
 	transform: translate(-50%);
 	padding: 1em;
 	border-radius: 10px;
+}
+
+.containerStats{
+	max-width: 1024px;
 }
 
 .controls {
@@ -264,6 +312,7 @@ img:hover {
 	-webkit-box-shadow: 0 0 10px var(--shadow-color);
 	-o-box-shadow: 0 0 10px var(--shadow-color);
 	box-shadow: 0 0 10px var(--shadow-color);
+	transition: all 0.2s ease 0s;
 }
 
 
@@ -321,12 +370,12 @@ img:hover {
 /*WAIT.html*/
 
 /*Animacion*/
-svg{
+.rat_icon{
 	height: 140px;
 	width: 200px;
 }
 
-svg path{
+.rat_icon path{
 	stroke: var(--color-text);
 	stroke-dashoffset: 2100;
 	stroke-dasharray: 2100;
@@ -402,9 +451,12 @@ select{
 	width: 100px;
 }
 
-#tableLength{
+#tableLength, #searchBy{
+	width: auto;
 	margin: 0 10px;
 	margin-top: -8px;
+	text-align: center;
+	text-align-last:center;
 }
 
 #searchInput{
@@ -453,13 +505,14 @@ td {
 /* Center the image and position the close button */
 .imgcontainer {
 	text-align: center;
-	margin: 24px 0 12px 0;
+	/*margin: 24px 0 12px 0;*/
 	position: relative;
 }
 
 img.avatar {
 	width: 40%;
 	border-radius: 50%;
+	margin: 24px 0 12px 0;
 }
 
 .usercontainer {
@@ -546,26 +599,39 @@ span.psw {
 	text-align: center;
   }
 
-  #pagination {
+#pagination {
 	display: inline-block;
-  }
+}
 
-  #pagination a {
+#pagination a {
 	background-color: var(--bg);
 	color: var(--color-text);
 	float: left;
 	padding: 8px 16px;
 	text-decoration: none;
-	transition: background-color .3s;
 	border: 1px solid #ddd;
 	margin: 50px 4px;
 	margin-top: 20px;
-  }
+}
 
-  #pagination a.active {
+#pagination a.active {
 	background-color: var(--color-headings);
 	color: white;
 	border: 1px solid var(--color-headings);
-  }
+}
 
-  #pagination a:hover:not(.active) {opacity: 0.8;}
+#pagination a:hover:not(.active) {opacity: 0.8;}
+
+
+.function_nav_icon{
+	position: relative;
+	vertical-align: text-bottom;
+	bottom: 1.5px;
+}
+
+.statistic_chart{
+	width: 400px;
+	height: 400px;
+	margin-left: 50px;
+	margin-right: 50px;
+}
