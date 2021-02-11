@@ -1,4 +1,3 @@
-debugger;
 var randomColorGenerator = function () {
 	return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
 };
@@ -25,15 +24,15 @@ const backColor = [
 	}
 )()*/
 
-debugger;
 var ctx = document.getElementById('chartRegByCD').getContext('2d');
+debugger;
 var chartRegByCD = new Chart(ctx, {
 	type: 'bar',
 	data: {
 		labels: ['Control', 'Droga'],
 		datasets: [{
 			label: '# de registros',
-			data: [1, 1],
+			data: [0],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.2)',
 				'rgba(255, 159, 64, 0.2)'
@@ -48,15 +47,14 @@ var chartRegByCD = new Chart(ctx, {
 	options: {}
 });
 
-debugger;
 var ctx = document.getElementById('chartDrugs').getContext('2d');
 var chartDrugs = new Chart(ctx, {
 	type: 'bar',
 	data: {
-		labels: ['Control', 'Droga'],
+		labels: ['-'],
 		datasets: [{
 			label: 'Drogas usadas',
-			data: [1, 1],
+			data: [0],
 			backgroundColor: backColor,
 			borderColor: borColor,
 			borderWidth: 1
@@ -73,7 +71,7 @@ var chartIDMov = new Chart(ctx, {
 
 	// The data for our dataset
 	data: {
-		labels: ['0'],
+		labels: ['-'],
 		datasets: [{
 			label: 'ID Registro / Movimiento',
 			backgroundColor: 'rgb(255, 99, 132, 0.7)',
@@ -94,7 +92,7 @@ var chartIDDur = new Chart(ctx, {
 
 	// The data for our dataset
 	data: {
-		labels: ['0'],
+		labels: ['-'],
 		datasets: [{
 			label: 'ID Registro / Duración (s)',
 			backgroundColor: 'rgb(255, 99, 132, 0.7)',
@@ -108,15 +106,67 @@ var chartIDDur = new Chart(ctx, {
 	options: {}
 });
 
+var ctx = document.getElementById('chartResearchers').getContext('2d');
+var chartResearchers = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: ['-'],
+		datasets: [{
+			label: 'Pruebas realizadas por investigadores',
+			data: [0],
+			backgroundColor: backColor,
+			borderColor: borColor,
+			borderWidth: 1
+		}]
+	},
+	options: {}
+});
 
+var ctx = document.getElementById('chartDrugsMov').getContext('2d');
+var chartDrugsMov = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: ['-'],
+		datasets: [{
+			label: 'Relación Movimiento/Droga',
+			data: [0],
+			backgroundColor: backColor,
+			borderColor: borColor,
+			borderWidth: 1
+		}]
+	},
+	options: {
+		/*scales: {
+			yAxes: [{
+				gridLines: {
+					display: false
+				},
+				ticks: {
+					display: false
+				}
+			}],
+			xAxes: [{
+				gridLines: {
+					display: false
+				},
+				ticks: {
+					display: false
+				}
+			}]
+		}*/
+	}
+});
 
 getDataForCharts();
 async function getDataForCharts() {
 	let results;
+	debugger;
 	results = await dataChartRegs();
+	debugger;
 	updateRegCD(results, chartRegByCD);
+	debugger;
 
-	results = await dataChartDrugs();
+	results = await dataChartDrugs('drug');
 	updateDrugsCount(results, chartDrugs);
 
 	results = await dataChartIDMov('mov');
@@ -124,9 +174,19 @@ async function getDataForCharts() {
 
 	results = await dataChartIDMov();
 	updateIDMov(results, chartIDDur);
+
+	results = await dataChartDrugs('res');
+	updateDrugsCount(results, chartResearchers);
+
+	results = await dataChartDrugs('mov');
+	updateDrugsCount(results, chartDrugsMov);
+
+	
 }
 
 function updateRegCD(results, chart) {
+	debugger;
+
 	chart.data.datasets.forEach((dataset) => {
 		dataset.data = results;
 	});
@@ -148,22 +208,3 @@ function updateIDMov(results, chart) {
 	});
 	chart.update();
 }
-// this is a utility function to fetch the variables from the CSS
-/*function cssvar(name) {
-	return getComputedStyle(document.documentElement).getPropertyValue(name);
-}
-
-var chart = new Chart('chartTest', {
-	type: 'line',
-	data: {
-		labels: ['a', 'b', 'c'],
-		datasets: [{
-			label: 'the line',
-			data: [1, 2, 3],
-			// the folloving are fetched from the CSS
-			backgroundColor: cssvar('--chart-bg-color'),
-			borderColor: cssvar('--chart-border-color'),
-			borderWidth: cssvar('--chart-border-width')
-		}],
-	}
-})*/

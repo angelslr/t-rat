@@ -82,6 +82,11 @@ header{
 	margin-right: auto;
 }
 
+#logoLink{
+	position: relative;
+	bottom: -0.1em;
+}
+
 #nav_links{
 	list-style: none;
 }
@@ -473,11 +478,12 @@ select{
 
 .table{
 	overflow: auto;
+	border-radius: 10px;
 }
 
 #tbResults th,
 td {
-	border: 1px solid var(--border-color);
+	/*border: 1px solid var(--border-color);*/
 	text-align: center;
 	padding: 8px;
 	color: var(--color-text);
@@ -621,7 +627,6 @@ span.psw {
 }
 
 #pagination a:hover:not(.active) {opacity: 0.8;}
-
 
 .function_nav_icon{
 	position: relative;

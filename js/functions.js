@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			<div class="usercontainer">
 				<h3>Acerca de T-Rat</h3>
 				<hr>
-				<p style="font-size: 12pt;">Versión 3.3 (Testing)</p>
+				<p style="font-size: 12pt;">Versión 3.3</p>
 			</div>
 		</form>
 	</div>
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	else {
 		document.getElementById("nav_links").innerHTML += `<li><a id="user" href="javascript:void(0)"></a>
 		<ul class="submenu">
-			<li><a href="javascript:void(0)">Texto1</a></li><li><a href="javascript:void(0)">Texto2</a></li><li><a onclick="logout()" href="javascript:void(0)">Salir</a></li>
+			<li><a onclick="logout()" href="javascript:void(0)">Salir</a></li>
 		</ul>
 	</li>`;
 		document.getElementById("user").innerHTML = localStorage["l_username"];
@@ -128,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //////////* CONEXION CON BACKEND *//////////
-
 
 var url = "http://localhost:8080/";
 
@@ -156,7 +155,6 @@ var epLogin = "trat/user/login";
 var epNew = "trat/user/new";
 
 //Obtiene una fecha actual, utilizada para indicar la fecha de la última prueba realizada
-
 
 async function toBackPOST(endpoint, jsonString) {
 	const response = await fetch(url + endpoint, {
@@ -340,7 +338,7 @@ function updateColorChart() {
 	}
 	Chart.defaults.global.defaultFontColor = colorFont;
 	Chart.helpers.each(Chart.instances, function (instance) {
-		debugger;
+		//if (instance != chartDrugsMov) {
 		instance.options = {
 			scales: {
 				yAxes: [{
@@ -360,6 +358,8 @@ function updateColorChart() {
 				}]
 			}
 		};
+		//}
+
 		instance.update();
 		//instance.chart.update();
 	});
@@ -560,23 +560,18 @@ async function loadControl(opt, isPage, items, idp) {
 
 	if (idp != lastButtonPressed) {
 		if (opt == "drug") {
-			if (jsonDRUGS == 0) {
-				jsonDRUGS = await toBackGETAll(epDrugAll);
-			}
+			await updateJsonDRUGS();
 			dT = jsonDRUGS;
 		}
 		else if (opt == 'researcher') {
-			if (jsonRES == 0) {
-				jsonRES = await toBackGETAll(epReserAll);
-			}
+			await updateJsonRES();
 			dT = jsonRES;
 		}
 		else {
-			if (jsonREGS == 0 || jsonRES == 0 || jsonDRUGS == 0) {
-				jsonREGS = await toBackGETAll(epRegAll);
-				jsonRES = await toBackGETAll(epReserAll);
-				jsonDRUGS = await toBackGETAll(epDrugAll);
-			}
+			await updateJsonREGS();
+			await updateJsonDRUGS();
+			await updateJsonRES();
+
 			dT = jsonREGS;
 		}
 
@@ -1160,7 +1155,11 @@ function sortTable(n, isNumber) {
 }
 
 async function dataChartRegs() {
+	debugger;
+
 	await updateJsonREGS();
+	debugger;
+
 	var c = 0, d = 0;
 	for (i = 0; i < jsonREGS.length; i++) {
 		if (jsonREGS[i].treatment == 'Control') {
@@ -1175,27 +1174,58 @@ async function dataChartRegs() {
 	return data;
 }
 
-async function dataChartDrugs() {
-	debugger;
+async function dataChartDrugs(opt) {
 	await updateJsonREGS();
 	await updateJsonDRUGS();
-	let allIDs = [];
+	if (opt != 'drug') {
+		await updateJsonRES();
+	}
+	let array1 = [];
 	let counter = []
-	for (i = 0; i < jsonREGS.length; i++) {
-		allIDs.push(jsonREGS[i].drug_id);
+
+	if (opt == 'drug' || opt == 'mov') {
+		for (i = 0; i < jsonREGS.length; i++) {
+			array1.push(jsonREGS[i].drug_id);
+		}
+	}
+	else if (opt == 'res') {
+		for (i = 0; i < jsonREGS.length; i++) {
+			array1.push(jsonREGS[i].researcher_id);
+		}
 	}
 
-	simplifiedArray = allIDs.filter(function (item, pos) {
-		return allIDs.indexOf(item) == pos;
+	simplifiedArray = array1.filter(function (item, pos) {
+		return array1.indexOf(item) == pos;
 	})
 
-	simplifiedArray.forEach(el => counter.push(allIDs.filter(x => x == el).length))
+	if (opt == 'drug' || opt == 'res') {
+		simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length))
 
-	for (i = 0; i < simplifiedArray.length; i++) {
-		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == simplifiedArray[i] });
-		simplifiedArray[i] = d.name;
 	}
-
+	else if (opt == 'mov') {
+		for (i = 0; i < simplifiedArray.length; i++) {
+			let c = 0;
+			for (j = 0; j < jsonREGS.length; j++) {
+				if (jsonREGS[j].drug_id == simplifiedArray[i]) {
+					c += jsonREGS[j].movement;
+				}
+			}
+			counter.push(c);
+		}
+		debugger;
+	}
+	if (opt == 'drug' || opt == 'mov') {
+		for (i = 0; i < simplifiedArray.length; i++) {
+			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == simplifiedArray[i] });
+			simplifiedArray[i] = d.name;
+		}
+	}
+	else if (opt == 'res') {
+		for (i = 0; i < simplifiedArray.length; i++) {
+			let d = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == simplifiedArray[i] });
+			simplifiedArray[i] = d.name;
+		}
+	}
 	return [
 		simplifiedArray,
 		counter
@@ -1203,7 +1233,6 @@ async function dataChartDrugs() {
 }
 
 async function dataChartIDMov(field) {
-	debugger;
 	await updateJsonREGS();
 	let ids = [];
 	let movs = [];
@@ -1221,14 +1250,11 @@ async function dataChartIDMov(field) {
 			movs.push(jsonREGS[i].duration)
 		}
 	}
-
 	return [
 		ids,
 		movs
 	];
 }
-
-
 
 async function updateJsonREGS() {
 	if (jsonREGS == 0) {
