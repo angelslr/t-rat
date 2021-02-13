@@ -208,8 +208,22 @@ async function toBackPUT(endpoint, id, jsonString) {
 
 //////* FIN DE CONEXION CON BACKEND *///////
 
-
-
+//Actualizan variables globales de datos
+async function updateJsonREGS() {
+	if (jsonREGS == 0) {
+		jsonREGS = await toBackGETAll(epRegAll);
+	}
+}
+async function updateJsonDRUGS() {
+	if (jsonDRUGS == 0) {
+		jsonDRUGS = await toBackGETAll(epDrugAll);
+	}
+}
+async function updateJsonRES() {
+	if (jsonRES == 0) {
+		jsonRES = await toBackGETAll(epReserAll);
+	}
+}
 
 //Asigna el tema seleccionado almacenado, se utiliza en todas las páginas
 if (localStorage.getItem('data-theme') == "dark") {
@@ -1254,20 +1268,4 @@ async function dataChartIDMov(field) {
 		ids,
 		movs
 	];
-}
-
-async function updateJsonREGS() {
-	if (jsonREGS == 0) {
-		jsonREGS = await toBackGETAll(epRegAll);
-	}
-}
-async function updateJsonDRUGS() {
-	if (jsonDRUGS == 0) {
-		jsonDRUGS = await toBackGETAll(epDrugAll);
-	}
-}
-async function updateJsonRES() {
-	if (jsonRES == 0) {
-		jsonRES = await toBackGETAll(epReserAll);
-	}
 }
