@@ -24,8 +24,7 @@ const backColor = [
 	}
 )()*/
 
-var ctx = document.getElementById('chartRegByCD').getContext('2d');
-debugger;
+/*var ctx = document.getElementById('chartRegByCD').getContext('2d');
 var chartRegByCD = new Chart(ctx, {
 	type: 'bar',
 	data: {
@@ -46,6 +45,7 @@ var chartRegByCD = new Chart(ctx, {
 	},
 	options: {}
 });
+*/
 
 var ctx = document.getElementById('chartDrugs').getContext('2d');
 var chartDrugs = new Chart(ctx, {
@@ -60,50 +60,60 @@ var chartDrugs = new Chart(ctx, {
 			borderWidth: 1
 		}]
 	},
-	options: {}
+	options: {
+		scales: {
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: 'Cantidad de Registros'
+				}
+			}]
+		}
+	}
 });
 
 
-var ctx = document.getElementById('chartIDMov').getContext('2d');
-var chartIDMov = new Chart(ctx, {
+var ctx = document.getElementById('chartDateData').getContext('2d');
+var chartDateData = new Chart(ctx, {
 	// The type of chart we want to create
-	type: 'line',
+	type: 'bar',
 
 	// The data for our dataset
 	data: {
 		labels: ['-'],
 		datasets: [{
 			label: 'ID Registro / Movimiento',
-			backgroundColor: 'rgb(255, 99, 132, 0.7)',
-			borderColor: 'rgb(255, 99, 132)',
+			backgroundColor: backColor,
+			borderColor: borColor,
 			data: [0],
 			borderWidth: 1
 		}]
 	},
 
 	// Configuration options go here
-	options: {}
-});
+	options: {
+		tooltips: {
+			callbacks: {
+				label: function (tooltipItem, data) {
+					var value = data.datasets[0].data[tooltipItem.index];
 
-var ctx = document.getElementById('chartIDDur').getContext('2d');
-var chartIDDur = new Chart(ctx, {
-	// The type of chart we want to create
-	type: 'line',
+					if (value === 1) {
+						value = 0;
+					}
 
-	// The data for our dataset
-	data: {
-		labels: ['-'],
-		datasets: [{
-			label: 'ID Registro / Duración (s)',
-			backgroundColor: 'rgb(255, 99, 132, 0.7)',
-			borderColor: 'rgb(255, 99, 132)',
-			data: [0],
-			borderWidth: 1
-		}]
-	},
-
-	// Configuration options go here
-	options: {}
+					return 'ID Registro / Movimiento' + ': ' + value;
+				}
+			}
+		},
+		scales: {
+			xAxes: [{
+				ticks: {
+					autoSkip: true,
+					maxTicksLimit: 5
+				}
+			}]
+		}
+	}
 });
 
 var ctx = document.getElementById('chartResearchers').getContext('2d');
@@ -119,7 +129,16 @@ var chartResearchers = new Chart(ctx, {
 			borderWidth: 1
 		}]
 	},
-	options: {}
+	options: {
+		scales: {
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: 'Nro de pruebas realizadas'
+				}
+			}]
+		}
+	}
 });
 
 var ctx = document.getElementById('chartDrugsMov').getContext('2d');
@@ -129,13 +148,33 @@ var chartDrugsMov = new Chart(ctx, {
 		labels: ['-'],
 		datasets: [{
 			label: 'Relación Movimiento/Droga',
-			data: [0],
+			data: [{
+				label: "Blue",
+				backgroundColor: "blue",
+				data: [3, 7, 4]
+			}, {
+				label: "Red",
+				backgroundColor: "red",
+				data: [4, 3, 5]
+			}, {
+				label: "Green",
+				backgroundColor: "green",
+				data: [7, 2, 6]
+			}],
 			backgroundColor: backColor,
 			borderColor: borColor,
 			borderWidth: 1
 		}]
 	},
 	options: {
+		scales: {
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: 'Cantidad de movimiento'
+				}
+			}]
+		}
 		/*scales: {
 			yAxes: [{
 				gridLines: {
@@ -158,42 +197,48 @@ var chartDrugsMov = new Chart(ctx, {
 });
 
 getDataForCharts();
+
+
+
 async function getDataForCharts() {
 	let results;
-	debugger;
-	results = await dataChartRegs();
-	debugger;
-	updateRegCD(results, chartRegByCD);
-	debugger;
+	jsonREGS = await toBackGETAll(epRegAll);
+	jsonDRUGS = await toBackGETAll(epDrugAll);
+	jsonRES = await toBackGETAll(epReserAll);
 
-	results = await dataChartDrugs('drug');
-	updateDrugsCount(results, chartDrugs);
+	await dataChartDrugs();
 
-	results = await dataChartIDMov('mov');
-	updateIDMov(results, chartIDMov);
+	fillDateData();
 
-	results = await dataChartIDMov();
-	updateIDMov(results, chartIDDur);
+	results = await dataChartRes();
+	updateReplaceDataLabel(results, chartResearchers);
 
-	results = await dataChartDrugs('res');
-	updateDrugsCount(results, chartResearchers);
-
-	results = await dataChartDrugs('mov');
-	updateDrugsCount(results, chartDrugsMov);
-
-	
+	results = await dataChartMov();
+	updateDataLabelDrugs(results, chartDrugsMov);
 }
 
-function updateRegCD(results, chart) {
-	debugger;
-
-	chart.data.datasets.forEach((dataset) => {
-		dataset.data = results;
-	});
-	chart.update();
+function addElement() {
+	let results = addDrugToChart();
+	updateReplaceDataLabel(results, chartDrugs);
 }
 
-function updateDrugsCount(results, chart) {
+function removeElement() {
+	let results = removeDrugItemChart();
+	updateReplaceDataLabel(results, chartDrugs);
+}
+
+function fillDateData() {
+	results = dataDateChart();
+	updateReplaceDataLabel(results, chartDateData);
+}
+
+function dateFilter() {
+	let results = dateFilterChart();
+	updateReplaceDataLabel(results, chartDateData);
+}
+
+
+function updateReplaceDataLabel(results, chart) {
 	chart.data.labels = results[0];
 	chart.data.datasets.forEach((dataset) => {
 		dataset.data = results[1];
@@ -201,10 +246,27 @@ function updateDrugsCount(results, chart) {
 	chart.update();
 }
 
-function updateIDMov(results, chart) {
-	chart.data.labels = results[0];
-	chart.data.datasets.forEach((dataset) => {
-		dataset.data = results[1];
-	});
+function updateDataLabelDrugs(results, chart) {
+	var data = {
+		labels: results[0],
+		datasets: [
+			{
+				label: "Min",
+				backgroundColor: "rgba(37, 204, 247, 0.4)",
+				data: results[1]
+			},
+			{
+				label: "Med",
+				backgroundColor: "rgba(253, 114, 114, 0.4)",
+				data: results[2]
+			},
+			{
+				label: "Max",
+				backgroundColor: "rgba(84, 160, 255, 0.4)",
+				data: results[3]
+			}
+		]
+	};
+	chart.data = data;
 	chart.update();
 }

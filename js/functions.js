@@ -1,9 +1,11 @@
-//Variables globales
+﻿//Variables globales
 var id = 1, cron = 0;
 var hour = 0;
 var jsonDRUGS = jsonRES = jsonREGS = 0;
 var put = false;
 sessionStorage['id'] = 0;
+var drugXusageY = [];
+var ErasedrugXusageY = []
 
 //Usadas en saveData, loadAllData y showRowTable
 //var duration = 0, move = 0, date = 0, treat = 0, obs = 0, drug = 0, researcher = 0;
@@ -96,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 	let path = window.location.pathname;
 	path = path.split("/").pop();
-	console.log(path);
 	if (path == 'statistics.html') {
 		header.innerHTML += `<div class="toggle-container">
 		<input type="checkbox" id="switch" onclick="changeTheme(true)"><label for="switch"></label>
@@ -154,8 +155,6 @@ var epLogin = "trat/user/login";
 //New User
 var epNew = "trat/user/new";
 
-//Obtiene una fecha actual, utilizada para indicar la fecha de la última prueba realizada
-
 async function toBackPOST(endpoint, jsonString) {
 	const response = await fetch(url + endpoint, {
 		method: 'POST',
@@ -187,7 +186,7 @@ async function toBackGETAll(endpoint) {
 }
 
 async function toBackDELETE(endpoint, id) {
-	debugger;
+
 	var response = await fetch(url + endpoint + id, {
 		method: 'DELETE',
 	})
@@ -195,7 +194,7 @@ async function toBackDELETE(endpoint, id) {
 }
 
 async function toBackPUT(endpoint, id, jsonString) {
-	debugger;
+
 	var response = await fetch(url + endpoint + id, {
 		method: 'PUT',
 		body: JSON.stringify(jsonString),
@@ -206,7 +205,28 @@ async function toBackPUT(endpoint, id, jsonString) {
 	return response;
 }
 
-//////* FIN DE CONEXION CON BACKEND *///////
+//////* FIN DE CONEXION CON GOLANG API *///////
+
+
+//////* CONEXION CON PYTHON API *///////
+
+var urlArduino = "http://127.0.0.1:5000/arduino";
+
+async function toArduinoPOST() {
+
+	var response = await fetch(urlArduino, {
+		method: 'POST',
+	});
+	return response.json();
+}
+async function toArduinoGET() {
+	var response = await fetch(urlArduino, {
+		method: 'GET',
+	})
+	var json = await response.json();
+	return json;
+}
+
 
 //Actualizan variables globales de datos
 async function updateJsonREGS() {
@@ -323,7 +343,7 @@ function changeIconTheme() {
 
 //Cambia el tema
 function changeTheme(statistics) {
-	debugger;
+
 	var checkbox = document.getElementById('switch');
 	if (checkbox.checked == true) {
 		document.documentElement.setAttribute('data-theme', 'dark');
@@ -352,8 +372,25 @@ function updateColorChart() {
 	}
 	Chart.defaults.global.defaultFontColor = colorFont;
 	Chart.helpers.each(Chart.instances, function (instance) {
+
+		instance.options.legend.display = false;
+		instance.options.scales.yAxes[0].gridLines.color = colorGrid;
+		instance.options.scales.yAxes[0].gridLines.zeroLineColor = colorGrid;
+
+		instance.options.scales.xAxes[0].gridLines.color = colorGrid;
+		instance.options.scales.xAxes[0].gridLines.zeroLineColor = colorGrid;
+
+		instance.options.scales.yAxes[0].ticks.min = 0;
+
+
+
+
+
 		//if (instance != chartDrugsMov) {
-		instance.options = {
+		/*instance.options = {
+			legend: {
+				display: false
+			},
 			scales: {
 				yAxes: [{
 					gridLines: {
@@ -369,9 +406,13 @@ function updateColorChart() {
 						color: colorGrid,
 						zeroLineColor: colorGrid,
 					},
+					ticks: {
+						autoSkip: true,
+						maxTicksLimit: 5
+					}
 				}]
 			}
-		};
+		};*/
 		//}
 
 		instance.update();
@@ -382,7 +423,7 @@ function updateColorChart() {
 //Cronómetro
 function cronometer() {
 	if (sessionStorage["start"] == "true") {
-		let seconds = 0;
+		let seconds = 4;
 		let s = document.getElementById("sec");
 
 		cron = setInterval(
@@ -403,49 +444,44 @@ function removeButtons() {
 }
 
 function getTime() {
-
 	localDate = toISOLocal(new Date());
-
 	strSplit = localDate.split('T');
 	hour = strSplit[1];
-
-	function toISOLocal(d) {
-		var z = n => ('0' + n).slice(-2);
-		var zz = n => ('00' + n).slice(-3);
-		var off = d.getTimezoneOffset();
-		var sign = off < 0 ? '+' : '-';
-		off = Math.abs(off);
-
-		return d.getFullYear() + '-'
-			+ z(d.getMonth() + 1) + '-' +
-			z(d.getDate()) + 'T' +
-			z(d.getHours()) + ':' +
-			z(d.getMinutes()) + ':' +
-			z(d.getSeconds()) + '.' +
-			zz(d.getMilliseconds()) +
-			sign + z(off / 60 | 0) + ':' + z(off % 60);
-	}
 	return strSplit[0];
 }
 
+function toISOLocal(d) {
+	var z = n => ('0' + n).slice(-2);
+	var zz = n => ('00' + n).slice(-3);
+	var off = d.getTimezoneOffset();
+	var sign = off < 0 ? '+' : '-';
+	off = Math.abs(off);
+
+	return d.getFullYear() + '-'
+		+ z(d.getMonth() + 1) + '-' +
+		z(d.getDate()) + 'T' +
+		z(d.getHours()) + ':' +
+		z(d.getMinutes()) + ':' +
+		z(d.getSeconds()) + '.' +
+		zz(d.getMilliseconds()) +
+		sign + z(off / 60 | 0) + ':' + z(off % 60);
+}
 //Detiene el cronómetro
 function stopCron() {
 	clearInterval(cron);
 	cron = 0;
 	document.getElementById("h1").innerHTML = "Prueba finalizada";
-	sessionStorage["sec"] = document.getElementById("sec").innerHTML;
-	sessionStorage["mov"] = document.getElementById("mov").innerHTML;
-	sessionStorage["date"] = getTime();
-	sessionStorage["start"] = false;
 	document.querySelector("link[rel*='icon']").href = "svg/btnStop.svg";
+
 }
 
 //Reinicia el sistema
-function restart() {
+async function restart() {
 	if (cron != 0) {
 		let answer = confirm("Prueba en ejecución, ¿desea volver al inicio? (Si lo hace, la prueba se detendrá)");
 		if (answer == true) {
 			stopCron();
+			await toArduinoGET();
 			innerRestart();
 		}
 	}
@@ -454,22 +490,42 @@ function restart() {
 	}
 	//Elimina los datos de la prueba y retorna a la pantalla principal
 	function innerRestart() {
-		sessionStorage.removeItem("sec");
+		/*sessionStorage.removeItem("sec");
 		sessionStorage.removeItem("mov");
-		sessionStorage.removeItem("date");
+		sessionStorage.removeItem("date");*/
 		location.replace("index.html");
 	}
 }
 
 //Recupera los datos de la última prueba para rellenar los campos con datos obligatorios automáticamente
-function getData() {
-	if (sessionStorage["sec"] == null) {
+
+async function getData() {
+	let sec;
+	let mov;
+	let date;
+	let result;
+	document.getElementById('popupTitle').innerHTML = 'Esperando datos...';
+
+	while (result == undefined) {
+		result = await toArduinoGET();
+	}
+
+	document.getElementById('popupTitle').innerHTML = 'Completar datos de prueba:';
+	sec = parseInt(result.ms / 1000);
+	mov = result.score;
+
+	document.getElementById('sec').innerHTML = sec;
+	document.getElementById('mov').innerHTML = mov;
+
+	date = getTime();
+	sessionStorage["start"] = false;
+	if (sec == null) {
 		alert("No hay datos, realice una prueba.")
 	}
 	else {
-		document.getElementById("fduration").value = sessionStorage["sec"];
-		document.getElementById("fdate").value = sessionStorage["date"];
-		document.getElementById("fmovement").value = sessionStorage["mov"];
+		document.getElementById("fduration").value = sec;
+		document.getElementById("fdate").value = date;
+		document.getElementById("fmovement").value = mov;
 	}
 }
 
@@ -478,30 +534,44 @@ function clearInputs(formId) {
 	document.getElementById(formId).reset();
 }
 
+function toWait() {
+	location.replace('wait.html');
+}
+
 //Verifica el estado del módulo Arduino antes de comenzar una prueba. En caso de haber un error, se informará. En caso contrario, la prueba iniciará
-function timeWait() {
+async function timeWait() {
 	let seconds = 0;
 	sessionStorage["start"] = false;
+	let response;
+	debugger;
+	document.getElementById("messageText").innerHTML = "Probando sensores..."
+
+	while (response == undefined) {
+		response = await toArduinoPOST();
+	}
+
+	if (response.status == 200) {
+		document.getElementById("messageText").innerHTML = "Configuración completa..."
+		seconds = 6;
+	}
+	else {
+		clearInterval(tWait);
+		let logoElements = document.getElementsByClassName("logoContainer");
+		for (let i = 0; i < logoElements.length; i++) {
+			logoElements[i].style.visibility = "hidden";
+		}
+		let errorElements = document.getElementsByClassName("errorContainer");
+		for (let i = 0; i < errorElements.length; i++) {
+			errorElements[i].style.visibility = "visible";
+		}
+	}
+
 	let tWait = setInterval(
-		function () {
+		async function () {
 			seconds++;
 			if (seconds == 2) {
-				document.getElementById("messageText").innerHTML = "Probando sensores..."
+				
 			}
-			if (seconds == 4) {
-				document.getElementById("messageText").innerHTML = "Configuración completa..."
-			}
-			/*if (seconds == 7) {
-				clearInterval(tWait);
-				let logoElements = document.getElementsByClassName("logoContainer");
-				for (let i = 0; i < logoElements.length; i++) {
-					logoElements[i].style.visibility = "hidden";
-				}
-				let errorElements = document.getElementsByClassName("errorContainer");
-				for (let i = 0; i < errorElements.length; i++) {
-					errorElements[i].style.visibility = "visible";
-				}
-			}*/
 			if (seconds == 7) {
 				clearInterval(tWait);
 				sessionStorage["start"] = true;
@@ -570,7 +640,6 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 }
 var lastButtonPressed = 'page1';
 async function loadControl(opt, isPage, items, idp) {
-	debugger;
 
 	if (idp != lastButtonPressed) {
 		if (opt == "drug") {
@@ -620,7 +689,7 @@ async function loadControl(opt, isPage, items, idp) {
 }
 
 function pageCalc(tableLen, rlen, dr) {
-	debugger;
+
 	var pagination = document.getElementById('pagination');
 	pagination.innerHTML = "";
 	pagination.lastChild = "";
@@ -657,7 +726,7 @@ function pageCalc(tableLen, rlen, dr) {
 }
 
 function clearTable(opt) {
-	debugger;
+
 	subClearT();
 	lc = 0;
 	lastButtonPressed = 'page1';
@@ -705,7 +774,7 @@ async function loadAllData(tableLen) {
 
 //Guarda un registro
 async function saveData(inResults) {
-	debugger;
+
 	drug = document.getElementById("selectDrugs");
 	drug = parseInt(drug.options[drug.selectedIndex].id, 10);
 
@@ -723,6 +792,9 @@ async function saveData(inResults) {
 		alert("Algunos campos estan vacios.");
 	}
 	else {
+		let localDate = toISOLocal(new Date());
+		strSplit = localDate.split('T');
+		hour = strSplit[1];
 		date += 'T' + hour;
 		let data = { 'drug_id': drug, 'researcher_id': researcher, 'duration': duration, 'date': date, 'treatment': treat, 'movement': move, 'observations': obs };
 		if (put == false) {
@@ -733,10 +805,10 @@ async function saveData(inResults) {
 			response = await toBackPUT(epReg, id, data);
 		}
 		jsonREGS = await toBackGETAll(epRegAll);
-		debugger;
 
 		alert("Registro guardado.");
 		cancel('popup');
+
 		if (inResults == true) {
 			//Al guardar un registro, se mostrará de inmediado, sin necesidad de recargar la página
 			let regs = parseInt(document.getElementById("registers").innerHTML, 10);
@@ -806,7 +878,7 @@ function toResults() {
 }
 
 function saveRes_Drug(opt, inResults) {
-	debugger;
+
 	if (opt == "researcher") {
 		innersaveRes_Drug('resNameNew', 'resCatNew', epReser, epReserAll, epReserPOST, "El investigador ya existe, elija otro.", "Investigador guardado con éxito.", 'frmResearcher', 'popupNewRes', 'selectResearchers', 'category', 'researcher_id')
 	}
@@ -815,7 +887,7 @@ function saveRes_Drug(opt, inResults) {
 	}
 
 	async function innersaveRes_Drug(field1, field2, epPUT, epALL, endpointPOST, alertExist, confirm, frmInput, cancelElement, sel, prop, prop2) {
-		debugger;
+
 		let val1 = document.getElementById(field1).value;
 		let val2 = document.getElementById(field2).value;
 
@@ -824,7 +896,6 @@ function saveRes_Drug(opt, inResults) {
 		}
 		else {
 			var dT = await toBackGETAll(epALL);
-			debugger;
 
 			let exist = false;
 			let i = 0;
@@ -847,12 +918,12 @@ function saveRes_Drug(opt, inResults) {
 		}
 
 		async function innerFromInnerSave(dT) {
-			debugger;
+
 			let data = { 'name': val1, [prop]: val2 };
 			if (put == true) {
 				id = parseInt(sessionStorage['id'], 10);
 				toBackPUT(epPUT, id, data);
-				debugger;
+
 				let row = document.getElementById(id).querySelectorAll('td');
 				row[1].innerHTML = val1;
 				row[2].innerHTML = val2;
@@ -863,7 +934,7 @@ function saveRes_Drug(opt, inResults) {
 				if (inResults) {
 					showRowDrugTable(dT[dT.length - 1][prop2] + 1, val1, val2);
 				}
-				debugger;
+
 			}
 
 			alert(confirm);
@@ -894,12 +965,12 @@ function saveRes_Drug(opt, inResults) {
 }
 
 async function loadRes_drug(inTest) {
-	debugger;
+
 	innerLoadRes_drug('selectResearchers', 'researcher', epReserAll, 'category', 'researcher_id')
 	innerLoadRes_drug('selectDrugs', 'drug', epDrugAll, 'dosage', 'drug_id')
 
 	async function innerLoadRes_drug(sel, opt, endpoint, v1, id) {
-		debugger;
+
 		if (inTest == true) {
 			dT = await toBackGETAll(endpoint);
 		}
@@ -930,7 +1001,6 @@ async function loadRes_drug(inTest) {
 			}
 		}
 		function innerFromInnerLoad() {
-			debugger;
 			while (i < dT.length) {
 				let option = document.createElement('option');
 				let value = dT[i].name + ' (' + dT[i][v1] + ')';
@@ -946,7 +1016,7 @@ async function loadRes_drug(inTest) {
 }
 
 async function deleteReg(opt) {
-	debugger;
+
 	var id = sessionStorage['id'];
 	if (id == 0 || id == undefined) {
 		alert("Debe seleccionar una fila de la tabla");
@@ -956,15 +1026,16 @@ async function deleteReg(opt) {
 
 		result = confirm('Desea eliminar el registro ' + id + '?');
 		if (result == true) {
-			if (opt == 'reg') {
-				response = await toBackDELETE(epReg, id);
-			}
-			else if (opt == 'res') {
-				response = await toBackDELETE(epReser, id);
-			}
-			else if (opt == 'drug') {
-				response = await toBackDELETE(epDrug, id);
-				debugger
+			switch (opt) {
+				case 'reg':
+					response = await toBackDELETE(epReg, id);
+					break;
+				case 'res':
+					response = await toBackDELETE(epReser, id);
+					break;
+				case 'drug':
+					response = await toBackDELETE(epDrug, id);
+					break;
 			}
 
 			if (response == null) {
@@ -981,12 +1052,11 @@ async function deleteReg(opt) {
 }
 
 function searchReg(id) {
-	debugger;
 	return jsonREGS.find(function (jsonREGS) { return jsonREGS.register_id == id });
 }
 
 async function load_DR_Table(opt, tableLen) {
-	debugger;
+
 	if (opt == "drug") {
 		innerLoad(dT, 'drug_id', 'dosage');
 	}
@@ -994,7 +1064,7 @@ async function load_DR_Table(opt, tableLen) {
 		innerLoad(dT, 'researcher_id', 'category');
 	}
 	function innerLoad(dT, v1, v2) {
-		debugger;
+
 		if (dT.length != 0) {
 			while (lc < tableLen) {
 				if (dT[lc] == undefined) {
@@ -1049,7 +1119,7 @@ function editReg(id, opt) {
 }
 
 function search() {
-	debugger;
+
 	var input, filter, table, tr, td, i, txtValue;
 	input = document.getElementById("searchInput");
 	filter = input.value.toUpperCase();
@@ -1094,7 +1164,7 @@ function search() {
 }
 
 function sortTable(n, isNumber) {
-	debugger;
+
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("tbResults");
 	switching = true;
@@ -1169,11 +1239,6 @@ function sortTable(n, isNumber) {
 }
 
 async function dataChartRegs() {
-	debugger;
-
-	await updateJsonREGS();
-	debugger;
-
 	var c = 0, d = 0;
 	for (i = 0; i < jsonREGS.length; i++) {
 		if (jsonREGS[i].treatment == 'Control') {
@@ -1183,89 +1248,258 @@ async function dataChartRegs() {
 			d += 1;
 		}
 	}
-
-	data = [c, d];
-	return data;
+	drugXusageY[0].push('Control', 'Droga');
+	drugXusageY[1].push(c, d);
 }
 
-async function dataChartDrugs(opt) {
-	await updateJsonREGS();
-	await updateJsonDRUGS();
-	if (opt != 'drug') {
-		await updateJsonRES();
-	}
+async function dataChartDrugs() {
+
 	let array1 = [];
 	let counter = []
 
-	if (opt == 'drug' || opt == 'mov') {
-		for (i = 0; i < jsonREGS.length; i++) {
-			array1.push(jsonREGS[i].drug_id);
-		}
+	//LLena un array con todos los id de las drogas en todos los registros
+	for (i = 0; i < jsonREGS.length; i++) {
+		array1.push(jsonREGS[i].drug_id);
 	}
-	else if (opt == 'res') {
-		for (i = 0; i < jsonREGS.length; i++) {
-			array1.push(jsonREGS[i].researcher_id);
+	for (i = 0; i < array1.length; i++) {
+		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == array1[i] });
+		array1[i] = d.name;
+	}
+
+	//Elimina duplicados
+	simplifiedArray = array1.filter(function (item, pos) {
+		return array1.indexOf(item) == pos;
+	});
+
+	simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
+
+	drugXusageY = [
+		simplifiedArray,
+		counter
+	];
+
+	let select = document.getElementById('selectDrugs');
+	for (i = 0; i < drugXusageY[0].length; i++) {
+		let option = document.createElement('option');
+		let value = drugXusageY[0][i];
+		option.appendChild(document.createTextNode(value));
+		option.value = value;
+
+		select.appendChild(option);
+	}
+	dataChartRegs();
+	/*return [
+		simplifiedArray,
+		counter
+	];*/
+}
+async function dataChartMov() {
+
+	let array1 = [];
+	let array2 = [];
+	let aux = [];
+	let mins = [];
+	let avg = [];
+	let maxs = [];
+
+
+	for (i = 0; i < jsonREGS.length; i++) {
+		array1.push(jsonREGS[i].drug_id);
+		array2.push(jsonREGS[i].movement);
+	}
+	for (i = 0; i < array1.length; i++) {
+		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == array1[i] });
+		array1[i] = d.name;
+	}
+	aux = [
+		array1,
+		array2
+	]
+
+	simplifiedArray = array1.filter(function (item, pos) {
+		return array1.indexOf(item) == pos;
+	});
+
+
+	/*var wantedData = jsonREGS.filter(function (i) {
+		return i.drug_id === 2;
+	});*/
+	for (i = 0; i < simplifiedArray.length; i++) {
+
+		let arr2 = [];
+		let c = 0;
+		for (j = 0; j < aux[0].length; j++) {
+			if (aux[0][j] == simplifiedArray[i]) {
+
+				arr2.push(aux[1][j]);
+				c += aux[1][j];
+			}
+
 		}
+		mins.push(getMinOfArray(arr2));
+		avg.push(c / arr2.length);
+		maxs.push(getMaxOfArray(arr2));
+	}
+	function getMaxOfArray(numArray) {
+		return Math.max.apply(null, numArray);
+	}
+	function getMinOfArray(numArray) {
+		return Math.min.apply(null, numArray);
+	}
+	/*for (i = 0; i < jsonREGS.length; i++) {
+		let d = jsonREGS.filter(function (jsonREGS) { return jsonREGS.drug_id == array1[i] });
+	}
+*/
+
+	//let aux = simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
+
+	return [
+		simplifiedArray,
+		mins,
+		avg,
+		maxs
+	];
+}
+
+async function dataChartRes() {
+	let array1 = [];
+	let counter = []
+
+	for (i = 0; i < jsonREGS.length; i++) {
+		array1.push(jsonREGS[i].researcher_id);
 	}
 
 	simplifiedArray = array1.filter(function (item, pos) {
 		return array1.indexOf(item) == pos;
-	})
+	});
 
-	if (opt == 'drug' || opt == 'res') {
-		simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length))
+	simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
 
-	}
-	else if (opt == 'mov') {
-		for (i = 0; i < simplifiedArray.length; i++) {
-			let c = 0;
-			for (j = 0; j < jsonREGS.length; j++) {
-				if (jsonREGS[j].drug_id == simplifiedArray[i]) {
-					c += jsonREGS[j].movement;
-				}
-			}
-			counter.push(c);
-		}
-		debugger;
-	}
-	if (opt == 'drug' || opt == 'mov') {
-		for (i = 0; i < simplifiedArray.length; i++) {
-			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == simplifiedArray[i] });
-			simplifiedArray[i] = d.name;
-		}
-	}
-	else if (opt == 'res') {
-		for (i = 0; i < simplifiedArray.length; i++) {
-			let d = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == simplifiedArray[i] });
-			simplifiedArray[i] = d.name;
-		}
+	for (i = 0; i < simplifiedArray.length; i++) {
+		let d = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == simplifiedArray[i] });
+		simplifiedArray[i] = d.name;
 	}
 	return [
 		simplifiedArray,
 		counter
 	];
 }
+var dateXdataY = [];
 
-async function dataChartIDMov(field) {
-	await updateJsonREGS();
+function dataDateChart() {
 	let ids = [];
 	let movs = [];
+	let field = document.getElementById('selectOpt').value;
 
 	for (i = 0; i < jsonREGS.length; i++) {
-		ids.push(jsonREGS[i].register_id);
+		//ids.push(jsonREGS[i].register_id);
+		let t = new Date(jsonREGS[i].date);
+		t = t.toLocaleString('it-IT');
+		ids.push(t);
 	}
+
 	if (field == 'mov') {
 		for (i = 0; i < jsonREGS.length; i++) {
-			movs.push(jsonREGS[i].movement)
+			if (jsonREGS[i].movement == 0) {
+				movs.push(1);
+			}
+			else {
+				movs.push(jsonREGS[i].movement)
+			}
 		}
 	}
-	else {
+	else if (field == 'dur') {
 		for (i = 0; i < jsonREGS.length; i++) {
 			movs.push(jsonREGS[i].duration)
 		}
 	}
-	return [
+	dateXdataY = [
 		ids,
 		movs
 	];
+	return dateXdataY;
+	/*return [
+		ids,
+		movs
+	];*/
+}
+
+function addDrugToChart() {
+	debugger;
+	let id = drugXusageY[0].indexOf(document.getElementById('selectDrugs').value);
+	let drug = drugXusageY[0][id];
+	let count = drugXusageY[1][id];
+
+	let select = document.getElementById('selectErase');
+	let option = document.createElement('option');
+	option.appendChild(document.createTextNode(drug));
+	option.id = id;
+	option.value = drug;
+	select.appendChild(option);
+
+	if (ErasedrugXusageY.length == 0) {
+		ErasedrugXusageY[0] = [drug];
+		ErasedrugXusageY[1] = [count];
+	}
+	else {
+		ErasedrugXusageY[0].push(drug);
+		ErasedrugXusageY[1].push(count);
+	}
+
+	return ErasedrugXusageY;
+}
+
+function removeDrugItemChart() {
+	let select = document.getElementById('selectErase');
+	let opSelect = select.value;
+	select.options[select.selectedIndex] = null;
+	let id = ErasedrugXusageY[0].indexOf(opSelect);
+
+	ErasedrugXusageY[0].splice(id, 1);
+	ErasedrugXusageY[1].splice(id, 1);
+
+	return ErasedrugXusageY;
+}
+
+function dateFilterChart() {
+	debugger;
+	let d1 = document.getElementById('dateSince').value;
+	if (d1 == "") {
+		d1 = '01/01/1970';
+	}
+	let since = new Date(d1);
+	since.setHours(since.getHours() + 3);
+
+	d1 = document.getElementById('dateUntil').value;
+	let until
+	if (d1 == "") {
+		until = new Date(Date.now());
+	}
+	else{
+		until = new Date(d1);
+	}
+	until.setHours(until.getHours() + 3);
+	let x = [];
+	let y = [];
+	let d = 0;
+	for (i = 0; i < dateXdataY[0].length; i++) {
+		d = dateXdataY[0][i].split(', ')[0];
+
+		var dateParts = d.split("/");
+		// month is 0-based, that's why we need dataParts[1] - 1
+		d = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+
+		if (d >= since) {
+
+			if (d <= until) {
+				x.push(dateXdataY[0][i]);
+				y.push(dateXdataY[1][i]);
+			}
+		}
+	}
+	return [
+		x,
+		y
+	];
+	//console.log(dateXdataY[0][0].split(', ')[0]);
 }

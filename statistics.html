@@ -7,6 +7,8 @@
 	<title>Estadísticas</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
+	<script type="text/javascript" src="js/chart.min.js"></script>
+	<script type="text/javascript" src="js/chartContainer.js" defer></script>
 	<link rel="icon" href="svg/btnStatistics.svg">
 </head>
 
@@ -20,38 +22,69 @@
 		<h1>Estadísticas</h1>
 		<hr class="bar">
 		<div class="operation_container">
-			<div class="row_operation">
-				<div class="statistic_chart">
-					<canvas id="chartRegByCD" width="400" height="400"></canvas>
-					<p>Cantidad de pruebas de control y usando drogas</p>
+			<div class="containerStatsControl"">
+				<div style=" display: flex;">
+				<select id="selectDrugs" name="sDrugs">
+					<option disabled selected value=""> -- Seleccione para añadir-- </option>
+					<option value="Control">Control</option>
+					<option value="Droga">Droga</option>
+				</select>
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="addElement()" title="Añadir droga"
+						alt="Añadir droga">
 				</div>
-				<div class="statistic_chart">
-					<canvas id="chartDrugs" width="400" height="400"></canvas>
-				</div>
-			</div>
-			<div class="row_operation">
-				<div class="statistic_chart">
-					<canvas id="chartIDMov" width="400" height="400"></canvas>
-				</div>
-				<div class="statistic_chart">
-					<canvas id="chartIDDur" width="400" height="400"></canvas>
-				</div>
-			</div>
-			<div class="row_operation">
-				<div class="statistic_chart">
-					<canvas id="chartResearchers" width="400" height="400"></canvas>
-				</div>
-				<div class="statistic_chart">
-					<canvas id="chartDrugsMov" width="400" height="400"></canvas>
+				<select id="selectErase" name="sErase">
+					<option disabled selected value=""> -- Seleccione para eliminar -- </option>
+				</select>
+				<div class="button">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="removeElement();" title="Borrar registro"
+						alt="Borrar registro">
 				</div>
 			</div>
-
 		</div>
+		<div class="row_operation">
+			<div class="statistic_chart" style="width: 890px;">
+				<canvas id="chartDrugs" width="890" height="400"></canvas>
+			</div>
+		</div>
+
+		<div class="containerStatsControl">
+			<div style=" display: flex;">
+				<label class="labelDateStats" for="fselect">Ver:</label>
+
+				<select id="selectOpt" style="width: 150px;" onchange="fillDateData()" name="sOpt">
+					<option selected value="mov">Movimiento</option>
+					<option value="dur">Duracion</option>
+				</select>
+
+				<label class="labelDateStats" for="fdate">Desde:</label>
+				<input style="width: 150px;" type="date" id="dateSince" name="dateSince" placeholder="Fecha"><br><br>
+
+				<label class="labelDateStats" for="fdate">Hasta:</label>
+				<input style="width: 150px;" type="date" id="dateUntil" name="dateUntil" placeholder="Fecha"><br><br>
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="dateFilter()" title="Añadir droga"
+						alt="Añadir droga">
+				</div>
+			</div>
+		</div>
+		<div class="row_operation">
+			<div class="statistic_chart" style="width: 890px;">
+				<canvas id="chartDateData" width="890px" height="400"></canvas>
+			</div>
+		</div>
+
+		<div class="row_operation">
+			<div class="statistic_chart">
+				<canvas id="chartResearchers" width="400" height="400"></canvas>
+			</div>
+			<div class="statistic_chart">
+				<canvas id="chartDrugsMov" width="400" height="400"></canvas>
+			</div>
+		</div>
+
 	</div>
-	<script type="text/javascript" src="js/chart.min.js"></script>
-
-	<script type="text/javascript" src="js/chartContainer.js" defer></script>
-
+	</div>
 </body>
 
 </html>

@@ -27,11 +27,11 @@
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editData(row[1].cells[0].innerHTML, row[1].cells[7].innerHTML)"
+					onclick="editData(row[1].cells[0].innerHTML)"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro"
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Borrar registro"
 					alt="Borrar registro">
 			</div>
 		</div>
@@ -90,6 +90,7 @@
 		</div>
 		<h3 id="noData" style="display: none;">No hay datos.</h3>
 	</div>
+
 	<div id="float-controls">
 		<div class="controls">
 			<div class="button">
@@ -103,7 +104,7 @@
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg()" title="Borrar registro"
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Borrar registro"
 					alt="Borrar registro">
 			</div>
 		</div>
@@ -232,7 +233,6 @@
 		</form>
 	</div>
 	<div id="popupNewDrug" class="modal">
-
 		<form id="frmDrug" class="modal-content animate" method="post">
 			<div class="imgcontainer">
 				<span onclick="cancel('popupNewDrug')" class="close" title="Cerrar">&times;</span>
@@ -273,7 +273,6 @@
 		}
 
 		document.querySelector('table').addEventListener('click', function (e) {
-			debugger;
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());

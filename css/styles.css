@@ -257,6 +257,14 @@ hr{
 	max-width: 1024px;
 }
 
+.labelDateStats{
+	margin-left: 20px;
+	margin-right: 10px;
+	position: relative;
+	bottom: -0.9em;
+}
+
+
 .controls {
 	display: flex;
 	justify-content: center;
@@ -439,9 +447,18 @@ select{
 	padding: 6px 6px;
 }
 
-.containerSearchLength{
+.containerSearchLength, .containerStatsControl{
 	display: flex;
 	width: 100%;
+}
+
+.containerStatsControl{
+	justify-content: center;
+}
+
+.containerStatsControl img{
+	position: relative;
+	bottom: -0.25em;
 }
 
 .searchDiv{
