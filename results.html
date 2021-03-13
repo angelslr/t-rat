@@ -10,7 +10,7 @@
 	<link rel="icon" href="svg/btnResults.svg">
 </head>
 
-<body onload="validateSession(); changeIconTheme(); loadControl()">
+<body onload="validateSession(); changeIconTheme(); loadControl(); updateAutocompleteList()">
 	<div class="header_container">
 		<header id="header">
 		</header>
@@ -26,13 +26,15 @@
 					title="Nuevo registro" alt="Nuevo registro">
 			</div>
 			<div class="button">
-				<img id="btnBlue" src="svg/btnEdit.svg"
-					onclick="editData(row[1].cells[0].innerHTML)"
+				<img id="btnBlue" src="svg/btnEdit.svg" onclick="editData(row[1].cells[0].innerHTML)"
 					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
 			</div>
 			<div class="button">
 				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Borrar registro"
 					alt="Borrar registro">
+			</div>
+			<div class="button">
+				<img src="svg/btnPercentage.svg" alt="">
 			</div>
 		</div>
 		<div style="display: flex;">
@@ -63,7 +65,9 @@
 					<option value="7">Obs.</option>
 					<option selected value="-1">Todos</option>
 				</select>
-				<input type="text" id="searchInput" onkeyup="search()" title="Búsqueda">
+				<input list="autocompleteList" id="searchInput" onkeyup="search()" title="Búsqueda">
+				<datalist id="autocompleteList">
+				</datalist>
 			</div>
 		</div>
 		<br>

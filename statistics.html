@@ -42,6 +42,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row_operation">
 			<div class="statistic_chart" style="width: 890px;">
 				<canvas id="chartDrugs" width="890" height="400"></canvas>
@@ -83,6 +84,32 @@
 			</div>
 		</div>
 
+		<div class="row_operation">
+			<div class="statistic_chart" style="width: 890px;">
+				<canvas id="chartDrugsMovByDose" width="890px" height="400"></canvas>
+			</div>
+		</div>
+		<div class="containerStatsControl">
+			<div style=" display: flex;">
+				<label class="labelDateStats" for="fselect">Porcentaje de diferencia entre:</label>
+
+				<select id="selectDose1" onchange="calcPercentage()" style="width: 150px;" onchange="" name="sDos1">
+					<option disabled selected value=""> -- Seleccione -- </option>
+				</select>
+
+				<label class="labelDateStats" for="fdate">y</label>
+
+				<select id="selectDose2" onchange="calcPercentage()" style="width: 150px;" onchange="" name="sDos2">
+					<option disabled selected value=""> -- Seleccione -- </option>
+				</select>
+				<div class="button">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="" title="Añadir droga" alt="Añadir droga">
+				</div>
+			</div>
+		</div>
+		<label id="perMin"></label>
+		<label id="perAvg"></label>
+		<label id="perMax"></label>
 	</div>
 	</div>
 </body>

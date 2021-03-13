@@ -83,15 +83,34 @@ document.addEventListener("DOMContentLoaded", function () {
 			Acerca de
 		</a>
 		<div id="popupAbout" class="modal">
-		<form id="frmDataResults" class="modal-content animate">
+		<form id="frmAbout" class="modal-content animate">
 			<div class="imgcontainer">
 				<span onclick="cancel('popupAbout')" class="close" title="Cerrar">&times;</span>
 			</div>
-			<div class="usercontainer">
-				<h3>Acerca de T-Rat</h3>
-				<hr>
-				<p style="font-size: 12pt;">Versión 3.3</p>
+			<div class="containerAbout">
+			<svg width="10.054mm" height="10.054mm" version="1.1" viewBox="0 0 10.054 10.054" xmlns="http://www.w3.org/2000/svg">
+			<g transform="scale(.019105)">
+			 <path d="m279.95 280.19v246.07a263.67 263.67 0 0 0 246.3-246.07z" fill="#888785"/>
+			 <path d="m0.020154 280.19a263.67 263.67 0 0 0 246.13 246.06v-246.06z" fill="#b4b4b4"/>
+			 <path d="m246.15 0.010852a263.67 263.67 0 0 0-246.15 246.36h246.15z" fill="#151515"/>
+			 <path d="m279.95 0v246.38h246.32a263.67 263.67 0 0 0-246.32-246.38z" fill="#414444"/>
+			 <path d="m153.35 141.87c-10.689 0.3058-23.544 14.048-20.132 26.577-15.931 14.507-40.642 9.1169-57.142 22.778-11.816 12.485-47.734 19.332-40.695 39.927 11.515 13.066 26.139 25.305 44.74 26.227 28.186-0.96199 57.76 8.6439 75.469 32.532 13.767 18.57 12.06 49.607-9.571 59.904-10.528-3.7444-39.632 11.91-17.69 7.9039-18 15.71 22.123-5.0638 7.6528 7.2982 3.393 5.4722-12.739 7.667-14.951 9.6206-2.0115 1.7763 2.534 1.1405 6.5293 0.57721 1.0658-0.15031-3.2976 3.6293-2.173 3.8416 1.3977 0.26392 5.1749-2.6415 6.4895-2.2877 1.7692 0.4762-5.0226 5.4506-3.1006 5.2503 2.617-0.27278 12.112-5.6971 15.144-7.1499h6e-3c11.324-5.4262-2.5962 5.8847 6.0342 7.3758 6.795-7.3986 14.237-12.337 20.348-16.112 10.586-17.053 35.107-21.447 51.192-33.134 18.825-13.678 35.907-1.4071 54.973 2.0118 16.539 6.5691 42.934-6.559 52.873 11.699-15.86 12.961-42.343-3.2722-60.572 7.0978-19.883 9.0135 20.747-3.3424 2.5931 7.3546-10.226 8.544-3.0064 7.7726 4.1863 2.2645 15.814-8.3029-2.5372 17.007 13.25 6.9024 16.984-6.7447 37.101-2.9121 55.148-7.599 17.897-0.97801 10.294-21.807 29.399-16.944 23.182 5.902 41.823-20.403 64.637-11.338 22.886 7.786 50.967 12.651 64.66 34.829 0.37222 0.61384 0.71528 1.2264 1.033 1.8381a263.67 263.67 0 0 0 4.5925-10.875c-16.063-19.785-42.281-29.484-64.162-41.563-22.375-19.614-24.078-51.009-33.207-77.428-12.656-36.625-45.725-62.132-82.199-70.157-26.757-5.8874-56.022-9.3188-82.392 2.5492-22.741 10.234-50.304 10.5-75.221 1.8846-16.344-5.651-8.0427-12.498-5.7795-22.785-2.0393-7.9666-6.7426-11.022-11.963-10.873zm325.68 272.63c-4.2354 1.4809-8.5856 2.3556-12.758 2.4918-45.632 5.6157-92.784-5.1429-137.63 7.7551-14.285 3.1519-7.7024 5.8151 2.4686 3.2241 46.168-12.254 94.248 8.7616 140.07-2.851a263.67 263.67 0 0 0 7.8507-10.62z" fill="#fff"/>
+			</g>
+		   </svg>
+		   
+				<div class="containerAboutText">
+				<p style="font-size: 16pt;"><strong>Acerca de T-Rat</strong></p>
+				<p><strong>Versión 3.7 (Testing)</strong></p>
+				<p>Universidad Nacional de La Rioja</p>
+				<p>Angel Salazar</p>
+				<p>Ignacio Andrada</p>
+				<p>David Gomez</p>
+				<div style="margin-left:auto; margin-right:0;">
+				</div>
+				</div>
+				
 			</div>
+			<p style="text-align: right;margin: 0 22px 12px 0px;">2021</p>
 		</form>
 	</div>
 	</ul>`
@@ -570,7 +589,7 @@ async function timeWait() {
 		async function () {
 			seconds++;
 			if (seconds == 2) {
-				
+
 			}
 			if (seconds == 7) {
 				clearInterval(tWait);
@@ -762,7 +781,7 @@ async function loadAllData(tableLen) {
 			let t = new Date(jsonREGS[lc].date);
 			t = t.toLocaleString();
 
-			showRowTable(jsonREGS[lc].register_id, t, r.name, jsonREGS[lc].duration, jsonREGS[lc].movement, d.name, jsonREGS[lc].treatment, jsonREGS[lc].observations);
+			showRowTable(jsonREGS[lc].register_id, t, r.name, jsonREGS[lc].duration, jsonREGS[lc].movement, d.name + ' ' + d.dosage + 'mg', jsonREGS[lc].treatment, jsonREGS[lc].observations);
 			lc += 1;
 		}
 	}
@@ -770,6 +789,7 @@ async function loadAllData(tableLen) {
 		document.getElementById("noData").style.display = "block";
 	}
 	document.getElementById("registers").innerHTML = jsonREGS.length;
+	updateAutocompleteList();
 }
 
 //Guarda un registro
@@ -1127,7 +1147,6 @@ function search() {
 	tr = table.getElementsByTagName("tr");
 	searchBy = parseInt(document.getElementById("searchBy").value, 10);
 
-
 	//i = filas de la tabla, j = columnas
 	if (searchBy == -1) {
 		for (i = 0; i < tr.length; i++) {
@@ -1160,7 +1179,6 @@ function search() {
 
 		}
 	}
-
 }
 
 function sortTable(n, isNumber) {
@@ -1288,13 +1306,10 @@ async function dataChartDrugs() {
 		select.appendChild(option);
 	}
 	dataChartRegs();
-	/*return [
-		simplifiedArray,
-		counter
-	];*/
 }
-async function dataChartMov() {
 
+async function dataChartMov() {
+	//array1 corresponde a los ids de las drogas. array2 a los movimientos por prueba
 	let array1 = [];
 	let array2 = [];
 	let aux = [];
@@ -1302,42 +1317,41 @@ async function dataChartMov() {
 	let avg = [];
 	let maxs = [];
 
-
+	//Extrae ids de drogas y movimientos
 	for (i = 0; i < jsonREGS.length; i++) {
 		array1.push(jsonREGS[i].drug_id);
 		array2.push(jsonREGS[i].movement);
 	}
+	//Reemplaza cada id contenido en array1 con el nombre de su correspondiente droga
 	for (i = 0; i < array1.length; i++) {
 		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == array1[i] });
 		array1[i] = d.name;
 	}
+	//Asigna esos datos a un arreglo auxiliar
 	aux = [
 		array1,
 		array2
 	]
-
+	//Todos los (ahora) nombres duplicados en array1 son eliminados y asignados a una nueva
 	simplifiedArray = array1.filter(function (item, pos) {
 		return array1.indexOf(item) == pos;
 	});
 
-
-	/*var wantedData = jsonREGS.filter(function (i) {
-		return i.drug_id === 2;
-	});*/
+	//simplifiedArray se usa como control, dado que hay que buscar X numero de drogas diferentes
 	for (i = 0; i < simplifiedArray.length; i++) {
-
 		let arr2 = [];
 		let c = 0;
 		for (j = 0; j < aux[0].length; j++) {
+			//Si el nombre de la droga contenido en aux coincide con simplifiedArray, se almacena su
+			//valor de movimiento en arr2, mientras que se suma a un contador
 			if (aux[0][j] == simplifiedArray[i]) {
-
 				arr2.push(aux[1][j]);
 				c += aux[1][j];
 			}
-
 		}
+		//Cuando finaliza el ciclo de buscar una droga, se calcula el minimo, promedio y maximo movimiento
 		mins.push(getMinOfArray(arr2));
-		avg.push(c / arr2.length);
+		avg.push(parseFloat(c / arr2.length).toFixed(2));
 		maxs.push(getMaxOfArray(arr2));
 	}
 	function getMaxOfArray(numArray) {
@@ -1350,7 +1364,6 @@ async function dataChartMov() {
 		let d = jsonREGS.filter(function (jsonREGS) { return jsonREGS.drug_id == array1[i] });
 	}
 */
-
 	//let aux = simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
 
 	return [
@@ -1359,6 +1372,123 @@ async function dataChartMov() {
 		avg,
 		maxs
 	];
+}
+
+var dataMovByDose = [];
+async function dataChartMovByDose() {
+	let array1 = [];
+	let array2 = [];
+	let aux = [];
+	let mins = [];
+	let avg = [];
+	let maxs = [];
+
+	//Extrae ids de drogas y movimientos
+	for (i = 0; i < jsonREGS.length; i++) {
+		array1.push(jsonREGS[i].drug_id);
+		array2.push(jsonREGS[i].movement);
+	}
+	//Asigna esos datos a un arreglo auxiliar
+	aux = [
+		array1,
+		array2
+	]
+
+	//simplifiedArray se usa como control, dado que hay que buscar X numero de drogas diferentes
+	for (i = 0; i < jsonDRUGS.length; i++) {
+		let arr2 = [];
+		let c = 0;
+		for (j = 0; j < aux[0].length; j++) {
+			//Si el nombre de la droga contenido en aux coincide con simplifiedArray, se almacena su
+			//valor de movimiento en arr2, mientras que se suma a un contador
+			if (aux[0][j] == jsonDRUGS[i].drug_id) {
+				arr2.push(aux[1][j]);
+				c += aux[1][j];
+			}
+		}
+		//Cuando finaliza el ciclo de buscar una droga, se calcula el minimo, promedio y maximo movimiento
+		mins.push(getMinOfArray(arr2));
+		avg.push(parseFloat(c / arr2.length).toFixed(2));
+		maxs.push(getMaxOfArray(arr2));
+	}
+	function getMaxOfArray(numArray) {
+		return Math.max.apply(null, numArray);
+	}
+	function getMinOfArray(numArray) {
+		return Math.min.apply(null, numArray);
+	}
+
+	let simplifiedArray = [];
+	for (i = 0; i < jsonDRUGS.length; i++) {
+		simplifiedArray.push(jsonDRUGS[i].name + ' ' + jsonDRUGS[i].dosage + 'mg');
+	}
+	dataMovByDose = [
+		simplifiedArray,
+		mins,
+		avg,
+		maxs
+	];
+	fillSelectMov();
+	return dataMovByDose;
+}
+
+function fillSelectMov() {
+	let select = document.getElementById('selectDose1');
+	for (i = 0; i < dataMovByDose[0].length; i++) {
+		let option = document.createElement('option');
+		let value = i;
+		option.appendChild(document.createTextNode(dataMovByDose[0][i]));
+		option.value = value;
+
+		select.appendChild(option);
+	}
+	select = document.getElementById('selectDose2');
+	for (i = 0; i < dataMovByDose[0].length; i++) {
+		let option = document.createElement('option');
+		let value = i;
+		option.appendChild(document.createTextNode(dataMovByDose[0][i]));
+		option.value = value;
+
+		select.appendChild(option);
+	}
+}
+
+function calcPercentage() {
+	debugger;
+
+	let s1 = document.getElementById("selectDose1").value;
+	let s2 = document.getElementById('selectDose2').value;
+
+	if (s1 == '' || s2 == '') { }
+	else {
+		s1 = parseInt(s1);
+		s2 = parseInt(s2);
+		let per;
+		let first;
+		let second;
+		let result;
+		per = document.getElementById('perMin');
+		first = dataMovByDose[1][s1];
+		second = dataMovByDose[1][s2];
+		second = second - first;
+		result = (second * 100) / first
+		per.innerHTML = 'La diferencia porcentual entre valores mínimos es: ' + parseFloat(result).toFixed(2) + '%';
+
+		per = document.getElementById('perAvg');
+		first = dataMovByDose[2][s1];
+		second = dataMovByDose[2][s2];
+		second = second - first;
+		result = (second * 100) / first
+		per.innerHTML = 'La diferencia porcentual entre valores promedios es: ' + parseFloat(result).toFixed(2) + '%';
+
+		per = document.getElementById('perMax');
+		first = dataMovByDose[3][s1];
+		second = dataMovByDose[3][s2];
+		second = second - first;
+		result = (second * 100) / first
+		per.innerHTML = 'La diferencia porcentual entre valores máximos es: ' + parseFloat(result).toFixed(2) + '%';
+	}
+
 }
 
 async function dataChartRes() {
@@ -1391,10 +1521,12 @@ function dataDateChart() {
 	let movs = [];
 	let field = document.getElementById('selectOpt').value;
 
+	//Se añaden todas las fechas de todos los registros
 	for (i = 0; i < jsonREGS.length; i++) {
 		//ids.push(jsonREGS[i].register_id);
 		let t = new Date(jsonREGS[i].date);
-		t = t.toLocaleString('it-IT');
+		//t = t.toLocaleString('it-IT');
+		t = t.toLocaleString('default', { month: 'short' }) + ' ' + t.toLocaleString('default', { day: 'numeric' });
 		ids.push(t);
 	}
 
@@ -1418,10 +1550,6 @@ function dataDateChart() {
 		movs
 	];
 	return dateXdataY;
-	/*return [
-		ids,
-		movs
-	];*/
 }
 
 function addDrugToChart() {
@@ -1475,7 +1603,7 @@ function dateFilterChart() {
 	if (d1 == "") {
 		until = new Date(Date.now());
 	}
-	else{
+	else {
 		until = new Date(d1);
 	}
 	until.setHours(until.getHours() + 3);
@@ -1502,4 +1630,66 @@ function dateFilterChart() {
 		y
 	];
 	//console.log(dateXdataY[0][0].split(', ')[0]);
+}
+
+function updateAutocompleteList() {
+	let auto = document.getElementById('autocompleteList');
+	auto.innerHTML = "";
+	auto.lastChild = "";
+
+	let array1 = [];
+	let array2 = [];
+
+	debugger;
+	for (i = 0; i < jsonDRUGS.length; i++) {
+		array1.push(jsonDRUGS[i].drug_id);
+	}
+
+	for (i = 0; i < array1.length; i++) {
+		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == array1[i] });
+		array1[i] = d.name;
+	}
+	for (i = 0; i < jsonRES.length; i++) {
+		array2.push(jsonRES[i].researcher_id);
+	}
+
+	for (i = 0; i < array2.length; i++) {
+		let d = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == array2[i] });
+		array2[i] = d.name;
+	}
+	simplifiedArray = array1.filter(function (item, pos) {
+		return array1.indexOf(item) == pos;
+	});
+	sa2 = array2.filter(function (item, pos) {
+		return array2.indexOf(item) == pos;
+	});
+
+	simplifiedArray = simplifiedArray.concat(sa2);
+
+	let option = document.createElement('option');
+	let value = 'Control';
+
+	option.appendChild(document.createTextNode(value));
+	option.value = value;
+
+	auto.appendChild(option);
+
+	option = document.createElement('option');
+	value = 'Droga';
+
+	option.appendChild(document.createTextNode(value));
+	option.value = value;
+
+	auto.appendChild(option);
+
+	for (let i = 0; i < simplifiedArray.length; i++) {
+		option = document.createElement('option');
+		value = simplifiedArray[i];
+
+		option.appendChild(document.createTextNode(value));
+		option.value = value;
+
+		auto.appendChild(option);
+	}
+
 }

@@ -657,3 +657,27 @@ span.psw {
 	margin-left: 50px;
 	margin-right: 50px;
 }
+
+#frmAbout{
+	width: 500px;
+}
+
+.containerAbout{
+	padding: 16px;
+	display: inline-flex;
+}
+
+.containerAbout svg{
+	margin-top: 23px;
+	margin-left: 20px;
+	width: 150px;
+	height: 150px;
+}
+
+.containerAboutText p{
+	width: 100%;
+}
+.containerAboutText p{
+	font-size: 12pt;
+	padding-inline-start: 15%;
+}

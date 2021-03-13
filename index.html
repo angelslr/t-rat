@@ -21,7 +21,7 @@
 			<img style="width: 150px; height: 150px;" src="svg/TRatCircle.svg" alt="Avatar" class="avatar">
 		</div>
 		<h1>T-rat</h1>
-		<p style="text-align: center;">Sistema integral de seguimiento en Open Field Test</p>
+		<p style="text-align: center;">Sistema Integral de seguimiento en Open Field Test</p>
 		<hr>
 		<h3 id="arduinoStatus">Iniciando Arduino...</h3>
 		<br>
@@ -37,6 +37,16 @@
 					</div>
 				</div>
 				<div class="button_container">
+					<p>Reinicie el sistema</p>
+					<div class="controls">
+						<div class="button" style="position: relative; bottom: -24px;">
+							<img onclick="window.location.reload();" id="btnOrange" src="svg/idxbtnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row_operation">
+				<div class="button_container">
 					<p>Acceda a las pruebas realizadas</p>
 					<div class="controls">
 						<a href="results.html" target="_new">
@@ -44,10 +54,18 @@
 						</a>
 					</div>
 				</div>
+				<div class="button_container">
+					<p>Consulte datos estadísticos</p>
+					<div class="controls" style="position: relative; bottom: -24px;">
+						<a href="statistics.html" target="_new">
+							<img id="btnBlue" src="svg/idxbtnStatistics.svg" title="Ver estadísticas" alt="Ver Estadísticas">
+						</a>
+					</div>
+				</div>
 			</div>
 			<div class="row_operation">
 				<div class="button_container">
-					<p>Consulte la lista de drogas usadas</p>
+					<p>Acceda a la lista de drogas usadas</p>
 					<div class="controls">
 						<a href="researchers.html" target="_new">
 							<img id="btnBlue" src="svg/idxbtnDrugs.svg" title="Ver drogas" alt="Consulte la lista de drogas usadas">
@@ -60,24 +78,6 @@
 						<a href="researchers.html" target="_new">
 							<img id="btnBlue" src="svg/idxbtnResearchers.svg" title="Ver investigadores" alt="Iniciar Prueba">
 						</a>
-					</div>
-				</div>
-			</div>
-			<div class="row_operation">
-				<div class="button_container">
-					<p>Falta la descripcion!!</p>
-					<div class="controls">
-						<a href="statistics.html" target="_new">
-							<img id="btnBlue" src="svg/idxbtnStatistics.svg" title="Ver estadísticas" alt="Ver Estadísticas">
-						</a>
-					</div>
-				</div>
-				<div class="button_container">
-					<p>Reinicia el Arduino y recarga la página</p>
-					<div class="controls">
-						<div class="button">
-							<img onclick="window.location.reload();" id="btnOrange" src="svg/idxbtnRestart.svg" title="Reiniciar Arduino" alt="Reiniciar Arduino">
-						</div>
 					</div>
 				</div>
 			</div>

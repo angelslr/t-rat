@@ -63,6 +63,9 @@ var chartDrugs = new Chart(ctx, {
 	options: {
 		scales: {
 			yAxes: [{
+				ticks: {
+					stepSize : 1
+				},
 				scaleLabel: {
 					display: true,
 					labelString: 'Cantidad de Registros'
@@ -75,10 +78,7 @@ var chartDrugs = new Chart(ctx, {
 
 var ctx = document.getElementById('chartDateData').getContext('2d');
 var chartDateData = new Chart(ctx, {
-	// The type of chart we want to create
 	type: 'bar',
-
-	// The data for our dataset
 	data: {
 		labels: ['-'],
 		datasets: [{
@@ -89,19 +89,17 @@ var chartDateData = new Chart(ctx, {
 			borderWidth: 1
 		}]
 	},
-
-	// Configuration options go here
 	options: {
 		tooltips: {
 			callbacks: {
 				label: function (tooltipItem, data) {
 					var value = data.datasets[0].data[tooltipItem.index];
-
 					if (value === 1) {
 						value = 0;
 					}
-
-					return 'ID Registro / Movimiento' + ': ' + value;
+					let opt = document.getElementById('selectOpt');
+					let text = opt.options[opt.selectedIndex].text;
+					return 'Fecha Registro / ' + text + ': ' + value;
 				}
 			}
 		},
@@ -132,6 +130,9 @@ var chartResearchers = new Chart(ctx, {
 	options: {
 		scales: {
 			yAxes: [{
+				ticks: {
+					stepSize : 1
+				},
 				scaleLabel: {
 					display: true,
 					labelString: 'Nro de pruebas realizadas'
@@ -196,6 +197,62 @@ var chartDrugsMov = new Chart(ctx, {
 	}
 });
 
+var ctx = document.getElementById('chartDrugsMovByDose').getContext('2d');
+var chartDrugsMovByDose = new Chart(ctx, {
+	type: 'bar',
+	data: {
+		labels: ['-'],
+		datasets: [{
+			label: 'Relación Movimiento/Droga',
+			data: [{
+				label: "Blue",
+				backgroundColor: "blue",
+				data: [3, 7, 4]
+			}, {
+				label: "Red",
+				backgroundColor: "red",
+				data: [4, 3, 5]
+			}, {
+				label: "Green",
+				backgroundColor: "green",
+				data: [7, 2, 6]
+			}],
+			backgroundColor: backColor,
+			borderColor: borColor,
+			borderWidth: 1
+		}]
+	},
+	options: {
+		scales: {
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: 'Cantidad de movimiento'
+				}
+			}]
+		}
+		/*scales: {
+			yAxes: [{
+				gridLines: {
+					display: false
+				},
+				ticks: {
+					display: false
+				}
+			}],
+			xAxes: [{
+				gridLines: {
+					display: false
+				},
+				ticks: {
+					display: false
+				}
+			}]
+		}*/
+	}
+});
+
+
 getDataForCharts();
 
 
@@ -215,6 +272,9 @@ async function getDataForCharts() {
 
 	results = await dataChartMov();
 	updateDataLabelDrugs(results, chartDrugsMov);
+
+	results = await dataChartMovByDose();
+	updateDataLabelDrugs(results, chartDrugsMovByDose);
 }
 
 function addElement() {
@@ -256,7 +316,7 @@ function updateDataLabelDrugs(results, chart) {
 				data: results[1]
 			},
 			{
-				label: "Med",
+				label: "Prom",
 				backgroundColor: "rgba(253, 114, 114, 0.4)",
 				data: results[2]
 			},
