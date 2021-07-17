@@ -21,6 +21,16 @@
 	<div class="containerStats">
 		<h1>Estadísticas</h1>
 		<hr class="bar">
+		<div class="row_operation">
+			<div class="statistic_chart">
+				<canvas id="chartResearchers" width="400" height="400"></canvas>
+			</div>
+			<div class="statistic_chart">
+				<canvas id="chartDrugsMov" width="400" height="400"></canvas>
+			</div>
+		</div>
+
+		<!--
 		<div class="operation_container">
 			<div class="containerStatsControl"">
 				<div style=" display: flex;">
@@ -30,14 +40,14 @@
 					<option value="Droga">Droga</option>
 				</select>
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="addElement()" title="Añadir droga"
+					<img id="btnGreen" src="svg/btnAdd.svg" onclick="addElement()" title="Añadir droga"
 						alt="Añadir droga">
 				</div>
 				<select id="selectErase" name="sErase">
 					<option disabled selected value=""> -- Seleccione para eliminar -- </option>
 				</select>
 				<div class="button">
-					<img id="btnRed" src="svg/btnCancel.svg" onclick="removeElement();" title="Borrar registro"
+					<img id="btnRed" src="svg/btnRemove.svg" onclick="removeElement();" title="Borrar registro"
 						alt="Borrar registro">
 				</div>
 			</div>
@@ -48,7 +58,7 @@
 				<canvas id="chartDrugs" width="890" height="400"></canvas>
 			</div>
 		</div>
-
+		-->
 		<div class="containerStatsControl">
 			<div style=" display: flex;">
 				<label class="labelDateStats" for="fselect">Ver:</label>
@@ -64,7 +74,7 @@
 				<label class="labelDateStats" for="fdate">Hasta:</label>
 				<input style="width: 150px;" type="date" id="dateUntil" name="dateUntil" placeholder="Fecha"><br><br>
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="dateFilter()" title="Añadir droga"
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="dateFilter()" title="Aceptar"
 						alt="Añadir droga">
 				</div>
 			</div>
@@ -72,15 +82,6 @@
 		<div class="row_operation">
 			<div class="statistic_chart" style="width: 890px;">
 				<canvas id="chartDateData" width="890px" height="400"></canvas>
-			</div>
-		</div>
-
-		<div class="row_operation">
-			<div class="statistic_chart">
-				<canvas id="chartResearchers" width="400" height="400"></canvas>
-			</div>
-			<div class="statistic_chart">
-				<canvas id="chartDrugsMov" width="400" height="400"></canvas>
 			</div>
 		</div>
 

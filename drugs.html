@@ -21,7 +21,7 @@
 		<hr>
 		<div class="controls">
 			<div class="button">
-				<img id="btnGreen" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+				<img id="btnGreen" onclick="operation('popupNewDrug'), clearInputs('frmDrug')" src="svg/btnNewDrug.svg"
 					title="Crear nueva droga" alt="Crear nueva droga">
 			</div>
 			<div class="button">
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div style="display: flex;">
-			<p>Cantidad de registros: </p>
+			<p>Cantidad de elementos: </p>
 			<p id="registers" style="margin-left: 10px;">0</p>
 		</div>
 		<div class="containerSearchLength">
@@ -46,12 +46,11 @@
 					<option value="50">50</option>
 					<option value="-1">Todos</option>
 				</select>
-				<label for="label">registros</label>
+				<label for="label">elementos</label>
 			</div>
 			<div class="searchDiv">
 				<label for="search">Buscar:</label>
-				<select id="searchBy" onchange="clearTable('drug')" name="searchBy">
-					<option value="0">ID</option>
+				<select id="searchBy" name="searchBy">
 					<option value="1">Droga</option>
 					<option value="2">Dosis</option>
 					<option selected value="-1">Todos</option>
@@ -81,7 +80,7 @@
 	<div id="float-controls">
 		<div class="controls">
 			<div class="button">
-				<img id="btnGreen" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+				<img id="btnGreen" onclick="operation('popupNewDrug'), clearInputs('frmDrug')" src="svg/btnNewDrug.svg"
 					title="Crear nueva droga" alt="Crear nueva droga">
 			</div>
 			<div class="button">

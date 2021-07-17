@@ -21,7 +21,7 @@
 		<hr>
 		<div class="controls">
 			<div class="button">
-				<img id="btnGreen" onclick="operation('popupNewRes')" src="svg/btnNewResearcher.svg"
+				<img id="btnGreen" onclick="operation('popupNewRes'), clearInputs('frmResearcher')" src="svg/btnNewResearcher.svg"
 					title="Añadir nuevo investigador" alt="Añadir nuevo investigador">
 			</div>
 			<div class="button">
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div style="display: flex;">
-			<p>Cantidad de registros: </p>
+			<p>Número de investigadores: </p>
 			<p id="registers" style="margin-left: 10px;">0</p>
 		</div>
 		<div class="containerSearchLength">
@@ -46,12 +46,11 @@
 					<option value="50">50</option>
 					<option value="-1">Todos</option>
 				</select>
-				<label for="label">registros</label>
+				<label for="label">investigadores</label>
 			</div>
 			<div class="searchDiv">
 				<label for="search">Buscar:</label>
-				<select id="searchBy" onchange="clearTable('researcher')" name="searchBy">
-					<option value="0">ID</option>
+				<select id="searchBy" name="searchBy">
 					<option value="1">Inv.</option>
 					<option value="2">Cat.</option>
 					<option selected value="-1">Todos</option>
@@ -81,7 +80,7 @@
 	<div id="float-controls">
 		<div class="controls">
 			<div class="button">
-				<img id="btnGreen" onclick="operation('popupNewRes')" src="svg/btnNewResearcher.svg"
+				<img id="btnGreen" onclick="operation('popupNewRes'), clearInputs('frmResearcher')" src="svg/btnNewResearcher.svg"
 				title="Añadir nuevo investigador" alt="Añadir nuevo investigador">
 			</div>
 			<div class="button">

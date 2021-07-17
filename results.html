@@ -10,7 +10,7 @@
 	<link rel="icon" href="svg/btnResults.svg">
 </head>
 
-<body onload="validateSession(); changeIconTheme(); loadControl(); updateAutocompleteList()">
+<body onload="validateSession(); changeIconTheme(); loadControl('regs'); updateAutocompleteList()">
 	<div class="header_container">
 		<header id="header">
 		</header>
@@ -34,7 +34,7 @@
 					alt="Borrar registro">
 			</div>
 			<div class="button">
-				<img src="svg/btnPercentage.svg" alt="">
+				<img id="btnGray" src="svg/btnPercentage.svg" onclick="switchPer()" alt="">
 			</div>
 		</div>
 		<div style="display: flex;">
@@ -44,7 +44,7 @@
 		<div class="containerSearchLength">
 			<div class="tLength">
 				<label for="label">Mostrar</label>
-				<select id="tableLength" onchange="clearTable()" name="tableLength">
+				<select id="tableLength" onchange="clearTable('regs')" name="tableLength">
 					<option selected value="10">10</option>
 					<option value="25">25</option>
 					<option value="50">50</option>
@@ -54,15 +54,11 @@
 			</div>
 			<div class="searchDiv">
 				<label for="search">Buscar:</label>
-				<select id="searchBy" onchange="clearTable()" name="searchBy">
-					<option value="0">ID</option>
+				<select id="searchBy" name="searchBy">
 					<option value="1">Fecha</option>
 					<option value="2">Inv.</option>
-					<option value="3">Dur.</option>
-					<option value="4">Mov.</option>
 					<option value="5">Droga</option>
 					<option value="6">Trat.</option>
-					<option value="7">Obs.</option>
 					<option selected value="-1">Todos</option>
 				</select>
 				<input list="autocompleteList" id="searchInput" onkeyup="search()" title="Búsqueda">
@@ -76,10 +72,10 @@
 				<thead>
 					<th onclick="sortTable(0, true)" title="Número de prueba">Nro</th>
 					<th onclick="sortTable(1)" title="Fecha en la que se realizó la prueba">Fecha</th>
-					<th onclick="sortTable(2)" title="Inv.">Inv.</th>
+					<th onclick="sortTable(2)" title="Investigador a cargo">Inv.</th>
 					<th onclick="sortTable(3, true)" title="Duracion total de la prueba">Duración (s)</th>
 					<th onclick="sortTable(4, true)" title="Movimiento total del animal">Mov.</th>
-					<th onclick="sortTable(5)" title="Droga">Droga</th>
+					<th onclick="sortTable(5)" title="Droga utilizada">Droga</th>
 					<th onclick="sortTable(6)" title="Tratamiento utilizado">Trat.</th>
 					<th onclick="sortTable(7)" title="Observaciones">Obs.</th>
 				</thead>
@@ -88,7 +84,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="center" onclick="">
+		<div class="center">
 			<div id="pagination">
 			</div>
 		</div>
@@ -110,6 +106,10 @@
 			<div class="button">
 				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Borrar registro"
 					alt="Borrar registro">
+			</div>
+			<div class="button">
+				<img id="btnGray" src="svg/btnPercentage.svg" onclick="switchPer()"
+					alt="Calcular porcentajes entre 2 registros">
 			</div>
 		</div>
 	</div>
@@ -133,7 +133,7 @@
 
 				<label for="fresearcher">Investigador:
 					<div class="button">
-						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewRes')"
+						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewRes'), clearInputs('frmResearcher')"
 							src="svg/btnNewResearcher.svg" title="Crear un nuevo investigador"
 							alt="Crear nuevo investigador">
 					</div>
@@ -147,7 +147,7 @@
 				<label for="fdrug">Droga:
 
 					<div class="button">
-						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug'), clearInputs('frmDrug');" src="svg/btnNewDrug.svg"
 							title="Crear nueva droga" alt="Crear nueva droga">
 					</div>
 				</label>
@@ -174,22 +174,19 @@
 						title="Limpiar campos" alt="Limpiar campos">
 				</div>
 				<div class="button">
-					<a href="researchers.html" target="_blank">
-						<img id="btnBlue" src="svg/btnResearchers.svg" title="Mostrar lista de Investigadores"
-							alt="Mostrar lista de Investigadores">
-					</a>
-					<br>
-				</div>
-				<div class="button">
-					<a href="drugs.html" target="_blank">
-						<img id="btnBlue" src="svg/btnDrugs.svg" title="Mostrar lista de Drogas"
-							alt="Mostrar lista de Drogas">
-					</a>
-					<br>
-				</div>
-				<div class="button">
 					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popup')" title="Cancelar" alt="Cancelar">
 				</div>
+			</div>
+		</form>
+	</div>
+
+	<div id="popupPercentage" class="modal">
+		<form id="frmDataResults" class="modal-content animate">
+			<div class="imgcontainer">
+				<span onclick="cancel('popupPercentage')" class="close" title="Cerrar">&times;</span>
+			</div>
+			<div class="usercontainer">
+				<p id="registerPercentage" style="font-size: 12pt;">Ver mas</p>
 			</div>
 		</form>
 	</div>
@@ -226,7 +223,7 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar"
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', false)" title="Guardar"
 						alt="Guardar">
 				</div>
 				<div class="button">
@@ -254,7 +251,7 @@
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', true)" title="Guardar"
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', false)" title="Guardar"
 						alt="Guardar">
 				</div>
 				<div class="button">
@@ -266,6 +263,8 @@
 	</div>
 
 	<script>
+		var enablePer = false;
+		var idArray = [];
 		window.onscroll = function () { scrollFunction() };
 
 		function scrollFunction() {
@@ -276,12 +275,31 @@
 			}
 		}
 
+		function switchPer() {
+			if (enablePer == false) {
+				enablePer = true;
+			}
+			else {
+				enablePer = false;
+			}
+		}
+
+		let lastRow = '';
 		document.querySelector('table').addEventListener('click', function (e) {
+
 			e.preventDefault();
 			e.stopPropagation();
 			row = (e.composedPath());
+
 			if (row[1].cells != undefined) {
 				sessionStorage['id'] = row[1].cells[0].innerHTML;
+				if (enablePer == true) {
+					idArray.push(parseInt(row[1].cells[4].innerHTML));
+					if (idArray.length == 2) {
+						registerPercentage(idArray);
+						idArray = [];
+					}
+				}
 			}
 
 			if (row.length > 10) {
@@ -292,7 +310,6 @@
 				document.getElementById("moreText").innerHTML = d.observations;
 			}
 		});
-
 	</script>
 
 </body>

@@ -18,12 +18,12 @@
 
 	<div class="container">
 		<h1 id="h1">Prueba en ejecuci&oacuten</h1>
-		<hr id="bar">
-		<p> <span>Tiempo de prueba: </span><span id="sec">4</span><span>s</span>
+		<hr>
+		<p> <span>Tiempo transcurrido: </span><span id="sec">4</span><span>s</span>
 			<br>
 			<br>
 			<br>
-			<span>Cantidad de Movimiento: </span><span id="mov">0</span>
+			<span>Pasos realizados: </span><span id="mov">-</span>
 		</p>
 
 		<div class="controls">
@@ -33,11 +33,11 @@
 			</div>
 			<div id="divNew" class="button" style="display: none;">
 				<img id="btnGreen" onclick="operation('popup');loadRes_drug(true)" src="svg/btnNew.svg" title="Nuevo Registro"
-					alt="uevo Registro">
+					alt="Nuevo Registro">
 			</div>
 			<div class="button">
-				<img id="btnOrange" onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar Arduino"
-					alt="Reiniciar Arduino">
+				<img id="btnOrange" onclick="restart()" src="svg/btnRestart.svg" title="Reiniciar prueba"
+					alt="Reiniciar prueba">
 			</div>
 			<div class="button">
 				<a href="results.html" target="_new">
@@ -53,19 +53,19 @@
 				<span onclick="cancel('popup')" class="close" title="Cerrar">&times;</span>
 			</div>
 			<div class="usercontainer">
-				<h3 id="popupTitle">Completar datos de prueba:</h3>
+				<h3 id="popupTitle">Completar registro:</h3>
 				<label for="fdate">Fecha:</label>
 				<input type="date" id="fdate" name="fdate" placeholder="Fecha"><br><br>
 
 				<label for="fduration">Duración:</label>
-				<input type="number" id="fduration" name="fduration" placeholder="Duración de la prueba (en segundos)"><br><br>
+				<input type="number" id="fduration" name="fduration" placeholder="Duración de la prueba (en segundos)" disabled><br><br>
 
 				<label for="fmovement">Movimiento:</label>
-				<input type="number" id="fmovement" name="fmovement" placeholder="Movimiento total del animal"><br><br>
+				<input type="number" id="fmovement" name="fmovement" placeholder="Movimiento total del animal" disabled><br><br>
 
 				<label for="fresearcher">Investigador:
 					<div class="button">
-						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewRes')"
+						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewRes'), clearInputs('frmResearcher')"
 							src="svg/btnNewResearcher.svg" title="Crear un nuevo investigador"
 							alt="Crear nuevo investigador">
 					</div>
@@ -78,7 +78,7 @@
 
 				<label for="fdrug">Droga:
 					<div class="button">
-						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug')" src="svg/btnNewDrug.svg"
+						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug'), clearInputs('frmDrug')" src="svg/btnNewDrug.svg"
 							title="Crear nueva droga" alt="Crear nueva droga">
 					</div>
 				</label>

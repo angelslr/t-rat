@@ -47,7 +47,7 @@ var chartRegByCD = new Chart(ctx, {
 });
 */
 
-var ctx = document.getElementById('chartDrugs').getContext('2d');
+/*var ctx = document.getElementById('chartDrugs').getContext('2d');
 var chartDrugs = new Chart(ctx, {
 	type: 'bar',
 	data: {
@@ -74,7 +74,7 @@ var chartDrugs = new Chart(ctx, {
 		}
 	}
 });
-
+*/
 
 var ctx = document.getElementById('chartDateData').getContext('2d');
 var chartDateData = new Chart(ctx, {
@@ -108,6 +108,12 @@ var chartDateData = new Chart(ctx, {
 				ticks: {
 					autoSkip: true,
 					maxTicksLimit: 5
+				}
+			}],
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: 'Movimiento/Duración'
 				}
 			}]
 		}
@@ -263,7 +269,7 @@ async function getDataForCharts() {
 	jsonDRUGS = await toBackGETAll(epDrugAll);
 	jsonRES = await toBackGETAll(epReserAll);
 
-	await dataChartDrugs();
+	//await dataChartDrugs();
 
 	fillDateData();
 
@@ -277,7 +283,7 @@ async function getDataForCharts() {
 	updateDataLabelDrugs(results, chartDrugsMovByDose);
 }
 
-function addElement() {
+/*function addElement() {
 	let results = addDrugToChart();
 	updateReplaceDataLabel(results, chartDrugs);
 }
@@ -285,7 +291,7 @@ function addElement() {
 function removeElement() {
 	let results = removeDrugItemChart();
 	updateReplaceDataLabel(results, chartDrugs);
-}
+}*/
 
 function fillDateData() {
 	results = dataDateChart();

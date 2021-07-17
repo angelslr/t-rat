@@ -6,17 +6,15 @@ var put = false;
 sessionStorage['id'] = 0;
 var drugXusageY = [];
 var ErasedrugXusageY = []
+var selectionColor;
+var lastButtonPressed = 1;
 
-//Usadas en saveData, loadAllData y showRowTable
-//var duration = 0, move = 0, date = 0, treat = 0, obs = 0, drug = 0, researcher = 0;
-//localStorage["l_username"] = 'angelslr';
-//Inserta el header en cada documento HTML
 document.addEventListener("DOMContentLoaded", function () {
 	var header = document.getElementById("header");
-	header.innerHTML = `<a id="logoLink" href="index.html"><img src="svg/TRatCircle.svg" title="T-Rat" alt="T-Rat"></a>`
+	header.innerHTML = `<a id="logoLink" onclick="toIndex()"><img src="svg/TRatCircle.svg" title="T-Rat" alt="T-Rat"></a>`
 	if (localStorage["l_username"] !== undefined) {
 		header.innerHTML += `<ul id="option_links">
-		<a class="function_nav" href="results.html" target="_new">
+		<a class="function_nav" href="results.html" target="_blank">
 			<svg width="3.994mm" height="3.039mm" version="1.1" viewBox="0 0 6.4384 4.9"
 				xmlns="http://www.w3.org/2000/svg">
 				<g fill="#26a17a" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7">
@@ -28,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			</svg>
 			Resultados
 		</a>
-		<a href="researchers.html" target="_new">
+		<a href="researchers.html" target="_blank">
 			<svg class="function_nav_icon" width="5.0047mm" height="5.0047mm" version="1.1" viewBox="0 0 5.0047 5.0047"
 				xmlns="http://www.w3.org/2000/svg">
 				<ellipse cx="2.5023" cy="2.5023" rx="2.37" ry="2.37" fill="none" stroke="#000003" stroke-linecap="round"
@@ -49,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			</svg>
 			Investigadores
 		</a>
-		<a href="drugs.html" target="_new">
+		<a href="drugs.html" target="_blank">
 			<svg class="function_nav_icon" width="4.9643mm" height="4.9644mm" version="1.1" viewBox="0 0 4.9643 4.9644"
 				xmlns="http://www.w3.org/2000/svg">
 				<path
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			</svg>
 			Drogas
 		</a>
-		<a href="statistics.html" target="_new">
+		<a href="statistics.html" target="_blank">
 		<svg class="function_nav_icon" width="5.006mm" height="5.0083mm" version="1.1" viewBox="0 0 5.006 5.0083" xmlns="http://www.w3.org/2000/svg">
 		<path d="m0.13229 0.13229v4.7437h4.7415" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458"/>
 		<path d="m0.78499 4.0052 0.70036-1.2131 0.36541 0.63291 0.73574-1.2743 0.61621 0.61621 1.0183-1.7638" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458"/>
@@ -68,18 +66,20 @@ document.addEventListener("DOMContentLoaded", function () {
 			Estadísticas
 		</a>
 		<a onclick="operation('popupAbout')">
-			<svg class="function_nav_icon" width="4.6302mm" height="4.6302mm" version="1.1" viewBox="0 0 4.6302 4.6302"
-				xmlns="http://www.w3.org/2000/svg">
-				<g transform="matrix(.43656 0 0 .43656 -15.568 -57.45)" fill="none" stroke="#000" stroke-width=".60606">
-					<circle cx="40.963" cy="136.9" r="5" fill="none" stroke="#000" stroke-width=".60606" />
-				</g>
-				<g transform="translate(.056603 .050236)">
-					<path
-						d="m2.2141 3.2582v0.034392m-0.45605-1.907c0.33113-0.22846 0.87401-0.20432 0.98056 0.15268 0.12354 0.41393-0.30534 0.57336-0.47704 0.8657-0.063784 0.1086-0.047475 0.23228-0.047475 0.41805"
-						fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
-						stroke-width=".26458" />
-				</g>
-			</svg>
+
+			<svg class="function_nav_icon" width="4.6302mm" height="4.6302mm" version="1.1" viewBox="0 0 4.6302 4.6302" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(.43656 0 0 .43656 -15.568 -57.45)" fill="none" stroke="#000" stroke-width=".60606">
+  <circle cx="40.963" cy="136.9" r="5" fill="none" stroke="#000" stroke-width=".60606"/>
+ </g>
+ <path d="m2.2702 3.0171v-1.8112" fill="#434242" stroke-linejoin="round" stroke-width=".26458"/>
+ <g transform="translate(0 -.063764)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458">
+  <g transform="translate(-4.6863 -.15155)">
+   <path d="m7.0011 3.5881v-1.5821h-0.33073"/>
+   <path d="m6.6379 3.62h0.72628"/>
+  </g>
+  <path d="m2.3148 1.3662v-0.07697"/>
+ </g>
+</svg>
 			Acerca de
 		</a>
 		<div id="popupAbout" class="modal">
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		   
 				<div class="containerAboutText">
 				<p style="font-size: 16pt;"><strong>Acerca de T-Rat</strong></p>
-				<p><strong>Versión 3.7 (Testing)</strong></p>
+				<p><strong>Versión 3.8.5.1</strong></p>
 				<p>Universidad Nacional de La Rioja</p>
 				<p>Angel Salazar</p>
 				<p>Ignacio Andrada</p>
@@ -133,17 +133,34 @@ document.addEventListener("DOMContentLoaded", function () {
 	</nav>`;
 
 	if (localStorage["l_username"] == null) {
-		header.innerHTML += `<a class="cta"><button type="button" onclick="operation('id01')">Ingresar</button></a>
-		<a class="cta"><button type="button" onclick="operation('id02')">Registrarse</button></a>`
+		//header.innerHTML += `<a class="cta"><button type="button" onclick="operation('id01')">Ingresar</button></a>
+		//<a class="cta"><button type="button" onclick="operation('id02')">Registrarse</button></a>`
 	}
 	else {
 		document.getElementById("nav_links").innerHTML += `<li><a id="user" href="javascript:void(0)"></a>
 		<ul class="submenu">
-			<li><a onclick="logout()" href="javascript:void(0)">Salir</a></li>
+			<li><a onclick="logout()" href="javascript:void(0)">Cerrar sesión</a></li>
 		</ul>
 	</li>`;
 		document.getElementById("user").innerHTML = localStorage["l_username"];
 	}
+	header.innerHTML += `<ul id="option_links" style="margin-right: 0; padding: 0;">
+	<a href="#" onclick="window.open('Manual.pdf', '_blank', 'fullscreen=yes'); return false;">
+	<svg class="function_nav_icon" width="4.6302mm" height="4.6302mm" version="1.1" viewBox="0 0 4.6302 4.6302"
+			xmlns="http://www.w3.org/2000/svg">
+			<g transform="matrix(.43656 0 0 .43656 -15.568 -57.45)" fill="none" stroke="#000" stroke-width=".60606">
+				<circle cx="40.963" cy="136.9" r="5" fill="none" stroke="#000" stroke-width=".60606" />
+			</g>
+			<g transform="translate(.056603 .050236)">
+				<path
+					d="m2.2141 3.2582v0.034392m-0.45605-1.907c0.33113-0.22846 0.87401-0.20432 0.98056 0.15268 0.12354 0.41393-0.30534 0.57336-0.47704 0.8657-0.063784 0.1086-0.047475 0.23228-0.047475 0.41805"
+					fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+					stroke-width=".26458" />
+			</g>
+		</svg>
+
+	</a>
+	</ul>`;
 });
 
 
@@ -354,27 +371,35 @@ async function signUp() {
 function changeIconTheme() {
 	if (localStorage.getItem('data-theme') == "dark") {
 		document.getElementById('switch').checked = true;
+		selectionColor = '#6d43ce';
 	}
 	else {
 		document.getElementById('switch').checked = false;
+		selectionColor = '#7fd181';
 	}
 }
 
 //Cambia el tema
 function changeTheme(statistics) {
-
 	var checkbox = document.getElementById('switch');
-	if (checkbox.checked == true) {
+
+	if (checkbox.checked) {
 		document.documentElement.setAttribute('data-theme', 'dark');
 		localStorage.setItem('data-theme', 'dark');
+		selectionColor = '#6d43ce';
+
 	}
 	else {
 		document.documentElement.setAttribute('data-theme', 'light');
 		localStorage.setItem('data-theme', 'light');
+		selectionColor = '#7fd181';
+
 	}
 	if (statistics) {
 		updateColorChart();
 	}
+	pageElements = document.getElementById('pagination').childNodes;
+	pageElements[lastButtonPressed].style.backgroundColor = selectionColor;
 }
 
 //Verifica el tema actual y cambia el color de los textos y grillas de los charts
@@ -401,41 +426,7 @@ function updateColorChart() {
 
 		instance.options.scales.yAxes[0].ticks.min = 0;
 
-
-
-
-
-		//if (instance != chartDrugsMov) {
-		/*instance.options = {
-			legend: {
-				display: false
-			},
-			scales: {
-				yAxes: [{
-					gridLines: {
-						color: colorGrid,
-						zeroLineColor: colorGrid,
-					},
-					ticks: {
-						min: 0
-					}
-				}],
-				xAxes: [{
-					gridLines: {
-						color: colorGrid,
-						zeroLineColor: colorGrid,
-					},
-					ticks: {
-						autoSkip: true,
-						maxTicksLimit: 5
-					}
-				}]
-			}
-		};*/
-		//}
-
 		instance.update();
-		//instance.chart.update();
 	});
 }
 
@@ -497,27 +488,24 @@ function stopCron() {
 //Reinicia el sistema
 async function restart() {
 	if (cron != 0) {
-		let answer = confirm("Prueba en ejecución, ¿desea volver al inicio? (Si lo hace, la prueba se detendrá)");
-		if (answer == true) {
-			stopCron();
-			await toArduinoGET();
-			innerRestart();
-		}
+		alert("Prueba en ejecución. Para reiniciarla, debe detenerla primero.");
 	}
 	else {
-		innerRestart();
+		toWait();
 	}
-	//Elimina los datos de la prueba y retorna a la pantalla principal
-	function innerRestart() {
-		/*sessionStorage.removeItem("sec");
-		sessionStorage.removeItem("mov");
-		sessionStorage.removeItem("date");*/
+}
+
+function toIndex() {
+
+	if (cron != 0) {
+		alert("Prueba en ejecución. Para reiniciarla, debe detenerla primero.");
+	}
+	else{
 		location.replace("index.html");
 	}
 }
 
 //Recupera los datos de la última prueba para rellenar los campos con datos obligatorios automáticamente
-
 async function getData() {
 	let sec;
 	let mov;
@@ -562,8 +550,8 @@ async function timeWait() {
 	let seconds = 0;
 	sessionStorage["start"] = false;
 	let response;
-	debugger;
-	document.getElementById("messageText").innerHTML = "Probando sensores..."
+
+	document.getElementById("messageText").innerHTML = "Comprobando sensores..."
 
 	while (response == undefined) {
 		response = await toArduinoPOST();
@@ -573,8 +561,7 @@ async function timeWait() {
 		document.getElementById("messageText").innerHTML = "Configuración completa..."
 		seconds = 6;
 	}
-	else {
-		clearInterval(tWait);
+	else if (response.status == 400) {
 		let logoElements = document.getElementsByClassName("logoContainer");
 		for (let i = 0; i < logoElements.length; i++) {
 			logoElements[i].style.visibility = "hidden";
@@ -588,8 +575,9 @@ async function timeWait() {
 	let tWait = setInterval(
 		async function () {
 			seconds++;
-			if (seconds == 2) {
 
+			if (sessionStorage["start"] == 'false') {
+				clearInterval(tWait);
 			}
 			if (seconds == 7) {
 				clearInterval(tWait);
@@ -598,6 +586,8 @@ async function timeWait() {
 			}
 		}
 		, 1000);
+	/*sessionStorage["start"] = true;
+	location.replace("test.html")*/
 }
 
 //Espera que el módulo Arduino se haya encendido
@@ -619,22 +609,15 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 	var table = document.getElementById("tbBody");
 	var row = table.insertRow(-1);
 	row.id = id;
+	row.tabIndex = id;
 	var rowNro = row.insertCell(0);
-	rowNro.id = 'r_id';
 	var rowDate = row.insertCell(1);
-	rowDate.id = 'date';
 	var rowResearcher = row.insertCell(2);
-	rowResearcher.id = 'res';
 	var rowDuration = row.insertCell(3);
-	rowDuration.id = 'dur';
 	var rowMov = row.insertCell(4);
-	rowMov.id = 'mov';
 	var rowDrug = row.insertCell(5);
-	rowDrug.id = 'dru';
 	var rowTreat = row.insertCell(6);
-	rowTreat.id = 'tre'
 	var rowObs = row.insertCell(7);
-	rowObs.id = 'obs'
 
 	rowNro.innerHTML = id;
 	rowDate.innerHTML = dat;
@@ -657,124 +640,217 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 		rowObs.innerHTML = "-";
 	}
 }
-var lastButtonPressed = 'page1';
-async function loadControl(opt, isPage, items, idp) {
 
-	if (idp != lastButtonPressed) {
-		if (opt == "drug") {
-			await updateJsonDRUGS();
-			dT = jsonDRUGS;
-		}
-		else if (opt == 'researcher') {
-			await updateJsonRES();
-			dT = jsonRES;
-		}
-		else {
+//Controla la carga de las tablas
+async function loadControl(opt, isPage) {
+
+	switch (opt) {
+		case 'regs':
 			await updateJsonREGS();
 			await updateJsonDRUGS();
 			await updateJsonRES();
-
 			dT = jsonREGS;
+
+			loadAllData();
+			break;
+
+		case 'drug':
+			await updateJsonDRUGS();
+			dT = jsonDRUGS;
+
+			load_DR_Table('drug');
+			break;
+
+		case 'researcher':
+			await updateJsonRES();
+			dT = jsonRES;
+
+			load_DR_Table('researcher');
+			break;
+
+		default:
+			break;
+	}
+
+	//La variable tableLen controla el largo de la tabla, dependiendo de la seleccion del usuario en el selector
+	//En caso de seleccionar 'Todos' (-1) o que el valor seleccionado sea mayor al de la cantidad de registros
+	//el largo de la tabla será la cantidad total de registros
+	let tableLen = parseInt(document.getElementById("tableLength").value, 10);
+	if (tableLen == -1 || tableLen > dT.length) {
+		tableLen = dT.length;
+	}
+	if (isPage != 'page') {
+		pageCalc(tableLen, dT.length)
+	}
+	hideRows(0, tableLen);
+}
+
+//Oculta las filas dependiendo de la cantidad de registros a mostrar
+function hideRows(idItem, tableLen, numberPage) {
+	//numberPage es un valor (page1, page2, etc) que es enviado al presionar un boton del paginado
+	//se utiliza para saber si el mismo boton fue presionado, en caso de ser distinto, se ejecuta la funcion
+	if (numberPage != lastButtonPressed) {
+		//Almacena todas las filas en una variable
+		let table = document.getElementById("tbBody");
+		tr = table.getElementsByTagName("tr");
+
+		//Si en el selector Mostrar se selecciono 'Todos' se envia un -1, por lo que el limite del ciclo que muestra
+		//filas es la cantidad maxima de registros
+		if (tableLen == -1 || tableLen > tr.length) {
+			tableLen = tr.length;
 		}
 
-		let tableLen = parseInt(document.getElementById("tableLength").value, 10);
-		if (tableLen == -1 || tableLen > dT.length) {
-			tableLen = dT.length;
+		//idItem indica el indice por el que tiene que comenzar a recorrer el arreglo
+		var i = idItem;
+
+		//Oculta todas las filas de la tabla
+		for (j = 0; j < tr.length; j++) {
+			tr[j].style.display = "none";
 		}
-		if (lc > tableLen) {
-			lc = 0;
-			subClearT();
+		//Muestra las filas dependiendo de la cantidad a mostrar, siendo "i" el inicio del recorrido y "tableLen" el final
+		for (; i < tableLen; i++) {
+			tr[i].style.display = "";
 		}
-		if (isPage == 'page') {
-			tableLen = items;
-			subClearT();
-		}
-		if (opt == 'drug') {
-			load_DR_Table('drug', tableLen);
-		}
-		else if (opt == 'researcher') {
-			load_DR_Table('researcher', tableLen);
-		}
-		else {
-			loadAllData(tableLen);
-		}
-		if (isPage != 'page') {
-			pageCalc(tableLen, dT.length, opt)
-		}
-		if (idp != undefined) {
-			lastButtonPressed = idp;
+		if (numberPage != undefined) {
+
+			pageElements[lastButtonPressed].style.backgroundColor = '';
+			pageElements[numberPage].style.backgroundColor = selectionColor;
+			hidePageButtons(numberPage, pageElements.length - 2);
+			lastButtonPressed = numberPage;
 		}
 	}
 }
 
-function pageCalc(tableLen, rlen, dr) {
+var pageElements;
+//Calcula la cantidad de paginas disponibles dependiendo de la cantidad a mostrar
+function pageCalc(tableLen, rlen) {
 
+	if (tableLen == -1 || tableLen > rlen.length) {
+		tableLen = rlen.length;
+	}
 	var pagination = document.getElementById('pagination');
+	//Se eliminan los botones existentes
 	pagination.innerHTML = "";
 	pagination.lastChild = "";
-	pagination.innerHTML += `<a id="ant" href="javascript:void(0)">&laquo;</a>`;
+	pagination.innerHTML += `<a id="ant" href="javascript:void(0)" onclick="clickButton('ant');">&laquo;</a>`;
+	let a;
 
+	//rowIndex le indica a hideRows donde tiene que empezar a recorrer el arreglo
+	let rowIndex = 0;
+	//Cuando se inicia el sistema siempre habra al menos una pagina
 	let pages = 1;
+	//Si la cantidad de registros es mayor a la longitud maxima seleccionada, se añade una pagina
 	while (rlen > tableLen) {
 		rlen -= tableLen;
 		pages += 1;
 	}
-
+	//Indica a hideRows donde tiene que terminar
+	let auxLen = tableLen;
 	let value = 1;
 	while (value <= pages) {
-		let a = document.createElement('a');
+		a = document.createElement('a');
 		a.appendChild(document.createTextNode(value));
-		let idp = '"' + 'page' + value + '"';
+		let numberPage = value;
 		a.textContent = value;
+		a.id = value;
 		a.href = 'javascript:void(0)';
-		if (dr == undefined) {
-			a.setAttribute("onclick", "loadControl('', 'page'," + tableLen + ',' + idp + ");");
-		}
-		else if (dr == 'drug') {
-			a.setAttribute("onclick", "loadControl('drug', 'page'," + tableLen + ',' + idp + ");");
-		}
-		else if (dr == 'researcher') {
-			a.setAttribute("onclick", "loadControl('researcher', 'page'," + tableLen + ',' + idp + ");");
-		}
-		tableLen += tableLen;
 
+		//El boton llamará a hideRows cuando sea presionado enviandole el indice inicial, el final y el numero de pagina
+		a.setAttribute("onclick", "hideRows(" + rowIndex + ', ' + auxLen + ',' + numberPage + ");");
+
+		rowIndex += tableLen;
+		auxLen += tableLen;
+
+		//Se añade un boton con un numero de pagina
 		pagination.appendChild(a);
 		value += 1;
 	}
-	pagination.innerHTML += `<a id="post" href="javascript:void(0)">&raquo;</a>`
+	pagination.innerHTML += `<a id="post" href="javascript:void(0)" onclick="clickButton('post');">&raquo;</a>`;
+	pageElements = document.getElementById('pagination').childNodes;
+	pageElements[1].style.backgroundColor = selectionColor;
+	hidePageButtons(1, pageElements.length - 2);
+}
+
+function clickButton(arg) {
+	let clickEvent = new CustomEvent('click');
+	let id;
+	if (arg == 'ant') {
+		if (lastButtonPressed > 1) {
+			id = lastButtonPressed - 1;
+			let button = document.getElementById(id);
+			button.dispatchEvent(clickEvent);
+		}
+	}
+	else {
+		if (lastButtonPressed < pageElements.length - 2) {
+			id = lastButtonPressed + 1;
+			let button = document.getElementById(id);
+			button.dispatchEvent(clickEvent);
+		}
+	}
+}
+
+function hidePageButtons(c, m) {
+	var current = c,
+		last = m,
+		delta = 2,
+		left = current - delta,
+		right = current + delta + 1,
+		range = [],
+		rangeWithDots = [],
+		l;
+
+	for (let i = 1; i <= last; i++) {
+		if (i == 1 || i == last || i >= left && i < right) {
+			range.push(i);
+			pageElements[i].style.display = '';
+		}
+		else {
+			pageElements[i].style.display = 'none';
+		}
+	}
+
+	for (let i of range) {
+		if (l) {
+			if (i - l === 2) {
+				rangeWithDots.push(l + 1);
+			} else if (i - l !== 1) {
+				rangeWithDots.push('...');
+			}
+		}
+		rangeWithDots.push(i);
+		l = i;
+	}
+
+	return rangeWithDots;
 }
 
 function clearTable(opt) {
-
-	subClearT();
-	lc = 0;
-	lastButtonPressed = 'page1';
-	if (opt == 'drug') {
-		loadControl('drug');
+	let tableLen = parseInt(document.getElementById("tableLength").value, 10);
+	lastButtonPressed = 1;
+	switch (opt) {
+		case 'regs':
+			dT = jsonREGS;
+			break;
+		case 'drug':
+			dT = jsonDRUGS;
+			break;
+		case 'researcher':
+			dT = jsonRES;
+			break;
+		default:
+			break;
 	}
-	else if (opt == 'researcher') {
-		loadControl('researcher');
-	}
-	else {
-		loadControl();
-	}
-}
-
-function subClearT() {
-	let table = document.getElementById('tbBody');
-	table.innerHTML = "";
-	table.lastChild = "";
+	pageCalc(tableLen, dT.length);
+	hideRows(0, tableLen);
 }
 
 var lc = 0;
 //Muestra todos los registros de la base de datos
-async function loadAllData(tableLen) {
+async function loadAllData() {
 	if (jsonREGS.length != 0) {
 		//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
-		while (lc < tableLen) {
-			if (jsonREGS[lc] == undefined) {
-				break;
-			}
+		while (lc < jsonREGS.length) {
 			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[lc].drug_id });
 			let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[lc].researcher_id });
 
@@ -794,7 +870,6 @@ async function loadAllData(tableLen) {
 
 //Guarda un registro
 async function saveData(inResults) {
-
 	drug = document.getElementById("selectDrugs");
 	drug = parseInt(drug.options[drug.selectedIndex].id, 10);
 
@@ -829,7 +904,7 @@ async function saveData(inResults) {
 		alert("Registro guardado.");
 		cancel('popup');
 
-		if (inResults == true) {
+		if (inResults) {
 			//Al guardar un registro, se mostrará de inmediado, sin necesidad de recargar la página
 			let regs = parseInt(document.getElementById("registers").innerHTML, 10);
 			document.getElementById("registers").innerHTML = (regs + 1).toString();
@@ -841,7 +916,7 @@ async function saveData(inResults) {
 			t = t.toLocaleString();
 
 			if (put == false) {
-				showRowTable(jsonREGS[jsonREGS.length - 1].register_id, t, r.name, duration, move, d.name, treat, obs);
+				showRowTable(jsonREGS[jsonREGS.length - 1].register_id, t, r.name, duration, move, d.name + ' ' + d.dosage + 'mg', treat, obs);
 			}
 			else {
 				let row = document.getElementById(id).querySelectorAll('td');
@@ -849,7 +924,7 @@ async function saveData(inResults) {
 				row[2].innerHTML = r.name;
 				row[3].innerHTML = duration;
 				row[4].innerHTML = move;
-				row[5].innerHTML = d.name;
+				row[5].innerHTML = d.name + ' ' + d.dosage + 'mg';
 				row[6].innerHTML = treat;
 				if (obs.length > 11) {
 					row[7].innerHTML = `<a id="seeMore" href="javascript:void(0)">Ver</a>`
@@ -898,16 +973,13 @@ function toResults() {
 }
 
 function saveRes_Drug(opt, inResults) {
-
 	if (opt == "researcher") {
 		innersaveRes_Drug('resNameNew', 'resCatNew', epReser, epReserAll, epReserPOST, "El investigador ya existe, elija otro.", "Investigador guardado con éxito.", 'frmResearcher', 'popupNewRes', 'selectResearchers', 'category', 'researcher_id')
 	}
 	else if (opt == "drug") {
 		innersaveRes_Drug('drugNameNew', 'drugDoseNew', epDrug, epDrugAll, epDrugPOST, "La droga ya existe, elija otra.", "Droga guardada con éxito.", 'frmDrug', 'popupNewDrug', 'selectDrugs', 'dosage', 'drug_id')
 	}
-
 	async function innersaveRes_Drug(field1, field2, epPUT, epALL, endpointPOST, alertExist, confirm, frmInput, cancelElement, sel, prop, prop2) {
-
 		let val1 = document.getElementById(field1).value;
 		let val2 = document.getElementById(field2).value;
 
@@ -916,7 +988,6 @@ function saveRes_Drug(opt, inResults) {
 		}
 		else {
 			var dT = await toBackGETAll(epALL);
-
 			let exist = false;
 			let i = 0;
 			if (dT.length != 0) {
@@ -938,9 +1009,8 @@ function saveRes_Drug(opt, inResults) {
 		}
 
 		async function innerFromInnerSave(dT) {
-
 			let data = { 'name': val1, [prop]: val2 };
-			if (put == true) {
+			if (put) {
 				id = parseInt(sessionStorage['id'], 10);
 				toBackPUT(epPUT, id, data);
 
@@ -961,7 +1031,7 @@ function saveRes_Drug(opt, inResults) {
 			clearInputs(frmInput);
 			cancel(cancelElement);
 
-			if (inResults == true) {
+			if (inResults) {
 				if (opt == "drug") {
 					jsonDRUGS = await toBackGETAll(epDrugAll);
 				}
@@ -970,6 +1040,14 @@ function saveRes_Drug(opt, inResults) {
 				}
 			}
 			else {
+				if (opt == "drug") {
+					jsonDRUGS = await toBackGETAll(epDrugAll);
+					dT = jsonDRUGS;
+				}
+				else {
+					jsonRES = await toBackGETAll(epReserAll);
+					dT = jsonRES;
+				}
 				let select = document.getElementById(sel);
 				let option = document.createElement('option');
 				let value = val1 + ' (' + val2 + ')';
@@ -991,7 +1069,7 @@ async function loadRes_drug(inTest) {
 
 	async function innerLoadRes_drug(sel, opt, endpoint, v1, id) {
 
-		if (inTest == true) {
+		if (inTest) {
 			dT = await toBackGETAll(endpoint);
 		}
 		else {
@@ -1045,7 +1123,7 @@ async function deleteReg(opt) {
 		id = parseInt(id, 10);
 
 		result = confirm('Desea eliminar el registro ' + id + '?');
-		if (result == true) {
+		if (result) {
 			switch (opt) {
 				case 'reg':
 					response = await toBackDELETE(epReg, id);
@@ -1075,7 +1153,7 @@ function searchReg(id) {
 	return jsonREGS.find(function (jsonREGS) { return jsonREGS.register_id == id });
 }
 
-async function load_DR_Table(opt, tableLen) {
+async function load_DR_Table(opt) {
 
 	if (opt == "drug") {
 		innerLoad(dT, 'drug_id', 'dosage');
@@ -1086,10 +1164,7 @@ async function load_DR_Table(opt, tableLen) {
 	function innerLoad(dT, v1, v2) {
 
 		if (dT.length != 0) {
-			while (lc < tableLen) {
-				if (dT[lc] == undefined) {
-					break;
-				}
+			while (lc < dT.length) {
 				showRowDrugTable(dT[lc][v1], dT[lc].name, dT[lc][v2]);
 				lc += 1;
 			}
@@ -1102,9 +1177,11 @@ async function load_DR_Table(opt, tableLen) {
 }
 
 function showRowDrugTable(r1, r2, r3) {
+
 	var table = document.getElementById("tbBody");
 	var row = table.insertRow(-1);
 	row.id = r1;
+	row.tabIndex = r1;
 	var row1 = row.insertCell(0);
 	var row2 = row.insertCell(1);
 	var row3 = row.insertCell(2);
@@ -1115,6 +1192,7 @@ function showRowDrugTable(r1, r2, r3) {
 }
 
 function editReg(id, opt) {
+
 	if (id == -1 || id == "") {
 		alert("Debe seleccionar una fila de la tabla");
 	}
@@ -1124,7 +1202,6 @@ function editReg(id, opt) {
 		}
 		else {
 			innerEdit(id, 'popupNewRes', 'resNameNew', 'resCatNew', jsonRES, 'researcher_id', 'category')
-
 		}
 		function innerEdit(id, pup, f1, f2, dT, v1, v2) {
 			operation(pup);
@@ -1139,7 +1216,6 @@ function editReg(id, opt) {
 }
 
 function search() {
-
 	var input, filter, table, tr, td, i, txtValue;
 	input = document.getElementById("searchInput");
 	filter = input.value.toUpperCase();
@@ -1147,36 +1223,42 @@ function search() {
 	tr = table.getElementsByTagName("tr");
 	searchBy = parseInt(document.getElementById("searchBy").value, 10);
 
-	//i = filas de la tabla, j = columnas
-	if (searchBy == -1) {
-		for (i = 0; i < tr.length; i++) {
-			for (j = 0; j < 7; j++) {
+	if (filter == '') {
+		let tableLen = parseInt(document.getElementById("tableLength").value, 10);
+		hideRows(0, tableLen);
+	}
+	else {
+		//i = filas de la tabla, j = columnas
+		if (searchBy == -1) {
+			for (i = 0; i < tr.length; i++) {
+				for (j = 0; j < 7; j++) {
+					td = tr[i].getElementsByTagName("td")[j];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+							break;
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			}
+		}
+		else {
+			j = searchBy;
+			for (i = 0; i < tr.length; i++) {
 				td = tr[i].getElementsByTagName("td")[j];
 				if (td) {
 					txtValue = td.textContent || td.innerText;
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
 						tr[i].style.display = "";
-						break;
 					} else {
 						tr[i].style.display = "none";
 					}
 				}
-			}
-		}
-	}
-	else {
-		j = searchBy;
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[j];
-			if (td) {
-				txtValue = td.textContent || td.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
 
+			}
 		}
 	}
 }
@@ -1285,9 +1367,7 @@ async function dataChartDrugs() {
 	}
 
 	//Elimina duplicados
-	simplifiedArray = array1.filter(function (item, pos) {
-		return array1.indexOf(item) == pos;
-	});
+	simplifiedArray = eraseDuplicate(array1);
 
 	simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
 
@@ -1333,9 +1413,7 @@ async function dataChartMov() {
 		array2
 	]
 	//Todos los (ahora) nombres duplicados en array1 son eliminados y asignados a una nueva
-	simplifiedArray = array1.filter(function (item, pos) {
-		return array1.indexOf(item) == pos;
-	});
+	simplifiedArray = eraseDuplicate(array1);
 
 	//simplifiedArray se usa como control, dado que hay que buscar X numero de drogas diferentes
 	for (i = 0; i < simplifiedArray.length; i++) {
@@ -1454,8 +1532,6 @@ function fillSelectMov() {
 }
 
 function calcPercentage() {
-	debugger;
-
 	let s1 = document.getElementById("selectDose1").value;
 	let s2 = document.getElementById('selectDose2').value;
 
@@ -1471,24 +1547,43 @@ function calcPercentage() {
 		first = dataMovByDose[1][s1];
 		second = dataMovByDose[1][s2];
 		second = second - first;
-		result = (second * 100) / first
+		result = (second * 100) / first;
+		if (isNaN(result)) {result = Infinity;}
+
 		per.innerHTML = 'La diferencia porcentual entre valores mínimos es: ' + parseFloat(result).toFixed(2) + '%';
 
 		per = document.getElementById('perAvg');
 		first = dataMovByDose[2][s1];
 		second = dataMovByDose[2][s2];
 		second = second - first;
-		result = (second * 100) / first
+		result = (second * 100) / first;
+		if (isNaN(result)) {result = Infinity;}
+
 		per.innerHTML = 'La diferencia porcentual entre valores promedios es: ' + parseFloat(result).toFixed(2) + '%';
 
 		per = document.getElementById('perMax');
 		first = dataMovByDose[3][s1];
 		second = dataMovByDose[3][s2];
 		second = second - first;
-		result = (second * 100) / first
+		result = (second * 100) / first;
+		if (isNaN(result)) {result = Infinity;}
+
 		per.innerHTML = 'La diferencia porcentual entre valores máximos es: ' + parseFloat(result).toFixed(2) + '%';
 	}
 
+}
+
+function registerPercentage(array) {
+	operation('popupPercentage');
+	let first = array[0];
+	let second = array[1];
+	second = second - first;
+	let result = (second * 100) / first;
+	let per = document.getElementById('registerPercentage');
+	per.innerHTML = 'La diferencia de movimiento entre los registros seleccionados es de un: ' + parseFloat(result).toFixed(2) + '%';
+	if (result == Infinity) {
+		per.innerHTML = 'El primer registro no puede tener un valor 0.';
+	}
 }
 
 async function dataChartRes() {
@@ -1499,10 +1594,7 @@ async function dataChartRes() {
 		array1.push(jsonREGS[i].researcher_id);
 	}
 
-	simplifiedArray = array1.filter(function (item, pos) {
-		return array1.indexOf(item) == pos;
-	});
-
+	simplifiedArray = eraseDuplicate(array1);
 	simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
 
 	for (i = 0; i < simplifiedArray.length; i++) {
@@ -1514,46 +1606,9 @@ async function dataChartRes() {
 		counter
 	];
 }
-var dateXdataY = [];
-
-function dataDateChart() {
-	let ids = [];
-	let movs = [];
-	let field = document.getElementById('selectOpt').value;
-
-	//Se añaden todas las fechas de todos los registros
-	for (i = 0; i < jsonREGS.length; i++) {
-		//ids.push(jsonREGS[i].register_id);
-		let t = new Date(jsonREGS[i].date);
-		//t = t.toLocaleString('it-IT');
-		t = t.toLocaleString('default', { month: 'short' }) + ' ' + t.toLocaleString('default', { day: 'numeric' });
-		ids.push(t);
-	}
-
-	if (field == 'mov') {
-		for (i = 0; i < jsonREGS.length; i++) {
-			if (jsonREGS[i].movement == 0) {
-				movs.push(1);
-			}
-			else {
-				movs.push(jsonREGS[i].movement)
-			}
-		}
-	}
-	else if (field == 'dur') {
-		for (i = 0; i < jsonREGS.length; i++) {
-			movs.push(jsonREGS[i].duration)
-		}
-	}
-	dateXdataY = [
-		ids,
-		movs
-	];
-	return dateXdataY;
-}
 
 function addDrugToChart() {
-	debugger;
+
 	let id = drugXusageY[0].indexOf(document.getElementById('selectDrugs').value);
 	let drug = drugXusageY[0][id];
 	let count = drugXusageY[1][id];
@@ -1589,8 +1644,47 @@ function removeDrugItemChart() {
 	return ErasedrugXusageY;
 }
 
+var dateXdataY = [];
+function dataDateChart() {
+	let ids = [];
+	let movs = [];
+	let dateLong = [];
+	let field = document.getElementById('selectOpt').value;
+	//Se añaden todas las fechas de todos los registros
+	for (i = 0; i < jsonREGS.length; i++) {
+		//ids.push(jsonREGS[i].register_id);
+		let t = new Date(jsonREGS[i].date);
+		let dLong = t.toLocaleString('it-IT');
+		dateLong.push(dLong);
+		//t = t.toLocaleString('it-IT');
+		t = t.toLocaleString('default', { month: 'short' }) + ' ' + t.toLocaleString('default', { day: 'numeric' });
+		ids.push(t);
+	}
+
+	if (field == 'mov') {
+		for (i = 0; i < jsonREGS.length; i++) {
+			if (jsonREGS[i].movement == 0) {
+				movs.push(1);
+			}
+			else {
+				movs.push(jsonREGS[i].movement)
+			}
+		}
+	}
+	else if (field == 'dur') {
+		for (i = 0; i < jsonREGS.length; i++) {
+			movs.push(jsonREGS[i].duration)
+		}
+	}
+	dateXdataY = [
+		ids,
+		movs,
+		dateLong
+	];
+	return dateXdataY;
+}
+
 function dateFilterChart() {
-	debugger;
 	let d1 = document.getElementById('dateSince').value;
 	if (d1 == "") {
 		d1 = '01/01/1970';
@@ -1599,7 +1693,7 @@ function dateFilterChart() {
 	since.setHours(since.getHours() + 3);
 
 	d1 = document.getElementById('dateUntil').value;
-	let until
+	let until;
 	if (d1 == "") {
 		until = new Date(Date.now());
 	}
@@ -1610,8 +1704,8 @@ function dateFilterChart() {
 	let x = [];
 	let y = [];
 	let d = 0;
-	for (i = 0; i < dateXdataY[0].length; i++) {
-		d = dateXdataY[0][i].split(', ')[0];
+	for (i = 0; i < dateXdataY[2].length; i++) {
+		d = dateXdataY[2][i].split(', ')[0];
 
 		var dateParts = d.split("/");
 		// month is 0-based, that's why we need dataParts[1] - 1
@@ -1631,6 +1725,12 @@ function dateFilterChart() {
 	];
 	//console.log(dateXdataY[0][0].split(', ')[0]);
 }
+//Elimina elementos duplicados dentro de un array
+function eraseDuplicate(array) {
+	return array.filter(function (item, pos) {
+		return array.indexOf(item) == pos;
+	});
+}
 
 function updateAutocompleteList() {
 	let auto = document.getElementById('autocompleteList');
@@ -1640,7 +1740,6 @@ function updateAutocompleteList() {
 	let array1 = [];
 	let array2 = [];
 
-	debugger;
 	for (i = 0; i < jsonDRUGS.length; i++) {
 		array1.push(jsonDRUGS[i].drug_id);
 	}
@@ -1657,12 +1756,9 @@ function updateAutocompleteList() {
 		let d = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == array2[i] });
 		array2[i] = d.name;
 	}
-	simplifiedArray = array1.filter(function (item, pos) {
-		return array1.indexOf(item) == pos;
-	});
-	sa2 = array2.filter(function (item, pos) {
-		return array2.indexOf(item) == pos;
-	});
+	simplifiedArray = eraseDuplicate(array1);
+
+	sa2 = eraseDuplicate(array2)
 
 	simplifiedArray = simplifiedArray.concat(sa2);
 
@@ -1691,5 +1787,4 @@ function updateAutocompleteList() {
 
 		auto.appendChild(option);
 	}
-
 }
