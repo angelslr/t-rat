@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Investigadores</title>
+	<title>Researchers</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
 	<link rel="icon" href="svg/btnResults.svg">
@@ -17,54 +17,54 @@
 	</div>
 
 	<div class="container">
-		<h1>Investigadores</h1>
+		<h1>Researchers</h1>
 		<hr>
 		<div class="controls">
 			<div class="button">
 				<img id="btnGreen" onclick="operation('popupNewRes'), clearInputs('frmResearcher')" src="svg/btnNewResearcher.svg"
-					title="Añadir nuevo investigador" alt="Añadir nuevo investigador">
+					title="Create a new researcher" alt="Create a new researcher">
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg" onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
-					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
+					title="Edit researcher's data" alt="Edit researcher's data">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('res')" title="Borrar registro"
-					alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('res')" title="Delete researcher"
+					alt="Delete researcher">
 			</div>
 		</div>
 		<div style="display: flex;">
-			<p>Número de investigadores: </p>
+			<p>Number of researchers: </p>
 			<p id="registers" style="margin-left: 10px;">0</p>
 		</div>
 		<div class="containerSearchLength">
 			<div class="tLength">
-				<label for="label">Mostrar</label>
+				<label for="label">Show</label>
 				<select id="tableLength" onchange="clearTable('researcher')" name="tableLength">
 					<option selected value="10">10</option>
 					<option value="25">25</option>
 					<option value="50">50</option>
-					<option value="-1">Todos</option>
+					<option value="-1">All</option>
 				</select>
-				<label for="label">investigadores</label>
+				<label for="label">researchers</label>
 			</div>
 			<div class="searchDiv">
-				<label for="search">Buscar:</label>
+				<label for="search">Search:</label>
 				<select id="searchBy" name="searchBy">
-					<option value="1">Inv.</option>
+					<option value="1">Res.</option>
 					<option value="2">Cat.</option>
-					<option selected value="-1">Todos</option>
+					<option selected value="-1">All</option>
 				</select>
-				<input type="text" id="searchInput" onkeyup="search()" title="Búsqueda">
+				<input type="text" id="searchInput" onkeyup="search()" title="Search">
 			</div>
 		</div>
 		<br>
 		<div class="table">
 			<table id="tbResults">
 				<thead>
-					<th onclick="sortTable(0, true)" title="Número de registro">Nro</th>
-					<th onclick="sortTable(1)" title="Identificación del investigador">Investigador</th>
-					<th onclick="sortTable(2)" title="Categoría del investigador">Categoría</th>
+					<th onclick="sortTable(0, true)" title="Number of test">Num</th>
+					<th onclick="sortTable(1)" title="Identification of the researcher">Researcher</th>
+					<th onclick="sortTable(2)" title="Researcher category">Category</th>
 				</thead>
 				<tbody id="tbBody">
 
@@ -75,21 +75,21 @@
 			<div id="pagination">
 			</div>
 		</div>
-		<h3 id="noData" style="display: none;">No hay datos.</h3>
+		<h3 id="noData" style="display: none;">No data.</h3>
 	</div>
 	<div id="float-controls">
 		<div class="controls">
 			<div class="button">
 				<img id="btnGreen" onclick="operation('popupNewRes'), clearInputs('frmResearcher')" src="svg/btnNewResearcher.svg"
-				title="Añadir nuevo investigador" alt="Añadir nuevo investigador">
+				title="Create a new researcher" alt="Create a new researcher">
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg" onclick="editReg(row[1].cells[0].innerHTML, 'researcher')"
-					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
+					title="Edit researcher's data" alt="Edit researcher's data">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('res')" title="Borrar registro"
-					alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('res')" title="Delete researcher"
+					alt="Delete researcher">
 			</div>
 		</div>
 	</div>
@@ -102,23 +102,23 @@
 			</div>
 
 			<div class="usercontainer">
-				<h3 id="idPopup">Crear nuevo investigador:</h3>
+				<h3 id="idPopup">Create a new researcher:</h3>
 
-				<label for="resNameNew">Nombre del investigador:</label>
-				<input type="text" id="resNameNew" placeholder="Ingrese nombre" name="resNameNew" required><br><br>
+				<label for="resNameNew">Name of researcher:</label>
+				<input type="text" id="resNameNew" placeholder="Enter name" name="resNameNew" required><br><br>
 
-				<label for="resCatNew">Categoría:</label>
-				<input type="text" id="resCatNew" placeholder="Ingrese la categoría" name="resCatNew" required><br><br>
+				<label for="resCatNew">Category:</label>
+				<input type="text" id="resCatNew" placeholder="Enter category" name="resCatNew" required><br><br>
 			</div>
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Guardar"
-						alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', true)" title="Save"
+						alt="Save">
 				</div>
 				<div class="button">
-					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
-						alt="Cancelar">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancel"
+						alt="Cancel">
 				</div>
 			</div>
 		</form>
@@ -148,7 +148,7 @@
 				document.getElementById('popupSeeMore').style.display = 'block';
 				let d = searchReg(parseInt(row[2].cells[0].innerHTML, 10));
 
-				document.getElementById("titleSeeMore").innerHTML = "Ver registro " + d.register_id;
+				document.getElementById("titleSeeMore").innerHTML = "See test " + d.register_id;
 				document.getElementById("moreText").innerHTML = d.observations;
 			}
 		});
