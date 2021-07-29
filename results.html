@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Resultados</title>
+	<title>Results</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
 	<link rel="icon" href="svg/btnResults.svg">
@@ -17,51 +17,51 @@
 	</div>
 
 	<div class="container">
-		<h1>Resultados</h1>
+		<h1>Results</h1>
 		<hr>
 		<div class="controls">
 			<div class="button">
 				<img id="btnGreen" src="svg/btnNew.svg"
-					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Añadir un registro'; clearInputs('frmDataResults');loadRes_drug();getTime()"
-					title="Nuevo registro" alt="Nuevo registro">
+					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Create new test data'; clearInputs('frmDataResults');loadRes_drug();getTime()"
+					title="Create new test data" alt="Create new test data">
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg" onclick="editData(row[1].cells[0].innerHTML)"
-					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
+					title="Edit selected test data" alt="Edit selected test data">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Borrar registro"
-					alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Delete test"
+					alt="Delete test">
 			</div>
 			<div class="button">
 				<img id="btnGray" src="svg/btnPercentage.svg" onclick="switchPer()" alt="">
 			</div>
 		</div>
 		<div style="display: flex;">
-			<p>Cantidad de registros: </p>
+			<p>Number of tests: </p>
 			<p id="registers" style="margin-left: 10px;">0</p>
 		</div>
 		<div class="containerSearchLength">
 			<div class="tLength">
-				<label for="label">Mostrar</label>
+				<label for="label">Show</label>
 				<select id="tableLength" onchange="clearTable('regs')" name="tableLength">
 					<option selected value="10">10</option>
 					<option value="25">25</option>
 					<option value="50">50</option>
-					<option value="-1">Todos</option>
+					<option value="-1">All</option>
 				</select>
-				<label for="label">registros</label>
+				<label for="label">tests</label>
 			</div>
 			<div class="searchDiv">
-				<label for="search">Buscar:</label>
+				<label for="search">Search:</label>
 				<select id="searchBy" name="searchBy">
-					<option value="1">Fecha</option>
-					<option value="2">Inv.</option>
-					<option value="5">Droga</option>
-					<option value="6">Trat.</option>
-					<option selected value="-1">Todos</option>
+					<option value="1">Date</option>
+					<option value="2">Res.</option>
+					<option value="5">Drug</option>
+					<option value="6">Treat.</option>
+					<option selected value="-1">All</option>
 				</select>
-				<input list="autocompleteList" id="searchInput" onkeyup="search()" title="Búsqueda">
+				<input list="autocompleteList" id="searchInput" onkeyup="search()" title="Search">
 				<datalist id="autocompleteList">
 				</datalist>
 			</div>
@@ -70,14 +70,14 @@
 		<div class="table">
 			<table id="tbResults">
 				<thead>
-					<th onclick="sortTable(0, true)" title="Número de prueba">Nro</th>
-					<th onclick="sortTable(1)" title="Fecha en la que se realizó la prueba">Fecha</th>
-					<th onclick="sortTable(2)" title="Investigador a cargo">Inv.</th>
-					<th onclick="sortTable(3, true)" title="Duracion total de la prueba">Duración (s)</th>
-					<th onclick="sortTable(4, true)" title="Movimiento total del animal">Mov.</th>
-					<th onclick="sortTable(5)" title="Droga utilizada">Droga</th>
-					<th onclick="sortTable(6)" title="Tratamiento utilizado">Trat.</th>
-					<th onclick="sortTable(7)" title="Observaciones">Obs.</th>
+					<th onclick="sortTable(0, true)" title="Test number">Nro</th>
+					<th onclick="sortTable(1)" title="Date on which the test was performed">Date</th>
+					<th onclick="sortTable(2)" title="Researcher in charge">Res.</th>
+					<th onclick="sortTable(3, true)" title="Total duration of the test">Duration (s)</th>
+					<th onclick="sortTable(4, true)" title="Total animal movement">Mov.</th>
+					<th onclick="sortTable(5)" title="Drug used">Drug</th>
+					<th onclick="sortTable(6)" title="Treatment used">Treat.</th>
+					<th onclick="sortTable(7)" title="Observations">Obs.</th>
 				</thead>
 				<tbody id="tbBody">
 
@@ -88,28 +88,28 @@
 			<div id="pagination">
 			</div>
 		</div>
-		<h3 id="noData" style="display: none;">No hay datos.</h3>
+		<h3 id="noData" style="display: none;">No data.</h3>
 	</div>
 
 	<div id="float-controls">
 		<div class="controls">
 			<div class="button">
 				<img id="btnGreen" src="svg/btnNew.svg"
-					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Añadir un registro'; clearInputs('frmDataResults');loadRes_drug()"
-					title="Nuevo registro" alt="Nuevo registro">
+					onclick="operation('popup');document.getElementById('idPopup').innerHTML = 'Create new test data'; clearInputs('frmDataResults');loadRes_drug()"
+					title="Create new test data" alt="Create new test data">
 			</div>
 			<div class="button">
 				<img id="btnBlue" src="svg/btnEdit.svg"
 					onclick="editData(row[1].cells[0].innerHTML, row[1].cells[7].innerHTML)"
-					title="Editar datos de la prueba seleccionada" alt="Editar datos de la prueba seleccionada">
+					title="Edit selected test data" alt="Edit selected test data">
 			</div>
 			<div class="button">
-				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Borrar registro"
-					alt="Borrar registro">
+				<img id="btnRed" src="svg/btnDelete.svg" onclick="deleteReg('reg')" title="Delete test"
+					alt="Delete test">
 			</div>
 			<div class="button">
 				<img id="btnGray" src="svg/btnPercentage.svg" onclick="switchPer()"
-					alt="Calcular porcentajes entre 2 registros">
+					alt="Calculate the percentage between two tests">
 			</div>
 		</div>
 	</div>
@@ -117,64 +117,64 @@
 	<div id="popup" class="modal">
 		<form id="frmDataResults" class="modal-content animate" method="post">
 			<div class="imgcontainer">
-				<span onclick="cancel('popup')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('popup')" class="close" title="Close">&times;</span>
 			</div>
 			<div class="usercontainer">
-				<h3 id="idPopup">Modificar datos de prueba:</h3>
-				<label for="fdate">Fecha:</label>
-				<input type="date" id="fdate" name="fdate" placeholder="Fecha"><br><br>
+				<h3 id="idPopup">Modify test data:</h3>
+				<label for="fdate">Date:</label>
+				<input type="date" id="fdate" name="fdate" placeholder="Date"><br><br>
 
-				<label for="fduration">Duración:</label>
+				<label for="fduration">Duration:</label>
 				<input type="number" id="fduration" name="fduration"
-					placeholder="Duración de la prueba (en segundos)"><br><br>
+					placeholder="Test duration (in seconds)"><br><br>
 
-				<label for="fmovement">Movimiento:</label>
-				<input type="number" id="fmovement" name="fmovement" placeholder="Movimiento total del animal"><br><br>
+				<label for="fmovement">Movement:</label>
+				<input type="number" id="fmovement" name="fmovement" placeholder="Total animal movement"><br><br>
 
-				<label for="fresearcher">Investigador:
+				<label for="fresearcher">Researcher:
 					<div class="button">
 						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewRes'), clearInputs('frmResearcher')"
-							src="svg/btnNewResearcher.svg" title="Crear un nuevo investigador"
-							alt="Crear nuevo investigador">
+							src="svg/btnNewResearcher.svg" title="Create a new researcher"
+							alt="Create a new researcher">
 					</div>
 				</label>
 
 				<select id="selectResearchers" name="sResearchers">
-					<option disabled selected value=""> -- Seleccione un investigador -- </option>
+					<option disabled selected value=""> -- Select a researcher -- </option>
 				</select>
 				<br><br>
 
-				<label for="fdrug">Droga:
+				<label for="fdrug">Drug:
 
 					<div class="button">
 						<img id="btnGreen" class="btnNewDR" onclick="operation('popupNewDrug'), clearInputs('frmDrug');" src="svg/btnNewDrug.svg"
-							title="Crear nueva droga" alt="Crear nueva droga">
+							title="Create a new drug" alt="Create a new drug">
 					</div>
 				</label>
 				<select id="selectDrugs" name="sDrugs">
-					<option disabled selected value=""> -- Seleccione una droga -- </option>
+					<option disabled selected value=""> -- Select a drug -- </option>
 				</select>
 				<br><br>
 
-				<label for="ftreatment">Tratamiento:</label>
-				<input type="text" id="ftreatment" name="ftreatment" placeholder="Tratamiento utilizado"><br><br>
+				<label for="ftreatment">Treatment:</label>
+				<input type="text" id="ftreatment" name="ftreatment" placeholder="Treatment used"><br><br>
 
-				<label for="fobservations">Observaciones:</label>
+				<label for="fobservations">Observations:</label>
 				<textarea name="fobservations" id="fobservations"
-					placeholder="Observaciones y/o comentarios de la prueba"></textarea><br><br>
+					placeholder="Observations and/or comments about the test"></textarea><br><br>
 			</div>
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveData(true)" title="Guardar prueba"
-						alt="Guardar prueba">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveData(true)" title="Save test"
+						alt="Save test">
 				</div>
 				<div class="button">
 					<img id="btnClean" src="svg/btnClean.svg" onclick="clearInputs('frmDataResults')"
-						title="Limpiar campos" alt="Limpiar campos">
+						title="Clear inputs" alt="Clear inputs">
 				</div>
 				<div class="button">
-					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popup')" title="Cancelar" alt="Cancelar">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popup')" title="Cancel" alt="Cancel">
 				</div>
 			</div>
 		</form>
@@ -183,10 +183,10 @@
 	<div id="popupPercentage" class="modal">
 		<form id="frmDataResults" class="modal-content animate">
 			<div class="imgcontainer">
-				<span onclick="cancel('popupPercentage')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('popupPercentage')" class="close" title="Close">&times;</span>
 			</div>
 			<div class="usercontainer">
-				<p id="registerPercentage" style="font-size: 12pt;">Ver mas</p>
+				<p id="registerPercentage" style="font-size: 12pt;">See more</p>
 			</div>
 		</form>
 	</div>
@@ -194,12 +194,12 @@
 	<div id="popupSeeMore" class="modal">
 		<form id="frmDataResults" class="modal-content animate">
 			<div class="imgcontainer">
-				<span onclick="cancel('popupSeeMore')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('popupSeeMore')" class="close" title="Close">&times;</span>
 			</div>
 			<div class="usercontainer">
-				<h3 id="titleSeeMore">Ver más:</h3>
+				<h3 id="titleSeeMore">See observation:</h3>
 				<hr>
-				<p id="moreText" style="font-size: 12pt;">Ver mas</p>
+				<p id="moreText" style="font-size: 12pt;">See more</p>
 			</div>
 		</form>
 	</div>
@@ -208,27 +208,27 @@
 
 		<form id="frmResearcher" class="modal-content animate" method="post">
 			<div class="imgcontainer">
-				<span onclick="cancel('popupNewRes')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('popupNewRes')" class="close" title="Close">&times;</span>
 			</div>
 
 			<div class="usercontainer">
-				<h3 id="idPopup">Crear nuevo investigador:</h3>
+				<h3 id="idPopup">Create a new researcher:</h3>
 
-				<label for="resNameNew">Nombre del investigador:</label>
-				<input type="text" id="resNameNew" placeholder="Ingrese nombre" name="resNameNew" required><br><br>
+				<label for="resNameNew">Name of researcher:</label>
+				<input type="text" id="resNameNew" placeholder="Enter name" name="resNameNew" required><br><br>
 
-				<label for="resCatNew">Categoría:</label>
-				<input type="text" id="resCatNew" placeholder="Ingrese la categoría" name="resCatNew" required><br><br>
+				<label for="resCatNew">Category:</label>
+				<input type="text" id="resCatNew" placeholder="Enter category" name="resCatNew" required><br><br>
 			</div>
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', false)" title="Guardar"
-						alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('researcher', false)" title="Save"
+						alt="Save">
 				</div>
 				<div class="button">
-					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancelar"
-						alt="Cancelar">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewRes')" title="Cancel"
+						alt="Cancel">
 				</div>
 			</div>
 		</form>
@@ -236,27 +236,27 @@
 	<div id="popupNewDrug" class="modal">
 		<form id="frmDrug" class="modal-content animate" method="post">
 			<div class="imgcontainer">
-				<span onclick="cancel('popupNewDrug')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('popupNewDrug')" class="close" title="Close">&times;</span>
 			</div>
 
 			<div class="usercontainer">
-				<h3 id="idPopup">Crear nueva droga:</h3>
+				<h3 id="idPopup">Create a new drug:</h3>
 
-				<label for="drugNameNew">Nombre de la Droga:</label>
-				<input type="text" id="drugNameNew" placeholder="Ingrese nombre" name="drugNameNew" required><br><br>
+				<label for="drugNameNew">Drug name:</label>
+				<input type="text" id="drugNameNew" placeholder="Enter drug" name="drugNameNew" required><br><br>
 
-				<label for="drugDoseNew">Dosis:</label>
-				<input type="text" id="drugDoseNew" placeholder="Ingrese la dosis" name="drugDoseNew" required><br><br>
+				<label for="drugDoseNew">Dose:</label>
+				<input type="text" id="drugDoseNew" placeholder="Enter dose" name="drugDoseNew" required><br><br>
 			</div>
 
 			<div class="controls">
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', false)" title="Guardar"
-						alt="Guardar">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="saveRes_Drug('drug', false)" title="Save"
+						alt="Save">
 				</div>
 				<div class="button">
-					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewDrug')" title="Cancelar"
-						alt="Cancelar">
+					<img id="btnRed" src="svg/btnCancel.svg" onclick="cancel('popupNewDrug')" title="Cancel"
+						alt="Cancel">
 				</div>
 			</div>
 		</form>
@@ -293,7 +293,7 @@
 
 			if (row[1].cells != undefined) {
 				sessionStorage['id'] = row[1].cells[0].innerHTML;
-				if (enablePer == true) {
+				if (enablePer) {
 					idArray.push(parseInt(row[1].cells[4].innerHTML));
 					if (idArray.length == 2) {
 						registerPercentage(idArray);
@@ -306,7 +306,7 @@
 				document.getElementById('popupSeeMore').style.display = 'block';
 				let d = searchReg(parseInt(row[2].cells[0].innerHTML, 10));
 
-				document.getElementById("titleSeeMore").innerHTML = "Ver registro " + d.register_id;
+				document.getElementById("titleSeeMore").innerHTML = "See test " + d.register_id;
 				document.getElementById("moreText").innerHTML = d.observations;
 			}
 		});
