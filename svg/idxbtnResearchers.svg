@@ -1,20 +1,20 @@
 <svg width="42.44mm" height="10.164mm" version="1.1" viewBox="0 0 42.44 10.164" xmlns="http://www.w3.org/2000/svg">
-	<rect width="42.44" height="10.164" ry="4.8883" fill="#26a1d9"/>
-	<g transform="translate(.52038)" stroke-linecap="round">
-		<text x="23.641621" y="6.3437738" fill="#26b57a" font-family="Arial" font-size="1.4817px" stroke-linejoin="round" stroke-miterlimit="11.9" stroke-width="1.9844" text-align="center" text-anchor="middle" style="line-height:1.25" xml:space="preserve"><tspan x="23.641621" y="6.3437738" fill="#ffffff" font-family="Arial" font-size="3.5278px" font-weight="bold" stroke-width="1.9844">INVESTIGADORES</tspan></text>
-		<g transform="matrix(.97583 0 0 .97583 -4.4075 -1.3151)">
-			<circle cx="9.2282" cy="6.5556" r="2.508" fill="#fff" stroke-width=".6"/>
-			<g transform="translate(4.2299 2.0975)" fill="none" stroke="#26a1d9" stroke-width=".26988">
-				<g transform="translate(-.13787 .084457)">
-					<circle cx="4.1066" cy="4.039" r=".54976"/>
-					<circle cx="6.1638" cy="4.039" r=".54976"/>
-					<path d="m4.6996 4.016h0.87127"/>
-				</g>
-				<g transform="translate(.0028199)">
-					<path d="m3.3256 4.1768h-0.66865"/>
-					<path d="m7.3321 4.1768h-0.66865"/>
-				</g>
-			</g>
-		</g>
-	</g>
+ <rect width="42.44" height="10.164" ry="4.8883" fill="#26a1d9"/>
+ <g transform="translate(.52038)" stroke-linecap="round">
+  <text x="23.641621" y="6.3437738" fill="#26b57a" font-family="Arial" font-size="1.4817px" stroke-linejoin="round" stroke-miterlimit="11.9" stroke-width="1.9844" text-align="center" text-anchor="middle" style="line-height:1.25" xml:space="preserve"><tspan x="23.641621" y="6.3437738" fill="#ffffff" font-family="Arial" font-size="3.5278px" font-weight="bold" stroke-width="1.9844">RESEARCHERS</tspan></text>
+  <g transform="matrix(.97583 0 0 .97583 -4.4075 -1.3151)">
+   <circle cx="9.2282" cy="6.5556" r="2.508" fill="#fff" stroke-width=".6"/>
+   <g transform="translate(4.2299 2.0975)" fill="none" stroke="#26a1d9" stroke-width=".26988">
+    <g transform="translate(-.13787 .084457)">
+     <circle cx="4.1066" cy="4.039" r=".54976"/>
+     <circle cx="6.1638" cy="4.039" r=".54976"/>
+     <path d="m4.6996 4.016h0.87127"/>
+    </g>
+    <g transform="translate(.0028199)">
+     <path d="m3.3256 4.1768h-0.66865"/>
+     <path d="m7.3321 4.1768h-0.66865"/>
+    </g>
+   </g>
+  </g>
+ </g>
 </svg>
