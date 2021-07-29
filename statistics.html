@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Estadísticas</title>
+	<title>Statistics</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
 	<script type="text/javascript" src="js/chart.min.js"></script>
@@ -19,7 +19,7 @@
 	</div>
 
 	<div class="containerStats">
-		<h1>Estadísticas</h1>
+		<h1>Statistics</h1>
 		<hr class="bar">
 		<div class="row_operation">
 			<div class="statistic_chart">
@@ -30,52 +30,23 @@
 			</div>
 		</div>
 
-		<!--
-		<div class="operation_container">
-			<div class="containerStatsControl"">
-				<div style=" display: flex;">
-				<select id="selectDrugs" name="sDrugs">
-					<option disabled selected value=""> -- Seleccione para añadir-- </option>
-					<option value="Control">Control</option>
-					<option value="Droga">Droga</option>
-				</select>
-				<div class="button">
-					<img id="btnGreen" src="svg/btnAdd.svg" onclick="addElement()" title="Añadir droga"
-						alt="Añadir droga">
-				</div>
-				<select id="selectErase" name="sErase">
-					<option disabled selected value=""> -- Seleccione para eliminar -- </option>
-				</select>
-				<div class="button">
-					<img id="btnRed" src="svg/btnRemove.svg" onclick="removeElement();" title="Borrar registro"
-						alt="Borrar registro">
-				</div>
-			</div>
-		</div>
-
-		<div class="row_operation">
-			<div class="statistic_chart" style="width: 890px;">
-				<canvas id="chartDrugs" width="890" height="400"></canvas>
-			</div>
-		</div>
-		-->
 		<div class="containerStatsControl">
 			<div style=" display: flex;">
 				<label class="labelDateStats" for="fselect">Ver:</label>
 
 				<select id="selectOpt" style="width: 150px;" onchange="fillDateData()" name="sOpt">
-					<option selected value="mov">Movimiento</option>
-					<option value="dur">Duracion</option>
+					<option selected value="mov">Movement</option>
+					<option value="dur">Duration</option>
 				</select>
 
-				<label class="labelDateStats" for="fdate">Desde:</label>
-				<input style="width: 150px;" type="date" id="dateSince" name="dateSince" placeholder="Fecha"><br><br>
+				<label class="labelDateStats" for="fdate">From:</label>
+				<input style="width: 150px;" type="date" id="dateSince" name="dateSince" placeholder="Date"><br><br>
 
-				<label class="labelDateStats" for="fdate">Hasta:</label>
-				<input style="width: 150px;" type="date" id="dateUntil" name="dateUntil" placeholder="Fecha"><br><br>
+				<label class="labelDateStats" for="fdate">To:</label>
+				<input style="width: 150px;" type="date" id="dateUntil" name="dateUntil" placeholder="Date"><br><br>
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="dateFilter()" title="Aceptar"
-						alt="Añadir droga">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="dateFilter()" title="Ok"
+						alt="Ok">
 				</div>
 			</div>
 		</div>
@@ -92,19 +63,19 @@
 		</div>
 		<div class="containerStatsControl">
 			<div style=" display: flex;">
-				<label class="labelDateStats" for="fselect">Porcentaje de diferencia entre:</label>
+				<label class="labelDateStats" for="fselect">Percentage difference between:</label>
 
 				<select id="selectDose1" onchange="calcPercentage()" style="width: 150px;" onchange="" name="sDos1">
-					<option disabled selected value=""> -- Seleccione -- </option>
+					<option disabled selected value=""> -- Select -- </option>
 				</select>
 
 				<label class="labelDateStats" for="fdate">y</label>
 
 				<select id="selectDose2" onchange="calcPercentage()" style="width: 150px;" onchange="" name="sDos2">
-					<option disabled selected value=""> -- Seleccione -- </option>
+					<option disabled selected value=""> -- Select -- </option>
 				</select>
 				<div class="button">
-					<img id="btnGreen" src="svg/btnOk.svg" onclick="" title="Añadir droga" alt="Añadir droga">
+					<img id="btnGreen" src="svg/btnOk.svg" onclick="" title="Ok" alt="Ok">
 				</div>
 			</div>
 		</div>
