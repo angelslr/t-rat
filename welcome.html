@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bienvenido a T-Rat</title>
+	<title>Welcome to T-Rat</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css">
 	<script type="text/javascript" src="js/functions.js"></script>
 	<link rel="shortcut icon" href="svg/TRat.svg">
@@ -17,24 +17,24 @@
 	</div>
 
 	<div class="container" style="height: 400px;">
-		<h1>Bienvenido a T-Rat</h1>
+		<h1>Welcome to T-Rat</h1>
 		<br>
 		<br>
 		<br>
 		<div class="operation_container">
 			<div class="row_operation">
 				<div class="button_container">
-					<h3>Iniciar sesión</h3>
-					<p>Ingrese sus datos de usuario para acceder al sistema</p>
+					<h3>Login</h3>
+					<p>Enter your user data to access the system</p>
 					<div class="controls">
-						<a class="cta"><button onclick="operation('id01')">Ingresar</button></a>
+						<a class="cta"><button onclick="operation('id01')">Login</button></a>
 					</div>
 				</div>
 				<div class="button_container"">
-					<h3>Registrar usuario</h3>
-					<p>Cree un nombre de usuario y contraseña</p>
-					<div class="controls" style="position: relative; bottom: -24px;">
-						<a class="cta"><button onclick="operation('id02')">Registrarse</button></a>
+					<h3>Sign up</h3>
+					<p>Create a user name and password</p>
+					<div class="controls">
+						<a class="cta"><button onclick="operation('id02')">Sign up</button></a>
 					</div>
 				</div>
 			</div>
@@ -45,24 +45,24 @@
 
 		<form id="frmLogin" class="modal-content animate" method="post">
 			<div class="imgcontainer">
-				<span onclick="cancel('id01')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('id01')" class="close" title="Close">&times;</span>
 				<img src="img/avatar.svg" alt="Avatar" class="avatar">
 			</div>
 
 			<div class="usercontainer">
-				<label for="uname">Nombre de usuario:</label>
-				<input type="text" id="l_username" placeholder="Ingrese un nombre de usuario" name="uname"
+				<label for="uname">Username:</label>
+				<input type="text" id="l_username" placeholder="Enter a username" name="uname"
 					required><br><br>
 
-				<label for="psw">Contraseña:</label>
-				<input type="password" id="l_password" placeholder="Ingrese su contraseña" name="psw" required><br><br>
+				<label for="psw">Password:</label>
+				<input type="password" id="l_password" placeholder="Enter your password" name="psw" required><br><br>
 
 			</div>
 
 			<div class="controls">
-				<button type="button" onclick="login()">Ingresar</button>
+				<button type="button" onclick="login()">Login</button>
 				<button type="button" onclick="cancel('id01');clearInputs('frmLogin')"
-					class="cancelbtn">Cancelar</button>
+					class="cancelbtn">Cancel</button>
 			</div>
 		</form>
 	</div>
@@ -71,29 +71,29 @@
 
 		<form id="frmRegister" class="modal-content animate" method="post">
 			<div class="imgcontainer">
-				<span onclick="cancel('id02')" class="close" title="Cerrar">&times;</span>
+				<span onclick="cancel('id02')" class="close" title="Close">&times;</span>
 				<img src="img/avatar.svg" alt="Avatar" class="avatar">
 			</div>
 
 			<div class="usercontainer">
-				<label for="uname">Nombre:</label>
-				<input type="text" id="r_name" placeholder="Ingrese nombre" name="uname" required><br><br>
+				<label for="uname">First name:</label>
+				<input type="text" id="r_name" placeholder="Enter your name" name="uname" required><br><br>
 
-				<label for="uname">Apellido:</label>
-				<input type="text" id="r_surname" placeholder="Ingrese apellido" name="uname" required><br><br>
+				<label for="uname">Last name:</label>
+				<input type="text" id="r_surname" placeholder="Enter last name" name="uname" required><br><br>
 
-				<label for="uname">Nombre de usuario:</label>
-				<input type="text" id="r_username" placeholder="Ingrese un nombre de usuario" name="uname"
+				<label for="uname">Username:</label>
+				<input type="text" id="r_username" placeholder="Enter a username" name="uname"
 					required><br><br>
 
-				<label for="psw">Contraseña:</label>
-				<input type="password" id="r_password" placeholder="Ingrese su contraseña" name="psw" required><br><br>
+				<label for="psw">Password:</label>
+				<input type="password" id="r_password" placeholder="Enter your password" name="psw" required><br><br>
 			</div>
 
 			<div class="controls">
-				<button type="button" onclick="signUp()">Registrarse</button>
+				<button type="button" onclick="signUp()">Sign up</button>
 				<button type="button" onclick="cancel('id02');clearInputs('frmRegister')"
-					class="cancelbtn">Cancelar</button>
+					class="cancelbtn">Cancel</button>
 			</div>
 		</form>
 	</div>
