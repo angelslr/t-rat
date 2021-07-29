@@ -1,4 +1,4 @@
-﻿//Variables globales
+﻿//Global variables
 var id = 1, cron = 0;
 var hour = 0;
 var jsonDRUGS = jsonRES = jsonREGS = 0;
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					<path d="m6.0882 4.55h-5.7382" />
 				</g>
 			</svg>
-			Resultados
+			Results
 		</a>
 		<a href="researchers.html" target="_blank">
 			<svg class="function_nav_icon" width="5.0047mm" height="5.0047mm" version="1.1" viewBox="0 0 5.0047 5.0047"
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					</g>
 				</g>
 			</svg>
-			Investigadores
+			Researchers
 		</a>
 		<a href="drugs.html" target="_blank">
 			<svg class="function_nav_icon" width="4.9643mm" height="4.9644mm" version="1.1" viewBox="0 0 4.9643 4.9644"
@@ -56,14 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
 				<path d="m4.0933 0.92201 0.15322 0.15322c0.16406 0.16406 0.16406 0.42821 0 0.59227l-0.87186 0.87186"
 					fill="none" stroke="#000" stroke-linecap="round" stroke-width=".26458" />
 			</svg>
-			Drogas
+			Drugs
 		</a>
 		<a href="statistics.html" target="_blank">
 		<svg class="function_nav_icon" width="5.006mm" height="5.0083mm" version="1.1" viewBox="0 0 5.006 5.0083" xmlns="http://www.w3.org/2000/svg">
 		<path d="m0.13229 0.13229v4.7437h4.7415" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458"/>
 		<path d="m0.78499 4.0052 0.70036-1.2131 0.36541 0.63291 0.73574-1.2743 0.61621 0.61621 1.0183-1.7638" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26458"/>
 	   </svg>
-			Estadísticas
+			Statistics
 		</a>
 		<a onclick="operation('popupAbout')">
 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <path d="m2.3148 1.3662v-0.07697"/>
  </g>
 </svg>
-			Acerca de
+			About
 		</a>
 		<div id="popupAbout" class="modal">
 		<form id="frmAbout" class="modal-content animate">
@@ -99,9 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		   </svg>
 		   
 				<div class="containerAboutText">
-				<p style="font-size: 16pt;"><strong>Acerca de T-Rat</strong></p>
-				<p><strong>Versión 3.8.5.1</strong></p>
-				<p>Universidad Nacional de La Rioja</p>
+				<p style="font-size: 16pt;"><strong>About T-Rat</strong></p>
+				<p><strong>Version 3.8.5.2</strong></p>
+				<p>National University of La Rioja</p>
 				<p>Angel Salazar</p>
 				<p>Ignacio Andrada</p>
 				<p>David Gomez</p>
@@ -139,13 +139,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	else {
 		document.getElementById("nav_links").innerHTML += `<li><a id="user" href="javascript:void(0)"></a>
 		<ul class="submenu">
-			<li><a onclick="logout()" href="javascript:void(0)">Cerrar sesión</a></li>
+			<li><a onclick="logout()" href="javascript:void(0)">Logout</a></li>
 		</ul>
 	</li>`;
 		document.getElementById("user").innerHTML = localStorage["l_username"];
 	}
 	header.innerHTML += `<ul id="option_links" style="margin-right: 0; padding: 0;">
-	<a href="#" onclick="window.open('Manual.pdf', '_blank', 'fullscreen=yes'); return false;">
+	<a href="#" onclick="window.open('Manual.pdf', '_blank', 'fullscreen=yes'); return false;" title="User manual (Spanish)" alt="User manual (Spanish)">
 	<svg class="function_nav_icon" width="4.6302mm" height="4.6302mm" version="1.1" viewBox="0 0 4.6302 4.6302"
 			xmlns="http://www.w3.org/2000/svg">
 			<g transform="matrix(.43656 0 0 .43656 -15.568 -57.45)" fill="none" stroke="#000" stroke-width=".60606">
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-//////////* CONEXION CON BACKEND *//////////
+//////////* CONNECTION WITH DATABASE BACKEND *//////////
 
 var url = "http://localhost:8080/";
 
@@ -241,10 +241,10 @@ async function toBackPUT(endpoint, id, jsonString) {
 	return response;
 }
 
-//////* FIN DE CONEXION CON GOLANG API *///////
+//////* END OF CONNECTION WITH DATABASE BACKEND *///////
 
 
-//////* CONEXION CON PYTHON API *///////
+//////* CONNECTION WITH ARDUINO API *///////
 
 var urlArduino = "http://127.0.0.1:5000/arduino";
 
@@ -263,8 +263,11 @@ async function toArduinoGET() {
 	return json;
 }
 
+//////* END OF CONNECTION WITH ARDUINO API *///////
 
-//Actualizan variables globales de datos
+
+
+//Update global data variables
 async function updateJsonREGS() {
 	if (jsonREGS == 0) {
 		jsonREGS = await toBackGETAll(epRegAll);
@@ -281,7 +284,7 @@ async function updateJsonRES() {
 	}
 }
 
-//Asigna el tema seleccionado almacenado, se utiliza en todas las páginas
+//Assigns the selected stored theme, used on all pages.
 if (localStorage.getItem('data-theme') == "dark") {
 	document.documentElement.setAttribute('data-theme', 'dark');
 }
@@ -289,37 +292,37 @@ else {
 	document.documentElement.setAttribute('data-theme', 'light');
 }
 
-//Si hay una sesión válida, se oculta la pantalla de bienvenida
+//If there is a valid session, the welcome screen is hidden.
 function hideWelcome() {
 	if (localStorage["l_username"] != null) {
 		location.replace("index.html");
 	}
 }
 
-//Comprueba si se inició sesión, en caso negativo, se retorna a la página de bienvenida
+//Check if you are logged in, if not, you are returned to the welcome page.
 function validateSession() {
 	if (localStorage["l_username"] == "" || localStorage["l_username"] == null) {
 		location.replace("welcome.html");
 	}
 }
 
-//Muestra las ventanas de carga de datos
+//Displays the data input windows
 function operation(item) {
 	document.getElementById(item).style.display = 'block';
 }
 
-//Oculta las ventanas de carga de datos
+//Hides data input windows
 function cancel(item) {
 	document.getElementById(item).style.display = 'none';
 }
 
-//Cerrar sesión
+//Logout
 function logout() {
 	localStorage.removeItem("l_username");
 	location.reload();
 }
 
-//Iniciar sesión
+//Login
 async function login() {
 	let us = document.getElementById("l_username").value;
 	let ps = document.getElementById("l_password").value;
@@ -340,7 +343,7 @@ async function login() {
 	}
 }
 
-//Registrar un usuario
+//Sign up
 async function signUp() {
 	let username = document.getElementById("r_username").value;
 	let name = document.getElementById("r_name").value;
@@ -367,7 +370,7 @@ async function signUp() {
 	}
 }
 
-//Cambia el switch del modo oscuro en función del tema
+//Changes the dark mode switch according to the theme
 function changeIconTheme() {
 	if (localStorage.getItem('data-theme') == "dark") {
 		document.getElementById('switch').checked = true;
@@ -379,7 +382,7 @@ function changeIconTheme() {
 	}
 }
 
-//Cambia el tema
+//Changes the theme
 function changeTheme(statistics) {
 	var checkbox = document.getElementById('switch');
 
@@ -402,7 +405,7 @@ function changeTheme(statistics) {
 	pageElements[lastButtonPressed].style.backgroundColor = selectionColor;
 }
 
-//Verifica el tema actual y cambia el color de los textos y grillas de los charts
+//Verify the current theme and change the color of text, grids and charts
 function updateColorChart() {
 	let colorFont;
 	let colorGrid;
@@ -430,7 +433,7 @@ function updateColorChart() {
 	});
 }
 
-//Cronómetro
+//Stopwatch
 function cronometer() {
 	if (sessionStorage["start"] == "true") {
 		let seconds = 4;
@@ -476,7 +479,7 @@ function toISOLocal(d) {
 		zz(d.getMilliseconds()) +
 		sign + z(off / 60 | 0) + ':' + z(off % 60);
 }
-//Detiene el cronómetro
+//Stops the Stopwatch
 function stopCron() {
 	clearInterval(cron);
 	cron = 0;
@@ -485,10 +488,10 @@ function stopCron() {
 
 }
 
-//Reinicia el sistema
+//Restart the system
 async function restart() {
 	if (cron != 0) {
-		alert("Prueba en ejecución. Para reiniciarla, debe detenerla primero.");
+		alert("A test is running. To restart it, you must stop it first.");
 	}
 	else {
 		toWait();
@@ -498,26 +501,27 @@ async function restart() {
 function toIndex() {
 
 	if (cron != 0) {
-		alert("Prueba en ejecución. Para reiniciarla, debe detenerla primero.");
+		alert("A test is running. To restart it, you must stop it first.");
 	}
 	else{
 		location.replace("index.html");
 	}
 }
 
-//Recupera los datos de la última prueba para rellenar los campos con datos obligatorios automáticamente
+//Obtains data from the Arduino, and automatically fills in some inputs.
 async function getData() {
 	let sec;
 	let mov;
 	let date;
 	let result;
-	document.getElementById('popupTitle').innerHTML = 'Esperando datos...';
+
+	document.getElementById('popupTitle').innerHTML = 'Waiting for data...';
 
 	while (result == undefined) {
 		result = await toArduinoGET();
 	}
 
-	document.getElementById('popupTitle').innerHTML = 'Completar datos de prueba:';
+	document.getElementById('popupTitle').innerHTML = 'Complete test data:';
 	sec = parseInt(result.ms / 1000);
 	mov = result.score;
 
@@ -527,7 +531,7 @@ async function getData() {
 	date = getTime();
 	sessionStorage["start"] = false;
 	if (sec == null) {
-		alert("No hay datos, realice una prueba.")
+		alert("No data, run a test.")
 	}
 	else {
 		document.getElementById("fduration").value = sec;
@@ -536,7 +540,6 @@ async function getData() {
 	}
 }
 
-//Limpia los campos de entrada
 function clearInputs(formId) {
 	document.getElementById(formId).reset();
 }
@@ -545,20 +548,20 @@ function toWait() {
 	location.replace('wait.html');
 }
 
-//Verifica el estado del módulo Arduino antes de comenzar una prueba. En caso de haber un error, se informará. En caso contrario, la prueba iniciará
+//Check the status of the Arduino module before starting a test. If there is an error, it will be reported. Otherwise, the test will start
 async function timeWait() {
 	let seconds = 0;
 	sessionStorage["start"] = false;
 	let response;
 
-	document.getElementById("messageText").innerHTML = "Comprobando sensores..."
+	document.getElementById("messageText").innerHTML = "Testing sensors..."
 
 	while (response == undefined) {
 		response = await toArduinoPOST();
 	}
 
 	if (response.status == 200) {
-		document.getElementById("messageText").innerHTML = "Configuración completa..."
+		document.getElementById("messageText").innerHTML = "Configuration complete..."
 		seconds = 6;
 	}
 	else if (response.status == 400) {
@@ -590,21 +593,7 @@ async function timeWait() {
 	location.replace("test.html")*/
 }
 
-//Espera que el módulo Arduino se haya encendido
-function arduinoState() {
-	let seconds = 0;
-	let tWait = setInterval(
-		function () {
-			seconds++;
-			if (seconds == 2) {
-				clearInterval(tWait)
-				document.getElementById("arduinoStatus").innerHTML = "Listo..."
-			}
-		}
-		, 1000);
-}
-
-//Añade una fila nueva a la tabla, es utilizada tanto en loadAllData() como en saveData()
+//Adds a new row to the table, it is used in both loadAllData() and saveData()
 function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 	var table = document.getElementById("tbBody");
 	var row = table.insertRow(-1);
@@ -631,7 +620,7 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 		rowTreat.innerHTML = "-";
 	}
 	if (obs.length > 11) {
-		rowObs.innerHTML = `<a id="seeMore" href="javascript:void(0)">Ver</a>`
+		rowObs.innerHTML = `<a id="seeMore" href="javascript:void(0)">See</a>`
 	}
 	else {
 		rowObs.innerHTML = obs;
@@ -641,9 +630,8 @@ function showRowTable(id, dat, res, dur, mov, dru, tre, obs) {
 	}
 }
 
-//Controla la carga de las tablas
+//Controls the loading of tables
 async function loadControl(opt, isPage) {
-
 	switch (opt) {
 		case 'regs':
 			await updateJsonREGS();
@@ -672,9 +660,9 @@ async function loadControl(opt, isPage) {
 			break;
 	}
 
-	//La variable tableLen controla el largo de la tabla, dependiendo de la seleccion del usuario en el selector
-	//En caso de seleccionar 'Todos' (-1) o que el valor seleccionado sea mayor al de la cantidad de registros
-	//el largo de la tabla será la cantidad total de registros
+	//The variable 'tableLen' controls the length of the table, depending on the user's selection in the selector.
+	//In case you select 'All' (-1) or the selected value is greater than the number of tests, the length of the table will be the total number of tests.
+
 	let tableLen = parseInt(document.getElementById("tableLength").value, 10);
 	if (tableLen == -1 || tableLen > dT.length) {
 		tableLen = dT.length;
@@ -685,29 +673,29 @@ async function loadControl(opt, isPage) {
 	hideRows(0, tableLen);
 }
 
-//Oculta las filas dependiendo de la cantidad de registros a mostrar
+//Hides rows depending on the number of records to display
 function hideRows(idItem, tableLen, numberPage) {
-	//numberPage es un valor (page1, page2, etc) que es enviado al presionar un boton del paginado
-	//se utiliza para saber si el mismo boton fue presionado, en caso de ser distinto, se ejecuta la funcion
+	//'numberPage' is a value (page1, page2, etc) that is sent when a button of the paging is pressed.
+	//It is used to know if the same button was pressed, if different, the function is executed
 	if (numberPage != lastButtonPressed) {
-		//Almacena todas las filas en una variable
+		//Stores all rows in a variable
 		let table = document.getElementById("tbBody");
 		tr = table.getElementsByTagName("tr");
 
-		//Si en el selector Mostrar se selecciono 'Todos' se envia un -1, por lo que el limite del ciclo que muestra
-		//filas es la cantidad maxima de registros
+		//If 'All' was selected in the 'Show' selector, a -1 is sent,
+		//so the limit of the cycle that shows rows is the maximum number of tests
 		if (tableLen == -1 || tableLen > tr.length) {
 			tableLen = tr.length;
 		}
 
-		//idItem indica el indice por el que tiene que comenzar a recorrer el arreglo
+		//"idItem" indicates the index at which to start iterating the array.
 		var i = idItem;
 
-		//Oculta todas las filas de la tabla
+		//Hides all table rows
 		for (j = 0; j < tr.length; j++) {
 			tr[j].style.display = "none";
 		}
-		//Muestra las filas dependiendo de la cantidad a mostrar, siendo "i" el inicio del recorrido y "tableLen" el final
+		//Displays the rows depending on the quantity to be displayed, where "i" is the start and "tableLen" is the end
 		for (; i < tableLen; i++) {
 			tr[i].style.display = "";
 		}
@@ -722,29 +710,29 @@ function hideRows(idItem, tableLen, numberPage) {
 }
 
 var pageElements;
-//Calcula la cantidad de paginas disponibles dependiendo de la cantidad a mostrar
+//Calculates the number of pages available depending on the amount to display
 function pageCalc(tableLen, rlen) {
 
 	if (tableLen == -1 || tableLen > rlen.length) {
 		tableLen = rlen.length;
 	}
 	var pagination = document.getElementById('pagination');
-	//Se eliminan los botones existentes
+	//Existing buttons are removed
 	pagination.innerHTML = "";
 	pagination.lastChild = "";
 	pagination.innerHTML += `<a id="ant" href="javascript:void(0)" onclick="clickButton('ant');">&laquo;</a>`;
 	let a;
 
-	//rowIndex le indica a hideRows donde tiene que empezar a recorrer el arreglo
+	//"rowIndex" tells "hideRows" where to start iterating the array
 	let rowIndex = 0;
-	//Cuando se inicia el sistema siempre habra al menos una pagina
+	//When the system is started, there will always be at least 1 page
 	let pages = 1;
-	//Si la cantidad de registros es mayor a la longitud maxima seleccionada, se añade una pagina
+	//If the number of records is greater than the selected maximum length, a page is added
 	while (rlen > tableLen) {
 		rlen -= tableLen;
 		pages += 1;
 	}
-	//Indica a hideRows donde tiene que terminar
+	//Tells "hideRows" where to end up
 	let auxLen = tableLen;
 	let value = 1;
 	while (value <= pages) {
@@ -755,13 +743,13 @@ function pageCalc(tableLen, rlen) {
 		a.id = value;
 		a.href = 'javascript:void(0)';
 
-		//El boton llamará a hideRows cuando sea presionado enviandole el indice inicial, el final y el numero de pagina
+		//The button will call "hideRows" when pressed, sending the start index, the end index and the page number
 		a.setAttribute("onclick", "hideRows(" + rowIndex + ', ' + auxLen + ',' + numberPage + ");");
 
 		rowIndex += tableLen;
 		auxLen += tableLen;
 
-		//Se añade un boton con un numero de pagina
+		//A page number button is added
 		pagination.appendChild(a);
 		value += 1;
 	}
@@ -846,10 +834,10 @@ function clearTable(opt) {
 }
 
 var lc = 0;
-//Muestra todos los registros de la base de datos
+//Displays all tests in the database
 async function loadAllData() {
 	if (jsonREGS.length != 0) {
-		//Se lee cada key de la cadena JSON, y se utiliza la función showRowTable para añadirlas a la tabla
+		//Each key is read from the JSON string, and the "showRowTable" function is used to add them to the table.
 		while (lc < jsonREGS.length) {
 			let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == jsonREGS[lc].drug_id });
 			let r = jsonRES.find(function (jsonRES) { return jsonRES.researcher_id == jsonREGS[lc].researcher_id });
@@ -868,7 +856,7 @@ async function loadAllData() {
 	updateAutocompleteList();
 }
 
-//Guarda un registro
+//Saves a test
 async function saveData(inResults) {
 	drug = document.getElementById("selectDrugs");
 	drug = parseInt(drug.options[drug.selectedIndex].id, 10);
@@ -905,7 +893,7 @@ async function saveData(inResults) {
 		cancel('popup');
 
 		if (inResults) {
-			//Al guardar un registro, se mostrará de inmediado, sin necesidad de recargar la página
+			//When you save a record, it will be displayed immediately, without the need to reload the page
 			let regs = parseInt(document.getElementById("registers").innerHTML, 10);
 			document.getElementById("registers").innerHTML = (regs + 1).toString();
 
@@ -938,16 +926,16 @@ async function saveData(inResults) {
 	}
 }
 
-//Despues de seleccionar una fila de la tabla y utilizar el respectivo boton, esta función desplegará el menu de edicion, además de rellenarlo con los datos de la fila enviados desde "results.html"
+//After selecting a row from the table and using the respective button, this function will display the edit menu and fill it with the row data sent from "results.html".
 function editData(id) {
 	if (id == -1 || id == "") {
 		alert("Debe seleccionar una fila de la tabla");
 	}
 	else {
-		//Despliega menu
+		//Display menu
 		operation('popup');
 		loadRes_drug();
-		//Rellena datos
+		//Fill data
 		register = searchReg(id);
 		document.getElementById("idPopup").innerHTML = "Modificar datos del registro " + id;
 		document.getElementById("fduration").value = register.duration;
@@ -1264,7 +1252,6 @@ function search() {
 }
 
 function sortTable(n, isNumber) {
-
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("tbResults");
 	switching = true;
@@ -1357,7 +1344,7 @@ async function dataChartDrugs() {
 	let array1 = [];
 	let counter = []
 
-	//LLena un array con todos los id de las drogas en todos los registros
+	//Fills an array with all drug IDs in all tests
 	for (i = 0; i < jsonREGS.length; i++) {
 		array1.push(jsonREGS[i].drug_id);
 	}
@@ -1366,7 +1353,7 @@ async function dataChartDrugs() {
 		array1[i] = d.name;
 	}
 
-	//Elimina duplicados
+	//Delete duplicates
 	simplifiedArray = eraseDuplicate(array1);
 
 	simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
@@ -1389,7 +1376,7 @@ async function dataChartDrugs() {
 }
 
 async function dataChartMov() {
-	//array1 corresponde a los ids de las drogas. array2 a los movimientos por prueba
+	//"array1" corresponds to the drug IDs. "array2" to movements by test.
 	let array1 = [];
 	let array2 = [];
 	let aux = [];
@@ -1397,37 +1384,37 @@ async function dataChartMov() {
 	let avg = [];
 	let maxs = [];
 
-	//Extrae ids de drogas y movimientos
+	//Extracts IDs of drugs and movements
 	for (i = 0; i < jsonREGS.length; i++) {
 		array1.push(jsonREGS[i].drug_id);
 		array2.push(jsonREGS[i].movement);
 	}
-	//Reemplaza cada id contenido en array1 con el nombre de su correspondiente droga
+	//Replace each ID contained in "array1" with the name of its corresponding drug.
 	for (i = 0; i < array1.length; i++) {
 		let d = jsonDRUGS.find(function (jsonDRUGS) { return jsonDRUGS.drug_id == array1[i] });
 		array1[i] = d.name;
 	}
-	//Asigna esos datos a un arreglo auxiliar
+	//Assigns that data to an auxiliary array
 	aux = [
 		array1,
 		array2
 	]
-	//Todos los (ahora) nombres duplicados en array1 son eliminados y asignados a una nueva
+	//All (now) duplicate names in "array1" are removed and assigned to a new variable
 	simplifiedArray = eraseDuplicate(array1);
 
-	//simplifiedArray se usa como control, dado que hay que buscar X numero de drogas diferentes
+	//"simplifiedArray" is used as a control, since a certain number of different drugs must be searched for.
 	for (i = 0; i < simplifiedArray.length; i++) {
 		let arr2 = [];
 		let c = 0;
 		for (j = 0; j < aux[0].length; j++) {
-			//Si el nombre de la droga contenido en aux coincide con simplifiedArray, se almacena su
-			//valor de movimiento en arr2, mientras que se suma a un contador
+			//If the drug name contained in "aux" matches "simplifiedArray",
+			//its movement value is stored in "arr2", while it is added to a counter
 			if (aux[0][j] == simplifiedArray[i]) {
 				arr2.push(aux[1][j]);
 				c += aux[1][j];
 			}
 		}
-		//Cuando finaliza el ciclo de buscar una droga, se calcula el minimo, promedio y maximo movimiento
+		//At the end of the drug-seeking cycle, the minimum, average and maximum movement is calculated.
 		mins.push(getMinOfArray(arr2));
 		avg.push(parseFloat(c / arr2.length).toFixed(2));
 		maxs.push(getMaxOfArray(arr2));
@@ -1438,11 +1425,6 @@ async function dataChartMov() {
 	function getMinOfArray(numArray) {
 		return Math.min.apply(null, numArray);
 	}
-	/*for (i = 0; i < jsonREGS.length; i++) {
-		let d = jsonREGS.filter(function (jsonREGS) { return jsonREGS.drug_id == array1[i] });
-	}
-*/
-	//let aux = simplifiedArray.forEach(el => counter.push(array1.filter(x => x == el).length));
 
 	return [
 		simplifiedArray,
@@ -1461,30 +1443,30 @@ async function dataChartMovByDose() {
 	let avg = [];
 	let maxs = [];
 
-	//Extrae ids de drogas y movimientos
+	//Extracts drug and movement IDs
 	for (i = 0; i < jsonREGS.length; i++) {
 		array1.push(jsonREGS[i].drug_id);
 		array2.push(jsonREGS[i].movement);
 	}
-	//Asigna esos datos a un arreglo auxiliar
+	//Asign that data to an auxiliary array
 	aux = [
 		array1,
 		array2
 	]
 
-	//simplifiedArray se usa como control, dado que hay que buscar X numero de drogas diferentes
+	//"simplifiedArray" is used as a control, since a certain number of different drugs must be searched for.
 	for (i = 0; i < jsonDRUGS.length; i++) {
 		let arr2 = [];
 		let c = 0;
 		for (j = 0; j < aux[0].length; j++) {
-			//Si el nombre de la droga contenido en aux coincide con simplifiedArray, se almacena su
-			//valor de movimiento en arr2, mientras que se suma a un contador
+			//If the drug name contained in "aux" matches "simplifiedArray",
+			//its movement value is stored in "arr2", while it is added to a counter
 			if (aux[0][j] == jsonDRUGS[i].drug_id) {
 				arr2.push(aux[1][j]);
 				c += aux[1][j];
 			}
 		}
-		//Cuando finaliza el ciclo de buscar una droga, se calcula el minimo, promedio y maximo movimiento
+		//At the end of the drug-seeking cycle, the minimum, average and maximum movement is calculated.
 		mins.push(getMinOfArray(arr2));
 		avg.push(parseFloat(c / arr2.length).toFixed(2));
 		maxs.push(getMaxOfArray(arr2));
@@ -1550,7 +1532,7 @@ function calcPercentage() {
 		result = (second * 100) / first;
 		if (isNaN(result)) {result = Infinity;}
 
-		per.innerHTML = 'La diferencia porcentual entre valores mínimos es: ' + parseFloat(result).toFixed(2) + '%';
+		per.innerHTML = 'The percentage difference between minimum values is: ' + parseFloat(result).toFixed(2) + '%';
 
 		per = document.getElementById('perAvg');
 		first = dataMovByDose[2][s1];
@@ -1559,7 +1541,7 @@ function calcPercentage() {
 		result = (second * 100) / first;
 		if (isNaN(result)) {result = Infinity;}
 
-		per.innerHTML = 'La diferencia porcentual entre valores promedios es: ' + parseFloat(result).toFixed(2) + '%';
+		per.innerHTML = 'The percentage difference between average values is: ' + parseFloat(result).toFixed(2) + '%';
 
 		per = document.getElementById('perMax');
 		first = dataMovByDose[3][s1];
@@ -1568,7 +1550,7 @@ function calcPercentage() {
 		result = (second * 100) / first;
 		if (isNaN(result)) {result = Infinity;}
 
-		per.innerHTML = 'La diferencia porcentual entre valores máximos es: ' + parseFloat(result).toFixed(2) + '%';
+		per.innerHTML = 'The percentage difference between maximun values is: ' + parseFloat(result).toFixed(2) + '%';
 	}
 
 }
@@ -1580,9 +1562,9 @@ function registerPercentage(array) {
 	second = second - first;
 	let result = (second * 100) / first;
 	let per = document.getElementById('registerPercentage');
-	per.innerHTML = 'La diferencia de movimiento entre los registros seleccionados es de un: ' + parseFloat(result).toFixed(2) + '%';
+	per.innerHTML = 'The percentage difference in movement between the selected tests is: ' + parseFloat(result).toFixed(2) + '%';
 	if (result == Infinity) {
-		per.innerHTML = 'El primer registro no puede tener un valor 0.';
+		per.innerHTML = 'The first test selected cannot have a value of 0.';
 	}
 }
 
@@ -1650,7 +1632,7 @@ function dataDateChart() {
 	let movs = [];
 	let dateLong = [];
 	let field = document.getElementById('selectOpt').value;
-	//Se añaden todas las fechas de todos los registros
+	//All dates of all records are added.
 	for (i = 0; i < jsonREGS.length; i++) {
 		//ids.push(jsonREGS[i].register_id);
 		let t = new Date(jsonREGS[i].date);
@@ -1725,7 +1707,7 @@ function dateFilterChart() {
 	];
 	//console.log(dateXdataY[0][0].split(', ')[0]);
 }
-//Elimina elementos duplicados dentro de un array
+//Removes duplicate elements within an array
 function eraseDuplicate(array) {
 	return array.filter(function (item, pos) {
 		return array.indexOf(item) == pos;
