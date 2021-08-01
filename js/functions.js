@@ -760,7 +760,6 @@ function pageCalc(tableLen, rlen) {
 }
 
 function clickButton(arg) {
-	debugger;
 	let clickEvent = new CustomEvent('click');
 	let id;
 	if (arg == 'prev') {
