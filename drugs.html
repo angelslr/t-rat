@@ -143,14 +143,6 @@
 			if (row[1].cells != undefined) {
 				sessionStorage['id'] = row[1].cells[0].innerHTML;
 			}
-
-			if (row.length > 10) {
-				document.getElementById('popupSeeMore').style.display = 'block';
-				let d = searchReg(parseInt(row[2].cells[0].innerHTML, 10));
-
-				document.getElementById("titleSeeMore").innerHTML = "See test " + d.register_id;
-				document.getElementById("moreText").innerHTML = d.observations;
-			}
 		});
 	</script>
 	
