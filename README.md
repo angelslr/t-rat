@@ -1,4 +1,7 @@
 # T-Rat
+
+![Screenshot_2021-07-29_19-19-03](https://user-images.githubusercontent.com/52970165/127777202-836a0504-79d7-4170-81c4-4788d361210e.png)
+
 T-Rat consist of an automatic system for measuring movement in laboratory rats that automatizes an experimental test called Open Field Test (OFT). It is composed of  3 modules: a API Backend wich controls a database, a box with infrared sensors controlled with Arduino, and a Frontend processing and visualizing module. Given that the entire application was made with hexagonal architecture, each of the modules are independent of each other.
 
 Specifically, in this case, the data handled was:
