@@ -720,7 +720,7 @@ function pageCalc(tableLen, rlen) {
 	//Existing buttons are removed
 	pagination.innerHTML = "";
 	pagination.lastChild = "";
-	pagination.innerHTML += `<a id="ant" href="javascript:void(0)" onclick="clickButton('ant');">&laquo;</a>`;
+	pagination.innerHTML += `<a id="prev" href="javascript:void(0)" onclick="clickButton('prev');">&laquo;</a>`;
 	let a;
 
 	//"rowIndex" tells "hideRows" where to start iterating the array
@@ -740,7 +740,7 @@ function pageCalc(tableLen, rlen) {
 		a.appendChild(document.createTextNode(value));
 		let numberPage = value;
 		a.textContent = value;
-		a.id = value;
+		a.id = 'page' + value;
 		a.href = 'javascript:void(0)';
 
 		//The button will call "hideRows" when pressed, sending the start index, the end index and the page number
@@ -753,26 +753,27 @@ function pageCalc(tableLen, rlen) {
 		pagination.appendChild(a);
 		value += 1;
 	}
-	pagination.innerHTML += `<a id="post" href="javascript:void(0)" onclick="clickButton('post');">&raquo;</a>`;
+	pagination.innerHTML += `<a id="next" href="javascript:void(0)" onclick="clickButton('next');">&raquo;</a>`;
 	pageElements = document.getElementById('pagination').childNodes;
 	pageElements[1].style.backgroundColor = selectionColor;
 	hidePageButtons(1, pageElements.length - 2);
 }
 
 function clickButton(arg) {
+	debugger;
 	let clickEvent = new CustomEvent('click');
 	let id;
-	if (arg == 'ant') {
+	if (arg == 'prev') {
 		if (lastButtonPressed > 1) {
 			id = lastButtonPressed - 1;
-			let button = document.getElementById(id);
+			let button = document.getElementById('page' + id);
 			button.dispatchEvent(clickEvent);
 		}
 	}
 	else {
 		if (lastButtonPressed < pageElements.length - 2) {
 			id = lastButtonPressed + 1;
-			let button = document.getElementById(id);
+			let button = document.getElementById('page' + id);
 			button.dispatchEvent(clickEvent);
 		}
 	}
