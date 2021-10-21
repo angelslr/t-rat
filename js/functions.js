@@ -133,8 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	</nav>`;
 
 	if (localStorage["l_username"] == null) {
-		//header.innerHTML += `<a class="cta"><button type="button" onclick="operation('id01')">Ingresar</button></a>
-		//<a class="cta"><button type="button" onclick="operation('id02')">Registrarse</button></a>`
+		//
 	}
 	else {
 		document.getElementById("nav_links").innerHTML += `<li><a id="user" href="javascript:void(0)"></a>
@@ -872,7 +871,7 @@ async function saveData(inResults) {
 	obs = document.getElementById("fobservations").value;
 
 	if (duration == "" || date == "" || treat == "" || obs == "" || drug == "" || researcher == "") {
-		alert("Algunos campos estan vacios.");
+		alert("Some fields are empty.");
 	}
 	else {
 		let localDate = toISOLocal(new Date());
@@ -889,7 +888,7 @@ async function saveData(inResults) {
 		}
 		jsonREGS = await toBackGETAll(epRegAll);
 
-		alert("Registro guardado.");
+		alert("Test saved.");
 		cancel('popup');
 
 		if (inResults) {
